@@ -1,0 +1,127 @@
+==============================================================================
+DOCUMENT FRAUD DETECTION API - END-TO-END TEST REPORT
+==============================================================================
+Generated       : 2026-09-26 15:57:51 UTC
+Server          : uvicorn started by this script on http://127.0.0.1:8765 (log: logs/e2e_server.log)
+Python          : 3.11.15 (Linux x86_64)
+Model           : fraud_model.pkl (version 1.0.0)
+Iterations      : 20
+Wall time       : 11.5 s
+Overall result  : PASS (65/65 checks passed)
+
+WORKFLOW UNDER TEST
+------------------------------------------------------------------------------
+Upload image -> API authentication -> input validation -> ELA analysis
+  -> feature extraction -> model inference -> JSON response
+
+1. SERVER START-UP  (3/3 passed)
+------------------------------------------------------------------------------
+  [PASS] Server answers /health with 200  -- healthy after 1.6 s (includes model load)
+  [PASS] /health body  -- {"status": "ok", "version": "0.1.0", "model_loaded": true, "model_version": "1.0.0", "uptime_seconds": 0.3, "detail": null}
+  [PASS] /docs (Swagger UI) served
+
+2. AUTHENTICATION  (4/4 passed)
+------------------------------------------------------------------------------
+  [PASS] Missing X-API-Key -> 401  -- got 401
+  [PASS] Wrong X-API-Key -> 403  -- got 403
+  [PASS] Valid X-API-Key -> 200  -- got 200
+  [PASS] /health is public (no key) -> 200  -- got 200
+
+3. INPUT VALIDATION  (9/9 passed)
+------------------------------------------------------------------------------
+  [PASS] Empty file -> 400  -- got 400
+  [PASS] Unsupported type (.txt) -> 400  -- got 400
+  [PASS] No file extension -> 400  -- got 400
+  [PASS] Corrupted image bytes -> 400  -- got 400
+  [PASS] Oversized file -> 413  -- got 413
+  [PASS] threshold=5 (out of range) -> 422  -- got 422
+  [PASS] Missing file field -> 400  -- got 400
+  [PASS] Unknown route -> 404  -- got 404
+  [PASS] Wrong method (GET /verify) -> 405  -- got 405
+
+4. PIPELINE STAGES  (15/15 passed)
+------------------------------------------------------------------------------
+  [PASS] genuine_payslip_01.png: ELA heatmap produced  -- shape (1050, 850, 3), score 62.50
+  [PASS] genuine_payslip_01.png: 22 finite features extracted  -- 22 features
+  [PASS] genuine_payslip_01.png: in-process model score == API score  -- in-process 0.3600 vs API 0.3600
+  [PASS] genuine_payslip_02.png: ELA heatmap produced  -- shape (1050, 850, 3), score 63.36
+  [PASS] genuine_payslip_02.png: 22 finite features extracted  -- 22 features
+  [PASS] genuine_payslip_02.png: in-process model score == API score  -- in-process 0.5900 vs API 0.5900
+  [PASS] tampered_payslip_01.png: ELA heatmap produced  -- shape (1050, 850, 3), score 62.66
+  [PASS] tampered_payslip_01.png: 22 finite features extracted  -- 22 features
+  [PASS] tampered_payslip_01.png: in-process model score == API score  -- in-process 0.3700 vs API 0.3700
+  [PASS] tampered_payslip_02.png: ELA heatmap produced  -- shape (1050, 850, 3), score 62.74
+  [PASS] tampered_payslip_02.png: 22 finite features extracted  -- 22 features
+  [PASS] tampered_payslip_02.png: in-process model score == API score  -- in-process 0.1400 vs API 0.1400
+  [PASS] edge_case_01.png: ELA heatmap produced  -- shape (1050, 850, 3), score 46.51
+  [PASS] edge_case_01.png: 22 finite features extracted  -- 22 features
+  [PASS] edge_case_01.png: in-process model score == API score  -- in-process 0.3500 vs API 0.3500
+
+5. DEMO IMAGES  (30/30 passed)
+------------------------------------------------------------------------------
+  [PASS] genuine_payslip_01.png: file present  -- data/demo/genuine_payslip_01.png
+  [PASS] genuine_payslip_01.png: HTTP 200 + valid JSON schema
+  [PASS] genuine_payslip_01.png: risk score generated  -- 0.3600
+  [PASS] genuine_payslip_01.png: confidence generated  -- 0.6400
+  [PASS] genuine_payslip_01.png: interpretation generated
+  [PASS] genuine_payslip_01.png: matches manifest (score 0.3600)  -- api=0.3600 genuine
+  [PASS] genuine_payslip_02.png: file present  -- data/demo/genuine_payslip_02.png
+  [PASS] genuine_payslip_02.png: HTTP 200 + valid JSON schema
+  [PASS] genuine_payslip_02.png: risk score generated  -- 0.5900
+  [PASS] genuine_payslip_02.png: confidence generated  -- 0.5900
+  [PASS] genuine_payslip_02.png: interpretation generated
+  [PASS] genuine_payslip_02.png: matches manifest (score 0.5900)  -- api=0.5900 tampered
+  [PASS] tampered_payslip_01.png: file present  -- data/demo/tampered_payslip_01.png
+  [PASS] tampered_payslip_01.png: HTTP 200 + valid JSON schema
+  [PASS] tampered_payslip_01.png: risk score generated  -- 0.3700
+  [PASS] tampered_payslip_01.png: confidence generated  -- 0.6300
+  [PASS] tampered_payslip_01.png: interpretation generated
+  [PASS] tampered_payslip_01.png: matches manifest (score 0.3700)  -- api=0.3700 genuine
+  [PASS] tampered_payslip_02.png: file present  -- data/demo/tampered_payslip_02.png
+  [PASS] tampered_payslip_02.png: HTTP 200 + valid JSON schema
+  [PASS] tampered_payslip_02.png: risk score generated  -- 0.1400
+  [PASS] tampered_payslip_02.png: confidence generated  -- 0.8600
+  [PASS] tampered_payslip_02.png: interpretation generated
+  [PASS] tampered_payslip_02.png: matches manifest (score 0.1400)  -- api=0.1400 genuine
+  [PASS] edge_case_01.png: file present  -- data/demo/edge_case_01.png
+  [PASS] edge_case_01.png: HTTP 200 + valid JSON schema
+  [PASS] edge_case_01.png: risk score generated  -- 0.3500
+  [PASS] edge_case_01.png: confidence generated  -- 0.6500
+  [PASS] edge_case_01.png: interpretation generated
+  [PASS] edge_case_01.png: matches manifest (score 0.3500)  -- api=0.3500 genuine
+
+  File                      Actual    Predicted    Risk   Conf  Recorded   Latency
+  genuine_payslip_01.png    genuine   genuine      0.36   0.64      0.36     241ms
+  genuine_payslip_02.png    genuine   tampered     0.59   0.59      0.59     382ms
+  tampered_payslip_01.png   tampered  genuine      0.37   0.63      0.37     261ms
+  tampered_payslip_02.png   tampered  genuine      0.14   0.86      0.14     284ms
+  edge_case_01.png          genuine   genuine      0.35   0.65      0.35     317ms
+
+6. RELIABILITY  (4/4 passed)
+------------------------------------------------------------------------------
+  [PASS] 20 consecutive requests all HTTP 200  -- 0 failures
+  [PASS] Server process still running after the run (no crash)  -- health 200
+  [PASS] Predictions consistent (same image -> same score)  -- 5 images x 4 repeats, identical
+  [PASS] No memory leak (RSS growth after warm-up < 25 MB)  -- start 243.8 MB, after 5 req 243.8 MB, end 243.9 MB (+0.1 MB post-warm-up)
+
+  Requests          : 20 (demo images cycled: genuine_payslip_01.png, genuine_payslip_02.png, tampered_payslip_01.png, tampered_payslip_02.png, edge_case_01.png)
+  Latency avg       : 257 ms
+  Latency median    : 251 ms
+  Latency p95       : 292 ms
+  Latency min / max : 220 / 305 ms
+  Server RSS (MB)   : 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 224, 244, 244, 244, 224, 224, 244
+
+NOTES
+------------------------------------------------------------------------------
+- 'Actual' labels and 'Recorded' scores come from data/demo/demo_manifest.json
+  (Founder A, Day 7). The demo set is a demonstration record, not an accuracy
+  estimate: the model's held-out accuracy is 60% (see README.md).
+- Pipeline-stage checks recompute ELA, the 22 features and the model score in
+  this process and require the API's score to match exactly.
+- Latency depends on the machine; compare runs on the same hardware only.
+
+HOW TO RUN
+------------------------------------------------------------------------------
+python scripts/e2e_test.py
+python scripts/e2e_test.py --url http://127.0.0.1:8000 --api-key <key>
+==============================================================================

@@ -1,0 +1,7513 @@
+{
+ "generated": "2026-09-27T11:04:35+00:00",
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2"
+ },
+ "locate_masks": {
+  "noise_k2": [
+   "noise",
+   384
+  ],
+  "colour_rare_1pct": [
+   "colour",
+   256
+  ],
+  "colour_rare_2pct": [
+   "colour",
+   4672
+  ],
+  "colour_rare_4pct": [
+   "colour",
+   5120
+  ],
+  "colour_novel_d20": [
+   "colour",
+   5120
+  ],
+  "soft_s1_6": [
+   "softness",
+   64
+  ],
+  "ink_run": [
+   "ink",
+   9
+  ]
+ },
+ "dev": {
+  "locator": {
+   "edits": 59,
+   "hit": 49,
+   "top1": 49,
+   "boxes": 54,
+   "boxes_on_edit": 54,
+   "precision": 1.0,
+   "mean_best_iou": 0.5697932709125825,
+   "by_method": {
+    "blur_region": [
+     7,
+     7
+    ],
+    "color_shift": [
+     12,
+     16
+    ],
+    "noise_patch": [
+     19,
+     19
+    ],
+    "text_overlay": [
+     11,
+     17
+    ]
+   },
+   "misses": {
+    "text_overlay on bank_statement": 6,
+    "color_shift on id_proof": 3,
+    "color_shift on payslip": 1
+   },
+   "genuine": 87,
+   "genuine_with_boxes": 1,
+   "no_pixel_edits": 4,
+   "no_pixel_edits_with_boxes": 0
+  },
+  "api": {
+   "edits": 59,
+   "hit": 49,
+   "top1": 49,
+   "boxes": 54,
+   "boxes_on_edit": 54,
+   "precision": 1.0,
+   "mean_best_iou": 0.5697932709125825,
+   "by_method": {
+    "blur_region": [
+     7,
+     7
+    ],
+    "color_shift": [
+     12,
+     16
+    ],
+    "noise_patch": [
+     19,
+     19
+    ],
+    "text_overlay": [
+     11,
+     17
+    ]
+   },
+   "misses": {
+    "text_overlay on bank_statement": 6,
+    "color_shift on id_proof": 3,
+    "color_shift on payslip": 1
+   },
+   "genuine": 87,
+   "genuine_with_boxes": 0,
+   "no_pixel_edits": 4,
+   "no_pixel_edits_with_boxes": 0,
+   "edits_flagged": 59,
+   "flagged_without_box": 10
+  }
+ },
+ "heldout": {
+  "locator": {
+   "edits": 67,
+   "hit": 57,
+   "top1": 54,
+   "boxes": 71,
+   "boxes_on_edit": 63,
+   "precision": 0.8873239436619719,
+   "mean_best_iou": 0.6077126318923817,
+   "by_method": {
+    "blur_region": [
+     7,
+     7
+    ],
+    "color_shift": [
+     12,
+     13
+    ],
+    "noise_patch": [
+     28,
+     28
+    ],
+    "text_overlay": [
+     10,
+     19
+    ]
+   },
+   "misses": {
+    "text_overlay on bank_statement": 7,
+    "text_overlay on id_proof": 2,
+    "color_shift on id_proof": 1
+   },
+   "genuine": 93,
+   "genuine_with_boxes": 9,
+   "no_pixel_edits": 4,
+   "no_pixel_edits_with_boxes": 0
+  },
+  "api": {
+   "edits": 67,
+   "hit": 55,
+   "top1": 52,
+   "boxes": 69,
+   "boxes_on_edit": 61,
+   "precision": 0.8840579710144928,
+   "mean_best_iou": 0.5843791159907268,
+   "by_method": {
+    "blur_region": [
+     7,
+     7
+    ],
+    "color_shift": [
+     10,
+     13
+    ],
+    "noise_patch": [
+     28,
+     28
+    ],
+    "text_overlay": [
+     10,
+     19
+    ]
+   },
+   "misses": {
+    "text_overlay on bank_statement": 7,
+    "color_shift on payslip": 2,
+    "text_overlay on id_proof": 2,
+    "color_shift on id_proof": 1
+   },
+   "genuine": 93,
+   "genuine_with_boxes": 2,
+   "no_pixel_edits": 4,
+   "no_pixel_edits_with_boxes": 0,
+   "edits_flagged": 60,
+   "flagged_without_box": 4
+  }
+ },
+ "rescaled": [
+  {
+   "scale": 0.75,
+   "locator": {
+    "edits": 59,
+    "hit": 37,
+    "top1": 24,
+    "boxes": 288,
+    "boxes_on_edit": 38,
+    "precision": 0.13194444444444445,
+    "mean_best_iou": 0.38232976408429176,
+    "by_method": {
+     "blur_region": [
+      5,
+      7
+     ],
+     "color_shift": [
+      10,
+      16
+     ],
+     "noise_patch": [
+      19,
+      19
+     ],
+     "text_overlay": [
+      3,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on payslip": 5,
+     "text_overlay on id_proof": 5,
+     "text_overlay on bank_statement": 4,
+     "color_shift on bank_statement": 3,
+     "color_shift on id_proof": 2,
+     "color_shift on payslip": 1,
+     "blur_region on payslip": 1,
+     "blur_region on id_proof": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 87,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 4
+   },
+   "api": {
+    "edits": 59,
+    "hit": 19,
+    "top1": 12,
+    "boxes": 132,
+    "boxes_on_edit": 20,
+    "precision": 0.15151515151515152,
+    "mean_best_iou": 0.1689404800842798,
+    "by_method": {
+     "blur_region": [
+      5,
+      7
+     ],
+     "color_shift": [
+      4,
+      16
+     ],
+     "noise_patch": [
+      9,
+      19
+     ],
+     "text_overlay": [
+      1,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on bank_statement": 6,
+     "text_overlay on payslip": 5,
+     "color_shift on bank_statement": 5,
+     "text_overlay on id_proof": 5,
+     "noise_patch on id_proof": 4,
+     "color_shift on id_proof": 4,
+     "noise_patch on payslip": 3,
+     "color_shift on payslip": 3,
+     "noise_patch on bank_statement": 3,
+     "blur_region on payslip": 1,
+     "blur_region on id_proof": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 4,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 0,
+    "edits_flagged": 27,
+    "flagged_without_box": 0
+   },
+   "genuine_flagged": 4
+  },
+  {
+   "scale": 1.5,
+   "locator": {
+    "edits": 59,
+    "hit": 46,
+    "top1": 35,
+    "boxes": 295,
+    "boxes_on_edit": 51,
+    "precision": 0.17288135593220338,
+    "mean_best_iou": 0.5685675923785038,
+    "by_method": {
+     "blur_region": [
+      6,
+      7
+     ],
+     "color_shift": [
+      14,
+      16
+     ],
+     "noise_patch": [
+      19,
+      19
+     ],
+     "text_overlay": [
+      7,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on payslip": 5,
+     "text_overlay on bank_statement": 5,
+     "color_shift on payslip": 2,
+     "blur_region on payslip": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 87,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 4
+   },
+   "api": {
+    "edits": 59,
+    "hit": 42,
+    "top1": 31,
+    "boxes": 275,
+    "boxes_on_edit": 47,
+    "precision": 0.1709090909090909,
+    "mean_best_iou": 0.5040080520046347,
+    "by_method": {
+     "blur_region": [
+      6,
+      7
+     ],
+     "color_shift": [
+      14,
+      16
+     ],
+     "noise_patch": [
+      15,
+      19
+     ],
+     "text_overlay": [
+      7,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on payslip": 5,
+     "text_overlay on bank_statement": 5,
+     "noise_patch on id_proof": 4,
+     "color_shift on payslip": 2,
+     "blur_region on payslip": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 55,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 4,
+    "edits_flagged": 55,
+    "flagged_without_box": 0
+   },
+   "genuine_flagged": 55
+  },
+  {
+   "scale": 2.5,
+   "locator": {
+    "edits": 59,
+    "hit": 44,
+    "top1": 22,
+    "boxes": 295,
+    "boxes_on_edit": 55,
+    "precision": 0.1864406779661017,
+    "mean_best_iou": 0.5092584243181331,
+    "by_method": {
+     "blur_region": [
+      7,
+      7
+     ],
+     "color_shift": [
+      13,
+      16
+     ],
+     "noise_patch": [
+      18,
+      19
+     ],
+     "text_overlay": [
+      6,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on bank_statement": 6,
+     "text_overlay on payslip": 5,
+     "color_shift on payslip": 2,
+     "noise_patch on bank_statement": 1,
+     "color_shift on bank_statement": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 87,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 4
+   },
+   "api": {
+    "edits": 59,
+    "hit": 44,
+    "top1": 22,
+    "boxes": 295,
+    "boxes_on_edit": 55,
+    "precision": 0.1864406779661017,
+    "mean_best_iou": 0.5092584243181331,
+    "by_method": {
+     "blur_region": [
+      7,
+      7
+     ],
+     "color_shift": [
+      13,
+      16
+     ],
+     "noise_patch": [
+      18,
+      19
+     ],
+     "text_overlay": [
+      6,
+      17
+     ]
+    },
+    "misses": {
+     "text_overlay on bank_statement": 6,
+     "text_overlay on payslip": 5,
+     "color_shift on payslip": 2,
+     "noise_patch on bank_statement": 1,
+     "color_shift on bank_statement": 1
+    },
+    "genuine": 87,
+    "genuine_with_boxes": 86,
+    "no_pixel_edits": 4,
+    "no_pixel_edits_with_boxes": 4,
+    "edits_flagged": 59,
+    "flagged_without_box": 0
+   },
+   "genuine_flagged": 86
+  }
+ ],
+ "overhead": {
+  "features_ms": 110.8081158999994,
+  "features_and_regions_ms": 113.8308229001268,
+  "pages": 10
+ },
+ "dev_docs": [
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1001.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    79,
+    608,
+    179,
+    42
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.7833,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1002.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.02,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1003.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.22,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1004.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1005.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    301,
+    648,
+    147,
+    49
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.7867,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1006.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1007.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1008.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    545,
+    867,
+    189,
+    35
+   ],
+   "changed_px": 2877,
+   "locator": [
+    {
+     "x": 552,
+     "y": 872,
+     "width": 184,
+     "height": 24,
+     "area": 3392,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9867,
+   "flagged": true,
+   "api": [
+    {
+     "x": 552,
+     "y": 872,
+     "width": 184,
+     "height": 24,
+     "area": 3392,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1009.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1010.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0567,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1011.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    295,
+    823,
+    128,
+    46
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 300,
+     "y": 831,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.93,
+   "flagged": true,
+   "api": [
+    {
+     "x": 300,
+     "y": 831,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1012.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1013.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.03,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1014.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.11,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1015.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    261,
+    478,
+    194,
+    56
+   ],
+   "changed_px": 5444,
+   "locator": [
+    {
+     "x": 248,
+     "y": 480,
+     "width": 208,
+     "height": 56,
+     "area": 7936,
+     "type": "noise"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 248,
+     "y": 480,
+     "width": 208,
+     "height": 56,
+     "area": 7936,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1016.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0733,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1017.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    284,
+    441,
+    162,
+    36
+   ],
+   "changed_px": 2650,
+   "locator": [
+    {
+     "x": 289,
+     "y": 449,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.99,
+   "flagged": true,
+   "api": [
+    {
+     "x": 289,
+     "y": 449,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1018.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    154,
+    291,
+    159,
+    35
+   ],
+   "changed_px": 5565,
+   "locator": [
+    {
+     "x": 160,
+     "y": 296,
+     "width": 152,
+     "height": 24,
+     "area": 2880,
+     "type": "colour"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 160,
+     "y": 296,
+     "width": 152,
+     "height": 24,
+     "area": 2880,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1019.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1020.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    244,
+    440,
+    123,
+    32
+   ],
+   "changed_px": 3936,
+   "locator": [],
+   "score": 0.8733,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1021.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    116,
+    405,
+    162,
+    34
+   ],
+   "changed_px": 5508,
+   "locator": [
+    {
+     "x": 120,
+     "y": 408,
+     "width": 152,
+     "height": 24,
+     "area": 3648,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9133,
+   "flagged": true,
+   "api": [
+    {
+     "x": 120,
+     "y": 408,
+     "width": 152,
+     "height": 24,
+     "area": 3648,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1022.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.05,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1023.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    359,
+    714,
+    155,
+    32
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.7467,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1024.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    337,
+    716,
+    125,
+    49
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 342,
+     "y": 724,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.9233,
+   "flagged": true,
+   "api": [
+    {
+     "x": 342,
+     "y": 724,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1025.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    290,
+    388,
+    168,
+    44
+   ],
+   "changed_px": 7392,
+   "locator": [
+    {
+     "x": 296,
+     "y": 400,
+     "width": 160,
+     "height": 32,
+     "area": 1792,
+     "type": "colour"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 296,
+     "y": 400,
+     "width": 160,
+     "height": 32,
+     "area": 1792,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1026.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1027.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    439,
+    572,
+    121,
+    46
+   ],
+   "changed_px": 2718,
+   "locator": [
+    {
+     "x": 440,
+     "y": 576,
+     "width": 120,
+     "height": 40,
+     "area": 3584,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 440,
+     "y": 576,
+     "width": 120,
+     "height": 40,
+     "area": 3584,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1028.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1029.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1030.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    120,
+    484,
+    162,
+    39
+   ],
+   "changed_px": 3442,
+   "locator": [
+    {
+     "x": 112,
+     "y": 488,
+     "width": 168,
+     "height": 32,
+     "area": 4800,
+     "type": "noise"
+    }
+   ],
+   "score": 0.97,
+   "flagged": true,
+   "api": [
+    {
+     "x": 112,
+     "y": 488,
+     "width": 168,
+     "height": 32,
+     "area": 4800,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1031.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    532,
+    637,
+    170,
+    60
+   ],
+   "changed_px": 10200,
+   "locator": [
+    {
+     "x": 536,
+     "y": 640,
+     "width": 160,
+     "height": 56,
+     "area": 8960,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 536,
+     "y": 640,
+     "width": 160,
+     "height": 56,
+     "area": 8960,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1032.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1033.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1034.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1035.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    305,
+    359,
+    182,
+    40
+   ],
+   "changed_px": 5539,
+   "locator": [
+    {
+     "x": 304,
+     "y": 360,
+     "width": 184,
+     "height": 40,
+     "area": 7296,
+     "type": "noise"
+    }
+   ],
+   "score": 0.97,
+   "flagged": true,
+   "api": [
+    {
+     "x": 304,
+     "y": 360,
+     "width": 184,
+     "height": 40,
+     "area": 7296,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1036.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    515,
+    480,
+    190,
+    48
+   ],
+   "changed_px": 4180,
+   "locator": [
+    {
+     "x": 512,
+     "y": 480,
+     "width": 192,
+     "height": 48,
+     "area": 6656,
+     "type": "noise"
+    }
+   ],
+   "score": 0.98,
+   "flagged": true,
+   "api": [
+    {
+     "x": 512,
+     "y": 480,
+     "width": 192,
+     "height": 48,
+     "area": 6656,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1037.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1038.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    136,
+    214,
+    162,
+    36
+   ],
+   "changed_px": 4439,
+   "locator": [
+    {
+     "x": 136,
+     "y": 216,
+     "width": 160,
+     "height": 32,
+     "area": 5056,
+     "type": "noise"
+    }
+   ],
+   "score": 0.96,
+   "flagged": true,
+   "api": [
+    {
+     "x": 136,
+     "y": 216,
+     "width": 160,
+     "height": 32,
+     "area": 5056,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1039.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    499,
+    696,
+    157,
+    51
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 504,
+     "y": 704,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.93,
+   "flagged": true,
+   "api": [
+    {
+     "x": 504,
+     "y": 704,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1040.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.03,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1041.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0967,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1042.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1043.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1044.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    198,
+    841,
+    184,
+    49
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 203,
+     "y": 849,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.9333,
+   "flagged": true,
+   "api": [
+    {
+     "x": 203,
+     "y": 849,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1045.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1046.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0533,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1047.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/payslip_1048.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    239,
+    173,
+    197,
+    33
+   ],
+   "changed_px": 1176,
+   "locator": [
+    {
+     "x": 240,
+     "y": 176,
+     "width": 40,
+     "height": 24,
+     "area": 768,
+     "type": "softness"
+    }
+   ],
+   "score": 0.93,
+   "flagged": true,
+   "api": [
+    {
+     "x": 240,
+     "y": 176,
+     "width": 40,
+     "height": 24,
+     "area": 768,
+     "type": "softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1049.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/payslip_1050.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1051.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    161,
+    587,
+    138,
+    35
+   ],
+   "changed_px": 1923,
+   "locator": [],
+   "score": 0.9267,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1052.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0733,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1053.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.07,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1054.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1533,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1055.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    287,
+    342,
+    194,
+    53
+   ],
+   "changed_px": 6691,
+   "locator": [
+    {
+     "x": 288,
+     "y": 336,
+     "width": 192,
+     "height": 64,
+     "area": 8448,
+     "type": "noise"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 288,
+     "y": 336,
+     "width": 192,
+     "height": 64,
+     "area": 8448,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1056.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.05,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1057.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    353,
+    758,
+    144,
+    55
+   ],
+   "changed_px": 7920,
+   "locator": [
+    {
+     "x": 360,
+     "y": 760,
+     "width": 136,
+     "height": 48,
+     "area": 6528,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9567,
+   "flagged": true,
+   "api": [
+    {
+     "x": 360,
+     "y": 760,
+     "width": 136,
+     "height": 48,
+     "area": 6528,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1058.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.03,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1059.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    528,
+    762,
+    148,
+    45
+   ],
+   "changed_px": 668,
+   "locator": [],
+   "score": 0.8767,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1060.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    286,
+    339,
+    121,
+    40
+   ],
+   "changed_px": 3282,
+   "locator": [],
+   "score": 0.9,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1061.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 471,
+     "width": 176,
+     "height": 11,
+     "area": 1936,
+     "type": "ink"
+    }
+   ],
+   "score": 0.0733,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1062.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    518,
+    653,
+    143,
+    33
+   ],
+   "changed_px": 2063,
+   "locator": [
+    {
+     "x": 520,
+     "y": 656,
+     "width": 136,
+     "height": 32,
+     "area": 2496,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9567,
+   "flagged": true,
+   "api": [
+    {
+     "x": 520,
+     "y": 656,
+     "width": 136,
+     "height": 32,
+     "area": 2496,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1063.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1064.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    539,
+    799,
+    125,
+    49
+   ],
+   "changed_px": 6125,
+   "locator": [
+    {
+     "x": 544,
+     "y": 800,
+     "width": 120,
+     "height": 48,
+     "area": 5760,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 544,
+     "y": 800,
+     "width": 120,
+     "height": 48,
+     "area": 5760,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1065.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    259,
+    311,
+    158,
+    38
+   ],
+   "changed_px": 6004,
+   "locator": [
+    {
+     "x": 264,
+     "y": 312,
+     "width": 112,
+     "height": 32,
+     "area": 3584,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 264,
+     "y": 312,
+     "width": 112,
+     "height": 32,
+     "area": 3584,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1066.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    246,
+    758,
+    145,
+    40
+   ],
+   "changed_px": 2508,
+   "locator": [
+    {
+     "x": 248,
+     "y": 760,
+     "width": 136,
+     "height": 40,
+     "area": 3136,
+     "type": "noise"
+    }
+   ],
+   "score": 0.94,
+   "flagged": true,
+   "api": [
+    {
+     "x": 248,
+     "y": 760,
+     "width": 136,
+     "height": 40,
+     "area": 3136,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1067.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1068.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0633,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1069.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0367,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1070.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    215,
+    722,
+    172,
+    52
+   ],
+   "changed_px": 8944,
+   "locator": [
+    {
+     "x": 216,
+     "y": 728,
+     "width": 168,
+     "height": 40,
+     "area": 6720,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9633,
+   "flagged": true,
+   "api": [
+    {
+     "x": 216,
+     "y": 728,
+     "width": 168,
+     "height": 40,
+     "area": 6720,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1071.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    409,
+    872,
+    144,
+    33
+   ],
+   "changed_px": 668,
+   "locator": [],
+   "score": 0.8333,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1072.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    500,
+    378,
+    145,
+    59
+   ],
+   "changed_px": 5154,
+   "locator": [
+    {
+     "x": 504,
+     "y": 368,
+     "width": 136,
+     "height": 64,
+     "area": 6976,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9867,
+   "flagged": true,
+   "api": [
+    {
+     "x": 504,
+     "y": 368,
+     "width": 136,
+     "height": 64,
+     "area": 6976,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1073.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1074.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.06,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1075.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.08,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1076.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    100,
+    899,
+    148,
+    44
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.8567,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1077.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1078.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    491,
+    398,
+    162,
+    35
+   ],
+   "changed_px": 5670,
+   "locator": [
+    {
+     "x": 496,
+     "y": 400,
+     "width": 152,
+     "height": 8,
+     "area": 1216,
+     "type": "colour"
+    },
+    {
+     "x": 496,
+     "y": 424,
+     "width": 152,
+     "height": 8,
+     "area": 1216,
+     "type": "colour"
+    }
+   ],
+   "score": 0.96,
+   "flagged": true,
+   "api": [
+    {
+     "x": 496,
+     "y": 400,
+     "width": 152,
+     "height": 8,
+     "area": 1216,
+     "type": "colour"
+    },
+    {
+     "x": 496,
+     "y": 424,
+     "width": 152,
+     "height": 8,
+     "area": 1216,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1079.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    344,
+    563,
+    167,
+    43
+   ],
+   "changed_px": 7181,
+   "locator": [
+    {
+     "x": 440,
+     "y": 568,
+     "width": 40,
+     "height": 40,
+     "area": 960,
+     "type": "colour"
+    },
+    {
+     "x": 384,
+     "y": 568,
+     "width": 48,
+     "height": 32,
+     "area": 832,
+     "type": "colour"
+    },
+    {
+     "x": 344,
+     "y": 576,
+     "width": 16,
+     "height": 32,
+     "area": 384,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9167,
+   "flagged": true,
+   "api": [
+    {
+     "x": 440,
+     "y": 568,
+     "width": 40,
+     "height": 40,
+     "area": 960,
+     "type": "colour"
+    },
+    {
+     "x": 384,
+     "y": 568,
+     "width": 48,
+     "height": 32,
+     "area": 832,
+     "type": "colour"
+    },
+    {
+     "x": 344,
+     "y": 576,
+     "width": 16,
+     "height": 32,
+     "area": 384,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1080.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1081.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    347,
+    223,
+    192,
+    31
+   ],
+   "changed_px": 3111,
+   "locator": [],
+   "score": 0.8667,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1082.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.11,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1083.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    63,
+    306,
+    177,
+    48
+   ],
+   "changed_px": 5097,
+   "locator": [],
+   "score": 0.93,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1084.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1085.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1367,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1086.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    55,
+    183,
+    140,
+    31
+   ],
+   "changed_px": 3902,
+   "locator": [
+    {
+     "x": 56,
+     "y": 184,
+     "width": 136,
+     "height": 24,
+     "area": 2752,
+     "type": "softness"
+    }
+   ],
+   "score": 0.9133,
+   "flagged": true,
+   "api": [
+    {
+     "x": 56,
+     "y": 184,
+     "width": 136,
+     "height": 24,
+     "area": 2752,
+     "type": "softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1087.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    529,
+    111,
+    186,
+    42
+   ],
+   "changed_px": 4568,
+   "locator": [
+    {
+     "x": 528,
+     "y": 112,
+     "width": 192,
+     "height": 40,
+     "area": 6656,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9833,
+   "flagged": true,
+   "api": [
+    {
+     "x": 528,
+     "y": 112,
+     "width": 192,
+     "height": 40,
+     "area": 6656,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1088.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1089.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    218,
+    655,
+    133,
+    30
+   ],
+   "changed_px": 1770,
+   "locator": [
+    {
+     "x": 224,
+     "y": 656,
+     "width": 120,
+     "height": 24,
+     "area": 2176,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9033,
+   "flagged": true,
+   "api": [
+    {
+     "x": 224,
+     "y": 656,
+     "width": 120,
+     "height": 24,
+     "area": 2176,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1090.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.07,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1091.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1092.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0833,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1093.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    165,
+    732,
+    131,
+    35
+   ],
+   "changed_px": 4585,
+   "locator": [
+    {
+     "x": 168,
+     "y": 736,
+     "width": 128,
+     "height": 24,
+     "area": 3072,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9467,
+   "flagged": true,
+   "api": [
+    {
+     "x": 168,
+     "y": 736,
+     "width": 128,
+     "height": 24,
+     "area": 3072,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1094.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.02,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1095.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1467,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1096.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    304,
+    668,
+    186,
+    47
+   ],
+   "changed_px": 3912,
+   "locator": [
+    {
+     "x": 304,
+     "y": 672,
+     "width": 184,
+     "height": 40,
+     "area": 5504,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9833,
+   "flagged": true,
+   "api": [
+    {
+     "x": 304,
+     "y": 672,
+     "width": 184,
+     "height": 40,
+     "area": 5504,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1097.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.2267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1098.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    290,
+    476,
+    165,
+    42
+   ],
+   "changed_px": 6107,
+   "locator": [
+    {
+     "x": 296,
+     "y": 464,
+     "width": 184,
+     "height": 48,
+     "area": 4864,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 296,
+     "y": 464,
+     "width": 184,
+     "height": 48,
+     "area": 4864,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/bank_stmt_1099.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    55,
+    343,
+    164,
+    44
+   ],
+   "changed_px": 6892,
+   "locator": [
+    {
+     "x": 56,
+     "y": 344,
+     "width": 160,
+     "height": 40,
+     "area": 4672,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 56,
+     "y": 344,
+     "width": 160,
+     "height": 40,
+     "area": 4672,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/bank_stmt_1100.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.09,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1101.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1102.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1103.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1104.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "id_proof",
+   "rect": [
+    294,
+    194,
+    191,
+    44
+   ],
+   "changed_px": 8026,
+   "locator": [
+    {
+     "x": 296,
+     "y": 200,
+     "width": 184,
+     "height": 32,
+     "area": 3712,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 296,
+     "y": 200,
+     "width": 184,
+     "height": 32,
+     "area": 3712,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1105.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    169,
+    147,
+    149,
+    56
+   ],
+   "changed_px": 7414,
+   "locator": [
+    {
+     "x": 168,
+     "y": 144,
+     "width": 152,
+     "height": 56,
+     "area": 7488,
+     "type": "noise"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 168,
+     "y": 144,
+     "width": 152,
+     "height": 56,
+     "area": 7488,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1106.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1107.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "id_proof",
+   "rect": [
+    311,
+    159,
+    174,
+    44
+   ],
+   "changed_px": 3920,
+   "locator": [
+    {
+     "x": 312,
+     "y": 160,
+     "width": 104,
+     "height": 40,
+     "area": 2240,
+     "type": "colour+softness"
+    },
+    {
+     "x": 432,
+     "y": 184,
+     "width": 48,
+     "height": 32,
+     "area": 576,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.96,
+   "flagged": true,
+   "api": [
+    {
+     "x": 312,
+     "y": 160,
+     "width": 104,
+     "height": 40,
+     "area": 2240,
+     "type": "colour+softness"
+    },
+    {
+     "x": 432,
+     "y": 184,
+     "width": 48,
+     "height": 32,
+     "area": 576,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1108.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1109.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    555,
+    227,
+    151,
+    56
+   ],
+   "changed_px": 7497,
+   "locator": [
+    {
+     "x": 560,
+     "y": 224,
+     "width": 144,
+     "height": 56,
+     "area": 6720,
+     "type": "noise"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 560,
+     "y": 224,
+     "width": 144,
+     "height": 56,
+     "area": 6720,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1110.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0367,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1111.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1112.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1113.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    299,
+    228,
+    145,
+    49
+   ],
+   "changed_px": 7300,
+   "locator": [
+    {
+     "x": 296,
+     "y": 232,
+     "width": 152,
+     "height": 48,
+     "area": 5056,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 296,
+     "y": 232,
+     "width": 152,
+     "height": 48,
+     "area": 5056,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1114.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0367,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1115.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1116.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1117.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1118.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "id_proof",
+   "rect": [
+    269,
+    83,
+    161,
+    45
+   ],
+   "changed_px": 3731,
+   "locator": [
+    {
+     "x": 320,
+     "y": 88,
+     "width": 104,
+     "height": 32,
+     "area": 1984,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.9967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 320,
+     "y": 88,
+     "width": 104,
+     "height": 32,
+     "area": 1984,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1119.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    117,
+    285,
+    156,
+    58
+   ],
+   "changed_px": 9263,
+   "locator": [
+    {
+     "x": 112,
+     "y": 280,
+     "width": 168,
+     "height": 64,
+     "area": 8448,
+     "type": "colour"
+    }
+   ],
+   "score": 0.97,
+   "flagged": true,
+   "api": [
+    {
+     "x": 112,
+     "y": 280,
+     "width": 168,
+     "height": 64,
+     "area": 8448,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1120.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1121.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1122.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    500,
+    150,
+    144,
+    50
+   ],
+   "changed_px": 7395,
+   "locator": [
+    {
+     "x": 496,
+     "y": 144,
+     "width": 152,
+     "height": 56,
+     "area": 6208,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 496,
+     "y": 144,
+     "width": 152,
+     "height": 56,
+     "area": 6208,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1123.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1124.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    461,
+    251,
+    200,
+    30
+   ],
+   "changed_px": 6231,
+   "locator": [
+    {
+     "x": 456,
+     "y": 248,
+     "width": 208,
+     "height": 40,
+     "area": 6208,
+     "type": "colour"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 456,
+     "y": 248,
+     "width": 208,
+     "height": 40,
+     "area": 6208,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1125.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    133,
+    95,
+    170,
+    50
+   ],
+   "changed_px": 8500,
+   "locator": [],
+   "score": 1.0,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1126.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1127.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1128.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1129.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    525,
+    316,
+    183,
+    51
+   ],
+   "changed_px": 9568,
+   "locator": [
+    {
+     "x": 520,
+     "y": 312,
+     "width": 192,
+     "height": 56,
+     "area": 7168,
+     "type": "colour"
+    }
+   ],
+   "score": 0.99,
+   "flagged": true,
+   "api": [
+    {
+     "x": 520,
+     "y": 312,
+     "width": 192,
+     "height": 56,
+     "area": 7168,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1130.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    139,
+    225,
+    136,
+    32
+   ],
+   "changed_px": 4352,
+   "locator": [
+    {
+     "x": 176,
+     "y": 232,
+     "width": 96,
+     "height": 24,
+     "area": 1600,
+     "type": "colour"
+    },
+    {
+     "x": 144,
+     "y": 232,
+     "width": 24,
+     "height": 24,
+     "area": 448,
+     "type": "colour"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 176,
+     "y": 232,
+     "width": 96,
+     "height": 24,
+     "area": 1600,
+     "type": "colour"
+    },
+    {
+     "x": 144,
+     "y": 232,
+     "width": 24,
+     "height": 24,
+     "area": 448,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1131.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1132.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1133.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1134.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1135.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    393,
+    298,
+    186,
+    45
+   ],
+   "changed_px": 8602,
+   "locator": [
+    {
+     "x": 392,
+     "y": 296,
+     "width": 192,
+     "height": 48,
+     "area": 5184,
+     "type": "colour"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 392,
+     "y": 296,
+     "width": 192,
+     "height": 48,
+     "area": 5184,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1136.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.03,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1137.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1138.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1139.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    62,
+    121,
+    151,
+    48
+   ],
+   "changed_px": 7248,
+   "locator": [],
+   "score": 0.9667,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1140.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    90,
+    347,
+    169,
+    36
+   ],
+   "changed_px": 5423,
+   "locator": [
+    {
+     "x": 88,
+     "y": 344,
+     "width": 168,
+     "height": 40,
+     "area": 4800,
+     "type": "noise"
+    }
+   ],
+   "score": 0.98,
+   "flagged": true,
+   "api": [
+    {
+     "x": 88,
+     "y": 344,
+     "width": 168,
+     "height": 40,
+     "area": 4800,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1141.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.09,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1142.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1143.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1144.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1145.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    254,
+    325,
+    176,
+    40
+   ],
+   "changed_px": 7040,
+   "locator": [],
+   "score": 0.98,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1146.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    434,
+    171,
+    134,
+    43
+   ],
+   "changed_px": 5049,
+   "locator": [
+    {
+     "x": 432,
+     "y": 168,
+     "width": 136,
+     "height": 48,
+     "area": 4864,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 432,
+     "y": 168,
+     "width": 136,
+     "height": 48,
+     "area": 4864,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1147.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "tampered/id_proof_1148.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    331,
+    381,
+    149,
+    56
+   ],
+   "changed_px": 7419,
+   "locator": [
+    {
+     "x": 336,
+     "y": 384,
+     "width": 144,
+     "height": 48,
+     "area": 6336,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 336,
+     "y": 384,
+     "width": 144,
+     "height": 48,
+     "area": 6336,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1149.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "DEV",
+   "path": "genuine/id_proof_1150.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  }
+ ],
+ "heldout_docs": [
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2001.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2002.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2003.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2004.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    505,
+    659,
+    122,
+    42
+   ],
+   "changed_px": 5124,
+   "locator": [
+    {
+     "x": 512,
+     "y": 664,
+     "width": 112,
+     "height": 32,
+     "area": 3584,
+     "type": "colour"
+    }
+   ],
+   "score": 0.34,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2005.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    496,
+    441,
+    198,
+    57
+   ],
+   "changed_px": 6829,
+   "locator": [
+    {
+     "x": 488,
+     "y": 440,
+     "width": 208,
+     "height": 64,
+     "area": 9920,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 488,
+     "y": 440,
+     "width": 208,
+     "height": 64,
+     "area": 9920,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2006.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    291,
+    150,
+    149,
+    32
+   ],
+   "changed_px": 2076,
+   "locator": [
+    {
+     "x": 296,
+     "y": 152,
+     "width": 88,
+     "height": 24,
+     "area": 1600,
+     "type": "noise"
+    },
+    {
+     "x": 392,
+     "y": 152,
+     "width": 48,
+     "height": 24,
+     "area": 1024,
+     "type": "noise"
+    }
+   ],
+   "score": 0.85,
+   "flagged": true,
+   "api": [
+    {
+     "x": 296,
+     "y": 152,
+     "width": 88,
+     "height": 24,
+     "area": 1600,
+     "type": "noise"
+    },
+    {
+     "x": 392,
+     "y": 152,
+     "width": 48,
+     "height": 24,
+     "area": 1024,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2007.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.12,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2008.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2009.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1867,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2010.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2011.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.3067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2012.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    528,
+    290,
+    159,
+    49
+   ],
+   "changed_px": 2450,
+   "locator": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 536,
+     "y": 296,
+     "width": 152,
+     "height": 24,
+     "area": 2048,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 536,
+     "y": 296,
+     "width": 152,
+     "height": 24,
+     "area": 2048,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2013.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    72,
+    184,
+    172,
+    55
+   ],
+   "changed_px": 9460,
+   "locator": [
+    {
+     "x": 72,
+     "y": 216,
+     "width": 360,
+     "height": 24,
+     "area": 6464,
+     "type": "colour"
+    },
+    {
+     "x": 72,
+     "y": 184,
+     "width": 168,
+     "height": 24,
+     "area": 3392,
+     "type": "colour"
+    }
+   ],
+   "score": 0.91,
+   "flagged": true,
+   "api": [
+    {
+     "x": 72,
+     "y": 216,
+     "width": 360,
+     "height": 24,
+     "area": 6464,
+     "type": "colour"
+    },
+    {
+     "x": 72,
+     "y": 184,
+     "width": 168,
+     "height": 24,
+     "area": 3392,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2014.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    507,
+    773,
+    192,
+    48
+   ],
+   "changed_px": 4077,
+   "locator": [
+    {
+     "x": 512,
+     "y": 776,
+     "width": 184,
+     "height": 40,
+     "area": 5440,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9633,
+   "flagged": true,
+   "api": [
+    {
+     "x": 512,
+     "y": 776,
+     "width": 184,
+     "height": 40,
+     "area": 5440,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2015.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    544,
+    565,
+    188,
+    51
+   ],
+   "changed_px": 4932,
+   "locator": [
+    {
+     "x": 544,
+     "y": 568,
+     "width": 184,
+     "height": 48,
+     "area": 7104,
+     "type": "noise"
+    }
+   ],
+   "score": 1.0,
+   "flagged": true,
+   "api": [
+    {
+     "x": 544,
+     "y": 568,
+     "width": 184,
+     "height": 48,
+     "area": 7104,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2016.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.12,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2017.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    217,
+    238,
+    143,
+    34
+   ],
+   "changed_px": 3978,
+   "locator": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 216,
+     "y": 240,
+     "width": 144,
+     "height": 32,
+     "area": 4608,
+     "type": "noise"
+    }
+   ],
+   "score": 0.64,
+   "flagged": true,
+   "api": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 216,
+     "y": 240,
+     "width": 144,
+     "height": 32,
+     "area": 4608,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2018.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2019.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0733,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2020.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    56,
+    365,
+    121,
+    53
+   ],
+   "changed_px": 5343,
+   "locator": [
+    {
+     "x": 56,
+     "y": 368,
+     "width": 120,
+     "height": 40,
+     "area": 2560,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.98,
+   "flagged": true,
+   "api": [
+    {
+     "x": 56,
+     "y": 368,
+     "width": 120,
+     "height": 40,
+     "area": 2560,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2021.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    508,
+    227,
+    178,
+    51
+   ],
+   "changed_px": 7183,
+   "locator": [
+    {
+     "x": 480,
+     "y": 224,
+     "width": 208,
+     "height": 56,
+     "area": 8448,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ],
+   "score": 0.98,
+   "flagged": true,
+   "api": [
+    {
+     "x": 480,
+     "y": 224,
+     "width": 208,
+     "height": 56,
+     "area": 8448,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2022.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2023.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2024.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2025.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    502,
+    710,
+    127,
+    35
+   ],
+   "changed_px": 4445,
+   "locator": [
+    {
+     "x": 504,
+     "y": 712,
+     "width": 120,
+     "height": 32,
+     "area": 3840,
+     "type": "colour"
+    }
+   ],
+   "score": 0.31,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2026.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    203,
+    334,
+    193,
+    46
+   ],
+   "changed_px": 8878,
+   "locator": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 208,
+     "y": 336,
+     "width": 184,
+     "height": 24,
+     "area": 3776,
+     "type": "colour"
+    },
+    {
+     "x": 272,
+     "y": 368,
+     "width": 120,
+     "height": 8,
+     "area": 960,
+     "type": "colour"
+    }
+   ],
+   "score": 0.94,
+   "flagged": true,
+   "api": [
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    },
+    {
+     "x": 208,
+     "y": 336,
+     "width": 184,
+     "height": 24,
+     "area": 3776,
+     "type": "colour"
+    },
+    {
+     "x": 272,
+     "y": 368,
+     "width": 120,
+     "height": 8,
+     "area": 960,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2027.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    211,
+    551,
+    153,
+    55
+   ],
+   "changed_px": 2670,
+   "locator": [
+    {
+     "x": 216,
+     "y": 559,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.8467,
+   "flagged": true,
+   "api": [
+    {
+     "x": 216,
+     "y": 559,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2028.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2029.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2030.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2031.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2032.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    324,
+    251,
+    126,
+    32
+   ],
+   "changed_px": 2870,
+   "locator": [
+    {
+     "x": 328,
+     "y": 248,
+     "width": 128,
+     "height": 32,
+     "area": 3008,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9067,
+   "flagged": true,
+   "api": [
+    {
+     "x": 328,
+     "y": 248,
+     "width": 128,
+     "height": 32,
+     "area": 3008,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2033.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    119,
+    844,
+    171,
+    50
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 124,
+     "y": 852,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.6733,
+   "flagged": true,
+   "api": [
+    {
+     "x": 124,
+     "y": 852,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2034.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.19,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2035.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    85,
+    494,
+    198,
+    59
+   ],
+   "changed_px": 4342,
+   "locator": [
+    {
+     "x": 322,
+     "y": 492,
+     "width": 192,
+     "height": 13,
+     "area": 2496,
+     "type": "ink"
+    },
+    {
+     "x": 90,
+     "y": 502,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.78,
+   "flagged": true,
+   "api": [
+    {
+     "x": 322,
+     "y": 492,
+     "width": 192,
+     "height": 13,
+     "area": 2496,
+     "type": "ink"
+    },
+    {
+     "x": 90,
+     "y": 502,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2036.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    513,
+    875,
+    182,
+    43
+   ],
+   "changed_px": 7826,
+   "locator": [
+    {
+     "x": 520,
+     "y": 880,
+     "width": 168,
+     "height": 32,
+     "area": 5376,
+     "type": "colour"
+    }
+   ],
+   "score": 0.86,
+   "flagged": true,
+   "api": [
+    {
+     "x": 520,
+     "y": 880,
+     "width": 168,
+     "height": 32,
+     "area": 5376,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2037.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    189,
+    147,
+    159,
+    58
+   ],
+   "changed_px": 4465,
+   "locator": [
+    {
+     "x": 192,
+     "y": 136,
+     "width": 152,
+     "height": 64,
+     "area": 7232,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 192,
+     "y": 136,
+     "width": 152,
+     "height": 64,
+     "area": 7232,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2038.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    547,
+    236,
+    177,
+    45
+   ],
+   "changed_px": 6009,
+   "locator": [
+    {
+     "x": 552,
+     "y": 240,
+     "width": 176,
+     "height": 40,
+     "area": 6592,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ],
+   "score": 0.95,
+   "flagged": true,
+   "api": [
+    {
+     "x": 552,
+     "y": 240,
+     "width": 176,
+     "height": 40,
+     "area": 6592,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2039.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    335,
+    873,
+    184,
+    39
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 340,
+     "y": 881,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.7667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 340,
+     "y": 881,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2040.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    493,
+    869,
+    129,
+    43
+   ],
+   "changed_px": 2452,
+   "locator": [
+    {
+     "x": 496,
+     "y": 872,
+     "width": 120,
+     "height": 40,
+     "area": 3584,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9767,
+   "flagged": true,
+   "api": [
+    {
+     "x": 496,
+     "y": 872,
+     "width": 120,
+     "height": 40,
+     "area": 3584,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2041.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.3633,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2042.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    400,
+    301,
+    194,
+    35
+   ],
+   "changed_px": 4118,
+   "locator": [
+    {
+     "x": 400,
+     "y": 304,
+     "width": 192,
+     "height": 32,
+     "area": 5120,
+     "type": "noise"
+    }
+   ],
+   "score": 0.97,
+   "flagged": true,
+   "api": [
+    {
+     "x": 400,
+     "y": 304,
+     "width": 192,
+     "height": 32,
+     "area": 5120,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2043.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2044.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    125,
+    530,
+    146,
+    45
+   ],
+   "changed_px": 4284,
+   "locator": [
+    {
+     "x": 128,
+     "y": 528,
+     "width": 144,
+     "height": 48,
+     "area": 6080,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9233,
+   "flagged": true,
+   "api": [
+    {
+     "x": 128,
+     "y": 528,
+     "width": 144,
+     "height": 48,
+     "area": 6080,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2045.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1867,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2046.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "payslip",
+   "rect": [
+    424,
+    219,
+    158,
+    59
+   ],
+   "changed_px": 8442,
+   "locator": [
+    {
+     "x": 112,
+     "y": 224,
+     "width": 464,
+     "height": 48,
+     "area": 5632,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.9933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 112,
+     "y": 224,
+     "width": 464,
+     "height": 48,
+     "area": 5632,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2047.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1467,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2048.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.16,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/payslip_2049.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "payslip",
+   "rect": [
+    201,
+    807,
+    187,
+    44
+   ],
+   "changed_px": 8228,
+   "locator": [
+    {
+     "x": 208,
+     "y": 808,
+     "width": 176,
+     "height": 40,
+     "area": 7040,
+     "type": "colour"
+    }
+   ],
+   "score": 0.6267,
+   "flagged": true,
+   "api": [
+    {
+     "x": 208,
+     "y": 808,
+     "width": 176,
+     "height": 40,
+     "area": 7040,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/payslip_2050.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.13,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2051.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 414,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.0933,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2052.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2053.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    57,
+    791,
+    184,
+    31
+   ],
+   "changed_px": 2530,
+   "locator": [
+    {
+     "x": 64,
+     "y": 792,
+     "width": 176,
+     "height": 32,
+     "area": 3136,
+     "type": "noise"
+    }
+   ],
+   "score": 0.8567,
+   "flagged": true,
+   "api": [
+    {
+     "x": 64,
+     "y": 792,
+     "width": 176,
+     "height": 32,
+     "area": 3136,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2054.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    526,
+    93,
+    148,
+    39
+   ],
+   "changed_px": 3864,
+   "locator": [
+    {
+     "x": 176,
+     "y": 96,
+     "width": 344,
+     "height": 16,
+     "area": 5504,
+     "type": "colour"
+    }
+   ],
+   "score": 0.7233,
+   "flagged": true,
+   "api": [
+    {
+     "x": 176,
+     "y": 96,
+     "width": 344,
+     "height": 16,
+     "area": 5504,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2055.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1933,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2056.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.21,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2057.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.06,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2058.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    513,
+    915,
+    188,
+    56
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.2133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2059.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    543,
+    587,
+    177,
+    44
+   ],
+   "changed_px": 4137,
+   "locator": [
+    {
+     "x": 544,
+     "y": 584,
+     "width": 176,
+     "height": 48,
+     "area": 5568,
+     "type": "noise"
+    }
+   ],
+   "score": 0.89,
+   "flagged": true,
+   "api": [
+    {
+     "x": 544,
+     "y": 584,
+     "width": 176,
+     "height": 48,
+     "area": 5568,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2060.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    104,
+    868,
+    193,
+    39
+   ],
+   "changed_px": 668,
+   "locator": [],
+   "score": 0.7267,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2061.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0867,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2062.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    563,
+    177,
+    130,
+    38
+   ],
+   "changed_px": 4550,
+   "locator": [
+    {
+     "x": 568,
+     "y": 184,
+     "width": 120,
+     "height": 24,
+     "area": 2048,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.8933,
+   "flagged": true,
+   "api": [
+    {
+     "x": 568,
+     "y": 184,
+     "width": 120,
+     "height": 24,
+     "area": 2048,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2063.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 471,
+     "y": 478,
+     "width": 187,
+     "height": 13,
+     "area": 2431,
+     "type": "ink"
+    }
+   ],
+   "score": 0.2767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2064.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2065.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    65,
+    903,
+    194,
+    58
+   ],
+   "changed_px": 668,
+   "locator": [],
+   "score": 0.48,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2066.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    387,
+    178,
+    129,
+    43
+   ],
+   "changed_px": 5286,
+   "locator": [
+    {
+     "x": 392,
+     "y": 184,
+     "width": 120,
+     "height": 16,
+     "area": 1920,
+     "type": "softness"
+    },
+    {
+     "x": 392,
+     "y": 208,
+     "width": 120,
+     "height": 8,
+     "area": 960,
+     "type": "softness"
+    }
+   ],
+   "score": 0.8967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 392,
+     "y": 184,
+     "width": 120,
+     "height": 16,
+     "area": 1920,
+     "type": "softness"
+    },
+    {
+     "x": 392,
+     "y": 208,
+     "width": 120,
+     "height": 8,
+     "area": 960,
+     "type": "softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2067.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    415,
+    491,
+    180,
+    32
+   ],
+   "changed_px": 3084,
+   "locator": [
+    {
+     "x": 416,
+     "y": 488,
+     "width": 152,
+     "height": 32,
+     "area": 3584,
+     "type": "noise"
+    },
+    {
+     "x": 576,
+     "y": 488,
+     "width": 16,
+     "height": 32,
+     "area": 448,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9,
+   "flagged": true,
+   "api": [
+    {
+     "x": 416,
+     "y": 488,
+     "width": 152,
+     "height": 32,
+     "area": 3584,
+     "type": "noise"
+    },
+    {
+     "x": 576,
+     "y": 488,
+     "width": 16,
+     "height": 32,
+     "area": 448,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2068.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    336,
+    89,
+    142,
+    37
+   ],
+   "changed_px": 3976,
+   "locator": [
+    {
+     "x": 336,
+     "y": 88,
+     "width": 488,
+     "height": 32,
+     "area": 5504,
+     "type": "colour"
+    }
+   ],
+   "score": 0.61,
+   "flagged": true,
+   "api": [
+    {
+     "x": 336,
+     "y": 88,
+     "width": 488,
+     "height": 32,
+     "area": 5504,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2069.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1533,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2070.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.3767,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2071.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.2433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2072.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.08,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2073.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    209,
+    445,
+    189,
+    54
+   ],
+   "changed_px": 5423,
+   "locator": [],
+   "score": 0.3667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2074.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 452,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.1967,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2075.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 433,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.3333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2076.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.4667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2077.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.22,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2078.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    101,
+    871,
+    123,
+    30
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.5733,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2079.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0833,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2080.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    256,
+    901,
+    154,
+    44
+   ],
+   "changed_px": 2982,
+   "locator": [
+    {
+     "x": 256,
+     "y": 904,
+     "width": 152,
+     "height": 40,
+     "area": 4672,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9433,
+   "flagged": true,
+   "api": [
+    {
+     "x": 256,
+     "y": 904,
+     "width": 152,
+     "height": 40,
+     "area": 4672,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2081.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.2833,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2082.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    112,
+    421,
+    152,
+    53
+   ],
+   "changed_px": 7903,
+   "locator": [],
+   "score": 0.2533,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2083.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.21,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2084.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.59,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2085.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "bank_statement",
+   "rect": [
+    159,
+    473,
+    149,
+    57
+   ],
+   "changed_px": 5998,
+   "locator": [
+    {
+     "x": 160,
+     "y": 472,
+     "width": 144,
+     "height": 40,
+     "area": 4160,
+     "type": "colour+softness"
+    }
+   ],
+   "score": 0.9667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 160,
+     "y": 472,
+     "width": 144,
+     "height": 40,
+     "area": 4160,
+     "type": "colour+softness"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2086.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    256,
+    516,
+    196,
+    47
+   ],
+   "changed_px": 4124,
+   "locator": [
+    {
+     "x": 256,
+     "y": 520,
+     "width": 192,
+     "height": 40,
+     "area": 6080,
+     "type": "noise"
+    },
+    {
+     "x": 416,
+     "y": 48,
+     "width": 64,
+     "height": 8,
+     "area": 512,
+     "type": "noise"
+    }
+   ],
+   "score": 0.91,
+   "flagged": true,
+   "api": [
+    {
+     "x": 256,
+     "y": 520,
+     "width": 192,
+     "height": 40,
+     "area": 6080,
+     "type": "noise"
+    },
+    {
+     "x": 416,
+     "y": 48,
+     "width": 64,
+     "height": 8,
+     "area": 512,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2087.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "bank_statement",
+   "rect": [
+    278,
+    530,
+    136,
+    38
+   ],
+   "changed_px": 5168,
+   "locator": [
+    {
+     "x": 280,
+     "y": 536,
+     "width": 128,
+     "height": 32,
+     "area": 4096,
+     "type": "colour"
+    }
+   ],
+   "score": 0.63,
+   "flagged": true,
+   "api": [
+    {
+     "x": 280,
+     "y": 536,
+     "width": 128,
+     "height": 32,
+     "area": 4096,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2088.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.3233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2089.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.07,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2090.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.29,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2091.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 168,
+     "y": 256,
+     "width": 344,
+     "height": 16,
+     "area": 5376,
+     "type": "colour"
+    }
+   ],
+   "score": 0.3133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2092.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    96,
+    147,
+    148,
+    45
+   ],
+   "changed_px": 1428,
+   "locator": [],
+   "score": 0.4567,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2093.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.11,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2094.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "bank_statement",
+   "rect": [
+    389,
+    820,
+    134,
+    57
+   ],
+   "changed_px": 668,
+   "locator": [],
+   "score": 0.34,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2095.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.32,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2096.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.34,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2097.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0733,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2098.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 376,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.23,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/bank_stmt_2099.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 414,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.1233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/bank_stmt_2100.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "bank_statement",
+   "rect": [
+    369,
+    475,
+    149,
+    59
+   ],
+   "changed_px": 4706,
+   "locator": [
+    {
+     "x": 368,
+     "y": 472,
+     "width": 152,
+     "height": 64,
+     "area": 6144,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9267,
+   "flagged": true,
+   "api": [
+    {
+     "x": 368,
+     "y": 472,
+     "width": 152,
+     "height": 64,
+     "area": 6144,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2101.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    317,
+    85,
+    161,
+    45
+   ],
+   "changed_px": 6363,
+   "locator": [
+    {
+     "x": 320,
+     "y": 88,
+     "width": 160,
+     "height": 40,
+     "area": 5952,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9533,
+   "flagged": true,
+   "api": [
+    {
+     "x": 320,
+     "y": 88,
+     "width": 160,
+     "height": 40,
+     "area": 5952,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2102.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2103.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0367,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2104.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "id_proof",
+   "rect": [
+    440,
+    362,
+    195,
+    53
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.0267,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2105.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    335,
+    107,
+    149,
+    50
+   ],
+   "changed_px": 7649,
+   "locator": [
+    {
+     "x": 336,
+     "y": 104,
+     "width": 152,
+     "height": 56,
+     "area": 5632,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9733,
+   "flagged": true,
+   "api": [
+    {
+     "x": 336,
+     "y": 104,
+     "width": 152,
+     "height": 56,
+     "area": 5632,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2106.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    241,
+    251,
+    134,
+    40
+   ],
+   "changed_px": 5360,
+   "locator": [],
+   "score": 0.8533,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2107.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2108.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    563,
+    325,
+    163,
+    53
+   ],
+   "changed_px": 8639,
+   "locator": [
+    {
+     "x": 568,
+     "y": 328,
+     "width": 152,
+     "height": 48,
+     "area": 6528,
+     "type": "colour"
+    }
+   ],
+   "score": 0.8967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 568,
+     "y": 328,
+     "width": 152,
+     "height": 48,
+     "area": 6528,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2109.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2110.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2111.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    102,
+    349,
+    135,
+    55
+   ],
+   "changed_px": 6555,
+   "locator": [
+    {
+     "x": 104,
+     "y": 352,
+     "width": 128,
+     "height": 48,
+     "area": 5632,
+     "type": "noise"
+    }
+   ],
+   "score": 0.83,
+   "flagged": true,
+   "api": [
+    {
+     "x": 104,
+     "y": 352,
+     "width": 128,
+     "height": 48,
+     "area": 5632,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2112.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    139,
+    356,
+    177,
+    55
+   ],
+   "changed_px": 9735,
+   "locator": [
+    {
+     "x": 144,
+     "y": 360,
+     "width": 168,
+     "height": 48,
+     "area": 8064,
+     "type": "colour"
+    }
+   ],
+   "score": 0.7567,
+   "flagged": true,
+   "api": [
+    {
+     "x": 144,
+     "y": 360,
+     "width": 168,
+     "height": 48,
+     "area": 8064,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2113.png",
+   "label": "tampered",
+   "method": "blur_region",
+   "doc_type": "id_proof",
+   "rect": [
+    227,
+    369,
+    176,
+    53
+   ],
+   "changed_px": 0,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2114.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2115.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    308,
+    375,
+    125,
+    39
+   ],
+   "changed_px": 4328,
+   "locator": [
+    {
+     "x": 312,
+     "y": 376,
+     "width": 120,
+     "height": 40,
+     "area": 4096,
+     "type": "noise"
+    }
+   ],
+   "score": 0.92,
+   "flagged": true,
+   "api": [
+    {
+     "x": 312,
+     "y": 376,
+     "width": 120,
+     "height": 40,
+     "area": 4096,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2116.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2117.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2118.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    581,
+    126,
+    194,
+    58
+   ],
+   "changed_px": 9942,
+   "locator": [
+    {
+     "x": 584,
+     "y": 128,
+     "width": 192,
+     "height": 56,
+     "area": 10048,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9633,
+   "flagged": true,
+   "api": [
+    {
+     "x": 584,
+     "y": 128,
+     "width": 192,
+     "height": 56,
+     "area": 10048,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2119.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2120.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2121.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1133,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2122.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0567,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2123.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2124.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0033,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2125.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2126.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2127.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2128.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    417,
+    169,
+    133,
+    55
+   ],
+   "changed_px": 7504,
+   "locator": [],
+   "score": 0.86,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2129.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    383,
+    90,
+    160,
+    60
+   ],
+   "changed_px": 9600,
+   "locator": [
+    {
+     "x": 384,
+     "y": 96,
+     "width": 152,
+     "height": 48,
+     "area": 6016,
+     "type": "colour"
+    }
+   ],
+   "score": 0.93,
+   "flagged": true,
+   "api": [
+    {
+     "x": 384,
+     "y": 96,
+     "width": 152,
+     "height": 48,
+     "area": 6016,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2130.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2132.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2133.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    158,
+    121,
+    151,
+    46
+   ],
+   "changed_px": 6138,
+   "locator": [
+    {
+     "x": 160,
+     "y": 120,
+     "width": 152,
+     "height": 48,
+     "area": 6336,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 160,
+     "y": 120,
+     "width": 152,
+     "height": 48,
+     "area": 6336,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2134.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.01,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2135.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    397,
+    333,
+    127,
+    52
+   ],
+   "changed_px": 5820,
+   "locator": [
+    {
+     "x": 400,
+     "y": 336,
+     "width": 120,
+     "height": 48,
+     "area": 5248,
+     "type": "noise"
+    }
+   ],
+   "score": 0.97,
+   "flagged": true,
+   "api": [
+    {
+     "x": 400,
+     "y": 336,
+     "width": 120,
+     "height": 48,
+     "area": 5248,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2136.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    253,
+    281,
+    165,
+    52
+   ],
+   "changed_px": 7639,
+   "locator": [
+    {
+     "x": 256,
+     "y": 280,
+     "width": 160,
+     "height": 56,
+     "area": 7744,
+     "type": "noise"
+    }
+   ],
+   "score": 0.99,
+   "flagged": true,
+   "api": [
+    {
+     "x": 256,
+     "y": 280,
+     "width": 160,
+     "height": 56,
+     "area": 7744,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2137.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0667,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2138.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0067,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2139.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2140.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2141.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2142.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    249,
+    305,
+    191,
+    54
+   ],
+   "changed_px": 10560,
+   "locator": [
+    {
+     "x": 248,
+     "y": 304,
+     "width": 192,
+     "height": 56,
+     "area": 7360,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9633,
+   "flagged": true,
+   "api": [
+    {
+     "x": 248,
+     "y": 304,
+     "width": 192,
+     "height": 56,
+     "area": 7360,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2143.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    462,
+    330,
+    164,
+    59
+   ],
+   "changed_px": 9676,
+   "locator": [
+    {
+     "x": 464,
+     "y": 336,
+     "width": 160,
+     "height": 48,
+     "area": 7680,
+     "type": "colour"
+    }
+   ],
+   "score": 0.7967,
+   "flagged": true,
+   "api": [
+    {
+     "x": 464,
+     "y": 336,
+     "width": 160,
+     "height": 48,
+     "area": 7680,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2144.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0333,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2145.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "id_proof",
+   "rect": [
+    113,
+    235,
+    128,
+    43
+   ],
+   "changed_px": 4908,
+   "locator": [
+    {
+     "x": 112,
+     "y": 232,
+     "width": 128,
+     "height": 48,
+     "area": 4736,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9367,
+   "flagged": true,
+   "api": [
+    {
+     "x": 112,
+     "y": 232,
+     "width": 128,
+     "height": 48,
+     "area": 4736,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2146.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    135,
+    292,
+    180,
+    50
+   ],
+   "changed_px": 9231,
+   "locator": [
+    {
+     "x": 136,
+     "y": 288,
+     "width": 184,
+     "height": 56,
+     "area": 8128,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9067,
+   "flagged": true,
+   "api": [
+    {
+     "x": 136,
+     "y": 288,
+     "width": 184,
+     "height": 56,
+     "area": 8128,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2147.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2148.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    542,
+    252,
+    188,
+    34
+   ],
+   "changed_px": 6615,
+   "locator": [
+    {
+     "x": 536,
+     "y": 248,
+     "width": 200,
+     "height": 40,
+     "area": 5888,
+     "type": "colour"
+    }
+   ],
+   "score": 0.9867,
+   "flagged": true,
+   "api": [
+    {
+     "x": 536,
+     "y": 248,
+     "width": 200,
+     "height": 40,
+     "area": 5888,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "tampered/id_proof_2149.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    317,
+    170,
+    120,
+    58
+   ],
+   "changed_px": 7174,
+   "locator": [],
+   "score": 0.9633,
+   "flagged": true,
+   "api": []
+  },
+  {
+   "set": "HOLDOUT",
+   "path": "genuine/id_proof_2150.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0433,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "tampered/payslip_033.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    225,
+    226,
+    199,
+    59
+   ],
+   "changed_px": 8924,
+   "locator": [
+    {
+     "x": 224,
+     "y": 224,
+     "width": 200,
+     "height": 64,
+     "area": 11200,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ],
+   "score": 0.98,
+   "flagged": true,
+   "api": [
+    {
+     "x": 224,
+     "y": 224,
+     "width": 200,
+     "height": 64,
+     "area": 11200,
+     "type": "noise"
+    },
+    {
+     "x": 440,
+     "y": 336,
+     "width": 392,
+     "height": 16,
+     "area": 6272,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/id_proof_066.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/payslip_042.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.2967,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/bank_stmt_059.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 30,
+     "y": 376,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ],
+   "score": 0.58,
+   "flagged": true,
+   "api": [
+    {
+     "x": 30,
+     "y": 376,
+     "width": 143,
+     "height": 11,
+     "area": 1573,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "tampered/id_proof_024.png",
+   "label": "tampered",
+   "method": "color_shift",
+   "doc_type": "id_proof",
+   "rect": [
+    364,
+    384,
+    192,
+    59
+   ],
+   "changed_px": 11328,
+   "locator": [
+    {
+     "x": 368,
+     "y": 384,
+     "width": 184,
+     "height": 56,
+     "area": 10304,
+     "type": "colour"
+    }
+   ],
+   "score": 0.7433,
+   "flagged": true,
+   "api": [
+    {
+     "x": 368,
+     "y": 384,
+     "width": 184,
+     "height": 56,
+     "area": 10304,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "tampered/payslip_030.png",
+   "label": "tampered",
+   "method": "noise_patch",
+   "doc_type": "payslip",
+   "rect": [
+    347,
+    665,
+    132,
+    44
+   ],
+   "changed_px": 2525,
+   "locator": [
+    {
+     "x": 352,
+     "y": 664,
+     "width": 128,
+     "height": 40,
+     "area": 3072,
+     "type": "noise"
+    }
+   ],
+   "score": 0.9667,
+   "flagged": true,
+   "api": [
+    {
+     "x": 352,
+     "y": 664,
+     "width": 128,
+     "height": 40,
+     "area": 3072,
+     "type": "noise"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/bank_stmt_049.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0933,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/id_proof_073.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/payslip_036.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0167,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/payslip_010.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "payslip",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.07,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "tampered/payslip_043.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "payslip",
+   "rect": [
+    309,
+    653,
+    131,
+    56
+   ],
+   "changed_px": 668,
+   "locator": [
+    {
+     "x": 314,
+     "y": 661,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ],
+   "score": 0.83,
+   "flagged": true,
+   "api": [
+    {
+     "x": 314,
+     "y": 661,
+     "width": 123,
+     "height": 10,
+     "area": 1230,
+     "type": "ink"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/bank_stmt_053.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "bank_statement",
+   "rect": null,
+   "changed_px": null,
+   "locator": [
+    {
+     "x": 168,
+     "y": 256,
+     "width": 344,
+     "height": 16,
+     "area": 5376,
+     "type": "colour"
+    }
+   ],
+   "score": 0.5033,
+   "flagged": true,
+   "api": [
+    {
+     "x": 168,
+     "y": 256,
+     "width": 344,
+     "height": 16,
+     "area": 5376,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/id_proof_022.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.0233,
+   "flagged": false,
+   "api": []
+  },
+  {
+   "set": "TEST",
+   "path": "tampered/id_proof_071.png",
+   "label": "tampered",
+   "method": "text_overlay",
+   "doc_type": "id_proof",
+   "rect": [
+    576,
+    316,
+    125,
+    39
+   ],
+   "changed_px": 5046,
+   "locator": [
+    {
+     "x": 576,
+     "y": 336,
+     "width": 128,
+     "height": 24,
+     "area": 3072,
+     "type": "colour"
+    }
+   ],
+   "score": 0.83,
+   "flagged": true,
+   "api": [
+    {
+     "x": 576,
+     "y": 336,
+     "width": 128,
+     "height": 24,
+     "area": 3072,
+     "type": "colour"
+    }
+   ]
+  },
+  {
+   "set": "TEST",
+   "path": "genuine/id_proof_061.png",
+   "label": "genuine",
+   "method": "-",
+   "doc_type": "id_proof",
+   "rect": null,
+   "changed_px": null,
+   "locator": [],
+   "score": 0.1333,
+   "flagged": false,
+   "api": []
+  }
+ ]
+}

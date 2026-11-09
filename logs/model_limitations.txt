@@ -1,0 +1,157 @@
+================================================================================
+DOCFRAUD - FRAUD DETECTION MODEL: KNOWN LIMITATIONS
+Model v2.0.0 (feature schema local-tamper-v2) - Day 10, Founder A
+================================================================================
+Model file : data/models/fraud_model.pkl
+SHA-256    : 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Sources    : logs/final_accuracy_report.txt        held-out metrics (Day 10)
+             logs/model_robustness_report.txt      degraded pages (Day 9)
+             logs/localization_report.txt          flagged_regions accuracy
+             logs/inference_benchmark_report.txt   speed, load, stability (Day 10)
+             logs/final_model_release_report.txt   sign-off (Day 10)
+
+What the model does: it measures whether part of a page (noise, paper colour,
+sharpness, ink darkness) differs from the rest of the same page, and a 300-tree
+Random Forest turns the 29 measurements into tamper_risk_score. A score is a
+risk indicator for a human reviewer, not proof of fraud.
+
+--------------------------------------------------------------------------------
+1. DATASET LIMITATIONS
+--------------------------------------------------------------------------------
+  - Synthetic only. Every training and evaluation document comes from one
+    generator (scripts/generate_tampered_documents.py). It produces three
+    templates (payslip, bank statement, ID proof) with Faker-generated content,
+    rendered as clean digital images of about 850 x 1100 px. Accuracy on real
+    documents has never been measured.
+  - Four edit types only: noise patch, colour shift, blur region and text
+    overlay, each a single rectangle of 120-200 x 30-60 px at a random
+    position. The model has not seen retyped values in a matching font,
+    copy-move, splicing from another document, several edits on one page, or
+    print-and-scan forgeries.
+  - Small data. Training: 210 documents (60 frozen TRAIN + 150 generated DEV),
+    840 rows with processed copies. Evaluation: 15 frozen TEST images
+    (accuracy 86.67%, 95% CI 62.1-96.3%) and 149 generated HOLDOUT documents
+    (92.62%, 95% CI 87.3-95.8%).
+  - Same source for training and testing. HOLDOUT comes from the same
+    generator (new seed), so held-out accuracy is an upper bound for real
+    documents.
+  - Reused evaluation sets. TEST and HOLDOUT have been scored several times
+    since Day 8. They were never used to train, tune or choose anything, but a
+    future model needs a new holdout set.
+  - Label noise. The generator sometimes places a blur on blank paper, which
+    changes no pixel. The document is labelled "tampered" but nothing is
+    detectable: 3 of the 10 missed held-out edits are of this kind.
+  - Unrealistic class balance. Held-out: 93 genuine, 71 tampered. Real fraud
+    is much rarer, so most flags would be false alarms. For example, at a 1%
+    fraud rate, the measured recall (85.9%) and false-positive rate (3.2%)
+    mean that only about 1 flag in 5 would be a real edit (arithmetic, not a
+    measurement).
+
+--------------------------------------------------------------------------------
+2. KNOWN EDGE CASES (inputs outside the validated range)
+--------------------------------------------------------------------------------
+  - Non-document images (photos, graphics, tiny or blank images) still get a
+    score, and are often reported as tampered: 5 of the 6 synthetic test
+    fixtures scored 0.55-0.62. There is no "not a document" output.
+  - Page resolution. The tile thresholds assume about 850 x 1100 px pages.
+    Accuracy is 75.0% at 75% size and 50.0% at 50% size. On resampled pages
+    (0.75x, 1.5x, 2.5x), flagged_regions boxes appear on every genuine page.
+  - Large images. Pages above 2000 px on the longest side are downscaled
+    before analysis, so fine detail of a small edit can be lost. A
+    4000 x 5000 page takes about 1 s.
+  - PDFs. Only page 1 is analysed (rendered at 200 DPI); edits on later pages
+    are not seen. Password-protected and empty PDFs are rejected (HTTP 400).
+  - Orientation. EXIF rotation is ignored, so a photo stored sideways is
+    analysed sideways. Accuracy: 90 deg rotation 74.4%, 180 deg 64.0%.
+  - Colour modes. RGBA images are flattened on white; grayscale is converted
+    to RGB. Neither occurs in the training data.
+  - Near-threshold scores. 4 held-out documents lie within 0.05 of the 0.5
+    threshold, and 3 of them are wrong. Scores between 0.2 and 0.6 mix both
+    classes; every held-out document scoring 0.6 or more was tampered (60/60).
+  - API limits. Files over 10 MB, images over 40 megapixels and images whose
+    shortest side is under 16 px are rejected before analysis.
+
+--------------------------------------------------------------------------------
+3. EXPECTED FAILURE SCENARIOS
+--------------------------------------------------------------------------------
+  Rates are measured on the 164 held-out documents (92.1% accurate unmodified)
+  unless marked "not tested".
+
+  Scenario                                   Expected behaviour
+  Genuine page re-saved as JPEG (q85)        73.2% accuracy; a third of
+                                             genuine pages flagged (FPR 33%)
+  Page downscaled to half size               50.0% accuracy (FPR 73%)
+  Page rotated 180 / 90 degrees              64.0% / 74.4% accuracy
+  Scan skewed by 3 degrees                   70.1% accuracy
+  Borders cropped by 2 px                    79.9% accuracy (FPR 32%)
+  Light blur (radius 0.5-1 px)               84-85% accuracy; edits missed
+                                             (FNR 31-37%)
+  Phone photo or scan of a printout          not tested; expected to be worse
+                                             than any single degradation
+                                             above
+  Bank statements                            weakest type: 83.0% held-out;
+                                             all 3 false positives
+  Replaced text, e.g. an amount retyped      likely missed: demo
+    and the area resampled                   tampered_payslip_02 (amount
+                                             replaced + local resample) scores
+                                             0.15; this edit type was never
+                                             trained
+  Text overlay whose ink matches the page    5 of 19 held-out overlays
+                                             missed; a box on only 10 of 19
+  Colour shift on a payslip                  2 of 13 held-out colour shifts
+                                             missed (scores 0.31-0.34)
+  Edit that changes no pixel                 undetectable
+  Real documents from other issuers          unknown (not tested)
+  Deliberate evasion by someone who knows    not tested
+    the method
+  Non-document upload                        usually reported as tampered
+
+  Current false positives, all bank statements: genuine/bank_stmt_059.png 0.58,
+  genuine/bank_stmt_053.png 0.50, genuine/bank_stmt_2084.png 0.59.
+
+--------------------------------------------------------------------------------
+4. OPERATIONAL LIMITATIONS
+--------------------------------------------------------------------------------
+  - Uncalibrated scores. tamper_risk_score is the share of 300 trees voting
+    "tampered", not a probability of fraud. The 0.5 threshold was set before
+    evaluation and never tuned. The /verify 'threshold' query parameter is
+    accepted but ignored.
+  - Version lock. The model file is a pickle tied to scikit-learn 1.9.1 (now
+    pinned in requirements.txt). Other packages are unpinned: a different
+    numpy, OpenCV, Pillow or SciPy can change features slightly, so re-run the
+    validation scripts after upgrading any of them.
+  - Throughput. One uvicorn process on 4 CPUs serves about 9 /verify
+    requests per second (average about 0.5 s with 5 concurrent users).
+    Multi-worker deployments have not been measured. The server's memory
+    peaks at about 310 MB.
+  - Localisation. flagged_regions puts a box on 55/67 held-out edits (82.1%),
+    and 2 of 93 genuine documents get boxes. A box marks an anomaly, not
+    proof. Model v1 (rollback) returns no regions.
+  - Rollback. Model v1 (data/models/fraud_model_v1.pkl) has 60% held-out
+    accuracy. Use it only to restore service, not for quality.
+
+--------------------------------------------------------------------------------
+5. FUTURE IMPROVEMENTS (in priority order)
+--------------------------------------------------------------------------------
+  1. Real documents: collect a labelled, consented set of real payslips,
+     statements and IDs, and measure on it before any production decision.
+  2. Robustness: normalise pages first (auto-rotate, deskew, trim borders,
+     fixed resolution), and train with degraded copies of both classes
+     (re-save, scan, rotation, crop, resolution). Choose by cross-validation
+     on training data, then evaluate once on a new holdout set.
+  3. Out-of-scope input: detect non-documents and unsupported inputs, and
+     reject or flag them instead of scoring them.
+  4. Calibration: isotonic or Platt scaling on validation data, and a "needs
+     review" band around the threshold.
+  5. Wider edit coverage: retyped text in the page's font, copy-move,
+     splicing, several edits per page, more templates and issuers. Fix the
+     generator so every "tampered" label changes pixels.
+  6. Bank statements: targeted data and features for the weakest document
+     type.
+  7. Localisation: find text overlays whose ink matches the page; make the
+     tile thresholds independent of resolution.
+  8. Multi-page PDFs: analyse every page.
+  9. Simplification: drop the features that add nothing
+     (logs/feature_importance_report.txt); 200 trees match 300 in CV.
+ 10. Operations: pin every dependency, load-test multi-worker deployments,
+     and monitor the score distribution for drift.

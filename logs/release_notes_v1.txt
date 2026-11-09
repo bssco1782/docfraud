@@ -1,0 +1,139 @@
+================================================================================
+DOCFRAUD — DOCUMENT FRAUD DETECTION BACKEND
+RELEASE NOTES — v0.1.0 (sprint release, Day 7 handoff)
+================================================================================
+Status        : Prototype. Suitable for demos and further development.
+                NOT production-ready and NOT validated on real documents.
+API version   : 0.1.0 (reported by GET /health)
+Model         : data/models/fraud_model.pkl — model v1.0.0, feature schema day4-v2-22
+Repository    : https://github.com/bssco178-a11y/docfraud-backend
+
+--------------------------------------------------------------------------------
+1. FEATURES COMPLETED
+--------------------------------------------------------------------------------
+API (backend/)
+  - GET  /health  public readiness check: {"status": "ok", "version": "0.1.0"}
+  - POST /verify  multipart upload -> tamper_risk_score, confidence,
+                  flagged_regions (always empty), interpretation
+  - X-API-Key authentication on protected routes (401 missing, 403 wrong key);
+    unknown routes return 404 before authentication is checked
+  - Upload validation: .jpg/.jpeg/.png/.pdf only, non-empty, <= MAX_FILE_SIZE
+    (10 MB default, checked from Content-Length and from the bytes read)
+  - One JSON error envelope for every error (success, error, code, detail[, details])
+    covering 400, 401, 403, 404, 405, 413, 422 and 500
+  - Model loaded once at startup (lazy fallback on first request), thread-safe
+  - CPU-bound inference offloaded to a worker thread so /health stays responsive
+  - All settings in backend/config.py from environment variables: API_KEY,
+    MODEL_PATH, MAX_FILE_SIZE, TAMPER_THRESHOLD, CORS_ORIGINS
+  - OpenAPI documentation at /docs, /redoc and /openapi.json
+
+Analysis engine (core/)
+  - Image loading for PNG/JPEG and PDF (first page rendered at 200 DPI)
+  - Error Level Analysis plus noise, blockiness, edge and intensity statistics:
+    22 whole-image features
+  - Random Forest training, evaluation, model save/load
+
+Data and tooling
+  - 75-document synthetic labelled dataset (48 genuine / 27 tampered;
+    30 payslips / 23 bank statements / 22 ID proofs) with index.csv
+  - Frozen 60/15 train/test split; 5-image demo set with manifest
+  - Scripts: dataset generation and statistics, training, final validation,
+    demo preparation, load testing, API test report generation
+
+Quality
+  - 256 automated tests: 253 passed, 2 skipped, 1 xfailed, 0 failed
+  - tests/test_api_comprehensive.py: 31 API tests, < 1 s, 82% line coverage of
+    backend/ from that module alone
+  - ruff lint configuration (ruff.toml); `ruff check .` passes
+  - Documentation: README, API_DOCS, ARCHITECTURE, DEPLOYMENT, DATASET,
+    DATA_FORMAT_NOTES, PROGRESS
+
+--------------------------------------------------------------------------------
+2. PERFORMANCE METRICS
+--------------------------------------------------------------------------------
+Model quality (Day 6, held-out replica trained on the 60 TRAIN images,
+evaluated once on the 15 frozen TEST images; positive class = tampered)
+  Accuracy  : 60.0% (9/15)          target was 78% — NOT MET
+  Precision : 44.4%
+  Recall    : 80.0%
+  F1        : 0.571
+  Confusion : TN=5  FP=5  FN=1  TP=4
+  False positive rate: 50% of genuine documents flagged as tampered
+  Train-only 5-fold cross-validation (Day 5): 58.3% +/- 14.9%
+
+Demo set (Day 7, 5 images, deployed model): 2/5 correct. A demonstration
+record, not an accuracy estimate.
+
+API latency and throughput (Day 5, in-process ASGI, single process,
+real document images; see logs/api_load_report.txt)
+  GET  /health, 5 users x 10 requests : avg 10 ms,  476 req/s, 100% success
+  POST /verify, 5 users x 10 requests : avg 0.94 s, p95 1.19 s, 5.2 req/s, 100% success
+  POST /verify, 10 concurrent users   : avg 1.60 s, 5.5 req/s, 100% success
+  POST /verify, 20 concurrent users   : avg 3.08 s, 5.5 req/s, 100% success
+  Throughput plateaus at ~5 documents/s per process; latency scales with load.
+
+Large-image edge cases (Day 6): 2550x3150 and 4000x5000 images processed
+successfully (downscaled to 2000 px), ~13-16 s each, ~160 MB peak memory.
+
+--------------------------------------------------------------------------------
+3. CHANGES IN THE DAY 7 CLEANUP
+--------------------------------------------------------------------------------
+  - Removed a test-only shortcut from ModelAPI.predict(): uploads whose bytes
+    were exactly "fake image bytes for verification" skipped the model and
+    returned a canned "verified" result. Those bytes are now decoded like any
+    other upload (and rejected as corrupted).
+  - Moved hardcoded values to config.py: service version, allowed extensions,
+    tamper threshold, CORS origins.
+  - Corrected API text that overstated the product (15 features -> 22,
+    "calibrated" score -> uncalibrated, bounding-box flagged_regions -> always
+    empty, `threshold` documented as ignored, "Production Ready" removed).
+  - Fixed .env.example (stale MODEL_PATH=models/model.pt).
+  - Removed unused imports, variables and constants across backend/, core/,
+    scripts/ and tests/; added missing docstrings in backend/ and core/.
+  - Made tests/test_demo_dataset.py pass on a fresh clone.
+  - No change to model files, datasets, feature extraction or predictions
+    (verified: demo payslip 01 still scores 0.36; the dataset generator's
+    output is byte-identical before and after cleanup).
+
+--------------------------------------------------------------------------------
+4. KNOWN LIMITATIONS
+--------------------------------------------------------------------------------
+  - Trained and evaluated on synthetic documents only; real-world accuracy unknown.
+  - 60% held-out accuracy with a 50% false-positive rate: not usable for
+    automated decisions.
+  - The deployed fraud_model.pkl was refit on all 75 documents, including the
+    15 test images, so it has no clean held-out measurement of its own.
+  - All 22 features are whole-image statistics; small local edits (text
+    overlays, patches) are weakly detected.
+  - tamper_risk_score is an uncalibrated vote fraction, not a fraud probability.
+  - flagged_regions is always empty; the API cannot show where an edit is.
+  - The `threshold` query parameter is accepted and validated but ignored.
+  - Only the first page of a PDF is analysed.
+  - ~5 documents/s per process; multi-worker and networked performance untested.
+  - Security: single shared API key compared in plain text, insecure default
+    key, CORS open by default, no HTTPS, no rate limiting.
+  - Dependencies are unpinned; the pickled model depends on compatible
+    scikit-learn / numpy versions.
+  - Model files are loaded with pickle: only load trusted, repo-produced files.
+
+--------------------------------------------------------------------------------
+5. FUTURE IMPROVEMENTS
+--------------------------------------------------------------------------------
+Model
+  - Region-level features (per-block ELA and noise anomaly scores) — prototyped
+    in core/local_forensics.py; finish cross-validation and train one model on
+    TRAIN only.
+  - Collect a new held-out set; the current 15 test images have been used twice.
+  - Evaluate on real (consented, anonymised) documents.
+  - Calibrate scores (e.g. isotonic / Platt) so they can be read as probabilities.
+  - Populate flagged_regions (ModelAPI.extract_flagged_regions exists but is not
+    wired into responses).
+API and operations
+  - Implement or remove the `threshold` query parameter.
+  - Per-client API keys with hashing, rotation and constant-time comparison.
+  - Restrict CORS_ORIGINS; add HTTPS via a reverse proxy; add rate limiting.
+  - Pin dependency versions; add a Dockerfile and CI running pytest and ruff.
+  - Multi-worker deployment and load testing over the network.
+  - Structured (JSON) logging; replace print() calls in core/ with logging.
+  - Multi-page PDF analysis.
+================================================================================

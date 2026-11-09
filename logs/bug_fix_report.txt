@@ -1,0 +1,138 @@
+==============================================================================
+DOCUMENT FRAUD DETECTION API - BUG FIX REPORT (Day 9, Founder B)
+==============================================================================
+Audit scope : backend/, core/ (image/PDF loading and pipeline), tests/, scripts/
+How found   : code review; 19 hostile/edge-case files sent through /verify
+              (before and after); live uvicorn + curl; performance measurements
+Result      : 13 bugs fixed, each with a regression test or a measurement
+Tests       : full suite 282 passed, 2 skipped, 1 xfailed, 0 failed
+              (was 253 passed on main; +29 tests)
+
+------------------------------------------------------------------------------
+EDGE-CASE PROBE: /verify before -> after
+------------------------------------------------------------------------------
+File                         Before                              After
+1x1.png                      500 OpenCV resize error             400 too small
+2x2.jpg                      200                                 400 too small (16 px minimum)
+20000x10.png                 500 OpenCV resize error             400 too narrow
+12000x12000 PNG bomb (140KB) 200 in 9.4 s, peak ~943 MB           400 in 0.01 s
+5000 pt / 14400 pt PDF page  14400: 400 (PyMuPDF limit)           400 pixel limit, before rendering
+encrypted.pdf                400 "document closed"               400 "Password-protected PDFs ..."
+truncated.png                400 incl. /tmp/tmpxxxx.png path     400 with the uploaded name
+text renamed .jpg            400 incl. /tmp path                 400, no path
+RGBA / palette / 16-bit /
+LA / CMYK / A4 PDF           200                                 200 (unchanged)
+../../etc/passwd.png         200 (temp file used; safe)          200, analyzer sees "passwd.png"
+
+------------------------------------------------------------------------------
+BUGS FIXED
+------------------------------------------------------------------------------
+B1  Tiny or extremely narrow images crashed feature extraction (HTTP 500)
+    Cause   : OpenCV resize fails when a side is < 2 px after the analyzer's
+              downscale to 2000 px.
+    Fix     : header-only dimension check in ModelAPI (backend/model_utils.py);
+              shortest side must be >= 16 px after scaling -> otherwise 400.
+    Test    : test_too_small_or_narrow_images_rejected (1x1, 8x8, 20000x10);
+              16x16 and 80x60 still accepted.
+
+B2  Decompression bomb accepted (small file -> huge decode)
+    Fix     : MAX_IMAGE_PIXELS (40 MP) checked from the header before decoding;
+              also set as Pillow's own threshold.
+    Test    : test_decompression_bomb_rejected_quickly (< 2 s, 400).
+
+B3  PDF pages rasterised without a size limit; encrypted PDFs gave an unclear error
+    Fix     : page 1 size read with PyMuPDF before rendering (at 200 DPI);
+              > 40 MP -> 400; password-protected / empty PDFs -> clear 400.
+    Test    : test_oversized_pdf_page_rejected, test_encrypted_pdf_rejected,
+              test_a4_pdf_still_accepted.
+
+B4  Browser CORS preflight blocked (OPTIONS /verify -> 401)
+    Cause   : the API-key middleware was registered after CORSMiddleware, which
+              made it the outer layer, so preflight (sent without a key) was
+              rejected. A browser frontend on another origin could not call /verify.
+    Fix     : explicit middleware order: RequestContext -> CORS -> API key ->
+              upload limit -> app.
+    Test    : test_cors_preflight_is_not_blocked_by_api_key; verified live.
+
+B5  Valid files just under 10 MB rejected with 413
+    Cause   : the handler compared the whole multipart body's Content-Length
+              (file + form framing) with the file limit.
+    Fix     : body limit = MAX_FILE_SIZE + 64 KB framing; the file part is still
+              checked exactly.
+    Test    : test_file_just_under_limit_is_not_rejected_for_framing.
+
+B6  Upload size enforced only after the full body was received and spooled
+    Fix     : UploadSizeLimitMiddleware (backend/middleware.py) rejects before
+              parsing, including chunked uploads.
+    Test    : 4 tests incl. an ASGI-level test proving the stream is cut off early;
+              live 12 MB upload -> 413 in 1 ms.
+
+B7  Server temp paths leaked in 400 responses
+    Fix     : ModelAPI replaces the temp path with the uploaded base name.
+    Test    : test_corrupted_upload_error_does_not_leak_temp_path.
+
+B8  Exception text leaked in 500 responses
+    Fix     : generic message + request ID; traceback logged with the same ID
+              (both the /verify handler and the global handler).
+    Test    : test_unexpected_error_returns_generic_500_with_request_id;
+              test_isolated_app_error_handlers updated to assert the text is withheld.
+
+B9  Unreadable model file crashed start-up; missing model gave /verify 500 while
+    /health said "ok"
+    Fix     : start in degraded mode; /health -> 503 "degraded" with the reason;
+              /verify -> 503; each /verify retries the load, so restoring the file
+              recovers without a restart.
+    Test    : test_verify_returns_503_while_model_missing_then_recovers,
+              test_health_degraded_when_model_missing.
+
+B10 Model with the wrong feature count silently truncated the feature vector
+    Fix     : load_model() refuses a model whose n_features_in_ differs from the
+              extractor's 22 features (logged, degraded mode). Truncation removed.
+    Test    : test_incompatible_model_is_refused_at_load.
+
+B11 Default concurrency made the server slower under load
+    Cause   : unbounded analyses in threads contend for the GIL and OpenCV/numpy
+              threads. Measured with 4 clients on 4 CPUs: 4 slots 2.30 req/s,
+              2 slots 3.47 req/s, 1 slot 3.22 req/s.
+    Fix     : MAX_CONCURRENT_ANALYSES (default min(2, CPUs)), a thread-level
+              semaphore around each analysis.
+    Test    : test_concurrent_analyses_are_capped; logs/performance_review.txt.
+
+B12 Log injection through uploaded filenames (raw control characters)
+    Fix     : filenames logged with repr().
+    Test    : test_filename_control_characters_are_escaped_in_logs (fails with the
+              fix reverted).
+
+B13 scripts/e2e_test.py crashed when --output pointed outside the repository
+    Fix     : show the server-log path relative only when it is inside the repo.
+
+------------------------------------------------------------------------------
+BEHAVIOUR CHANGES CLIENTS MAY NOTICE
+------------------------------------------------------------------------------
+- /health body has new fields (model_loaded, model_version, uptime_seconds,
+  detail) and returns 503 when the model is not loaded. Old fields unchanged.
+- Images under 16 px on the short side (after scaling) and over 40 MP now get 400.
+- 500 messages are generic; use the X-Request-ID response header to find details.
+- New X-Request-ID header on every response.
+- Default CORS no longer sends Access-Control-Allow-Credentials with "*".
+
+------------------------------------------------------------------------------
+TESTS CHANGED (intentional behaviour changes, no assertions weakened)
+------------------------------------------------------------------------------
+- tests/test_health.py, tests/test_verify.py::test_health_public: run the app's
+  startup so the model is loaded; assert the new health fields.
+- tests/conftest.py client fixture: runs startup (lifespan) like uvicorn does.
+- tests/test_verify.py::test_verify_file_too_large_content_length: declares a
+  length beyond the new framing allowance.
+- tests/test_error_handlers.py::test_isolated_app_error_handlers: now asserts
+  the exception text is NOT returned (was asserting the leak).
+
+------------------------------------------------------------------------------
+FOUND BUT NOT CHANGED (owned by other founders or out of scope)
+------------------------------------------------------------------------------
+- core/document_analyzer.py decodes each image twice (ELA and features):
+  measured at ~8% of feature time, not worth changing Founder A's pipeline.
+- core/model_trainer.py prints "Model loaded: ..." to stdout instead of logging.
+- Memory held by glibc per-thread arenas under concurrency (~450-500 MB vs
+  ~180 MB idle); levels off, not a leak. Documented MALLOC_ARENA_MAX=2.
+==============================================================================

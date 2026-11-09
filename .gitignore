@@ -1,0 +1,46 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data & Models
+*.pkl
+!data/models/fraud_model.pkl
+!data/models/fraud_model_v1.pkl
+data/raw/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Day 5 ML recovery: derived, regenerable data
+data/cache/
+data/augmented/train_v1/genuine/
+data/augmented/train_v1/tampered/
+!data/models/fraud_model_local_v1.pkl
+data/augmented/train_v2/genuine/
+data/augmented/train_v2/tampered/
+data/augmented/train_v2_1/genuine/
+data/augmented/train_v2_1/tampered/
+
+# Server output captured by scripts/e2e_test.py
+logs/e2e_server.log
+logs/performance_server.log
+logs/demo_server.log

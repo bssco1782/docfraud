@@ -1,0 +1,229 @@
+{
+  "description": "Day-7 demo set, re-scored with each new deployed model (Day 8: model v2). Demonstration only - not a validation set.",
+  "model": {
+    "path": "data/models/fraud_model.pkl",
+    "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+    "model_version": "2.0.0",
+    "feature_schema_version": "local-tamper-v2",
+    "feature_count": 29,
+    "rf_params": {
+      "n_estimators": 300,
+      "class_weight": "balanced",
+      "random_state": 42
+    },
+    "trained_at": "2026-09-27T08:56:01.350616+00:00",
+    "n_training_samples": 210,
+    "scored_at": "2026-09-27T09:05:37+00:00"
+  },
+  "risk_threshold": 0.5,
+  "integrity_checks": {
+    "frozen test set unchanged (15/15 SHA-256)": {
+      "pass": true,
+      "detail": ""
+    },
+    "no demo file or source document in frozen test set": {
+      "pass": true,
+      "detail": ""
+    },
+    "no pixel near-copy of a frozen test image (diff fraction < 0.004)": {
+      "pass": true,
+      "detail": "closest genuine_payslip_01.png:0.0084, genuine_payslip_02.png:0.0089, tampered_payslip_01.png:0.0089, tampered_payslip_02.png:0.0090, edge_case_01.png:0.0086"
+    },
+    "augmented sources match manifest SHA-256": {
+      "pass": true,
+      "detail": ""
+    },
+    "no demo image is one of the 75 training/test originals": {
+      "pass": true,
+      "detail": ""
+    },
+    "label provenance recorded for every image": {
+      "pass": true,
+      "detail": ""
+    },
+    "5 images: 2 genuine / 2 tampered payslips / 1 edge case": {
+      "pass": true,
+      "detail": "[2, 2, 1]"
+    }
+  },
+  "images": [
+    {
+      "demo_file": "genuine_payslip_01.png",
+      "role": "genuine payslip",
+      "source": "data/synthetic/payslip_002.png",
+      "actual_label": "genuine",
+      "label_source": "Day-1 generator output (scripts/generate_tampered_documents.py @ bf18a4c, generate_payslip_batch: render only, no tampering code); PROGRESS.md Day 1",
+      "provenance": "data/synthetic/payslip_002.png - Founder C Day-1 synthetic payslip, commit bf18a4c",
+      "training_overlap": "Image not in any training set. Sibling record: training image genuine/payslip_002.png has the same company, employee, employee ID and bank account (different month and salary figures).",
+      "sha256": "257b7a496877f57c83b7eea739808c7380b7f4b9c5399924b93ac807683da97e",
+      "width": 850,
+      "height": 1050,
+      "mode": "RGB",
+      "file_bytes": 70484,
+      "tamper_risk_score": 0.0567,
+      "confidence": 0.9433,
+      "predicted_label": "genuine",
+      "correct": true,
+      "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94)."
+    },
+    {
+      "demo_file": "genuine_payslip_02.png",
+      "role": "genuine payslip",
+      "source": "data/synthetic/payslip_003.png",
+      "actual_label": "genuine",
+      "label_source": "Day-1 generator output (scripts/generate_tampered_documents.py @ bf18a4c, generate_payslip_batch: render only, no tampering code); PROGRESS.md Day 1",
+      "provenance": "data/synthetic/payslip_003.png - Founder C Day-1 synthetic payslip, commit bf18a4c",
+      "training_overlap": "Image not in any training set. No matching record in the 75-image dataset (nearest by pixels: genuine/payslip_006.png, a different company and employee).",
+      "sha256": "b6f60b5562aeb19c1e3416be9f2b6305e855021f8b04cd3e58ae5161692ec6a2",
+      "width": 850,
+      "height": 1050,
+      "mode": "RGB",
+      "file_bytes": 71041,
+      "tamper_risk_score": 0.0567,
+      "confidence": 0.9433,
+      "predicted_label": "genuine",
+      "correct": true,
+      "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94)."
+    },
+    {
+      "demo_file": "tampered_payslip_01.png",
+      "role": "tampered payslip",
+      "source": "data/augmented/train_v2_1/tampered/payslip_002_aug1.png",
+      "actual_label": "tampered",
+      "label_source": "data/augmented/train_v2_1/manifest.csv (aug_version train-aug-v2.1)",
+      "provenance": "data/augmented/train_v2_1/tampered/payslip_002_aug1.png - view of training document genuine/payslip_002.png (source sha256 d7dd343ba62e...); local edit: text_replace_account {\"bg\": [255, 255, 255], \"font\": \"tahoma.ttf\", \"font_size\": 12, \"ink\": [55, 55, 55], \"mean_abs_change\": 65.195, \"text\": \"73437992415073\"} bbox [197, 321, 55, 12]; whole-page: none {}",
+      "manifest_sha256": "0c495d11d65f1be576a87c77bf0605b89f946337b5c261db09d51b3032654b23",
+      "source_path": "genuine/payslip_002.png",
+      "source_sha256": "d7dd343ba62ef1e01556b556e8b62dfcc7c5b2534c5655f710992d993cb7142e",
+      "transform": "text_replace_account",
+      "global_transform": "none",
+      "global_params": "{}",
+      "bbox": "[197, 321, 55, 12]",
+      "training_overlap": "Image not in any training set of the deployed model, but its source document genuine/payslip_002.png is a training image of it; only the edit is new.",
+      "sha256": "0c495d11d65f1be576a87c77bf0605b89f946337b5c261db09d51b3032654b23",
+      "width": 850,
+      "height": 1050,
+      "mode": "RGB",
+      "file_bytes": 70624,
+      "tamper_risk_score": 0.7933,
+      "confidence": 0.7933,
+      "predicted_label": "tampered",
+      "correct": true,
+      "interpretation": "Evidence of digital tampering detected (risk score: 0.79, confidence: 0.79)."
+    },
+    {
+      "demo_file": "tampered_payslip_02.png",
+      "role": "tampered payslip",
+      "source": "data/augmented/train_v2_1/tampered/payslip_037_aug1.png",
+      "actual_label": "tampered",
+      "label_source": "data/augmented/train_v2_1/manifest.csv (aug_version train-aug-v2.1)",
+      "provenance": "data/augmented/train_v2_1/tampered/payslip_037_aug1.png - view of training document genuine/payslip_037.png (source sha256 9a5ffcd59c68...); local edit: combo:text_replace_amount+local_resample {\"local_resample\": {\"factor\": 0.3663854649463466, \"feather_sigma\": 2.3409473717402043, \"upsample\": \"bilinear\"}, \"mean_abs_change\": 21.43, \"text_replace_amount\": {\"bg\": [255, 255, 255], \"font\": \"pillow_default\", \"font_size\": 15, \"ink\": [81, 81, 81], \"text\": \"2,290,395\"}} bbox [15, 130, 134, 25]; whole-page: none {}",
+      "manifest_sha256": "5d8f1df01e4157f09eeaa724ad2d14c71881eaf1eb2324c3420c34e2db68d8d4",
+      "source_path": "genuine/payslip_037.png",
+      "source_sha256": "9a5ffcd59c68e0f32603a101f779a2c508b6158595d6c5da8f5ddb129304d7b5",
+      "transform": "combo:text_replace_amount+local_resample",
+      "global_transform": "none",
+      "global_params": "{}",
+      "bbox": "[15, 130, 134, 25]",
+      "training_overlap": "Image not in any training set of the deployed model, but its source document genuine/payslip_037.png is a training image of it; only the edit is new.",
+      "sha256": "5d8f1df01e4157f09eeaa724ad2d14c71881eaf1eb2324c3420c34e2db68d8d4",
+      "width": 850,
+      "height": 1050,
+      "mode": "RGB",
+      "file_bytes": 70828,
+      "tamper_risk_score": 0.1533,
+      "confidence": 0.8467,
+      "predicted_label": "genuine",
+      "correct": false,
+      "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.15, confidence: 0.85)."
+    },
+    {
+      "demo_file": "edge_case_01.png",
+      "role": "edge case",
+      "source": "data/augmented/train_v2_1/genuine/payslip_006_aug2.png",
+      "actual_label": "genuine",
+      "label_source": "data/augmented/train_v2_1/manifest.csv (aug_version train-aug-v2.1)",
+      "provenance": "data/augmented/train_v2_1/genuine/payslip_006_aug2.png - view of training document genuine/payslip_006.png (source sha256 1da476683b40...); local edit: none {} bbox null; whole-page: global_jpeg {\"quality\": 78}",
+      "manifest_sha256": "00b9613d10a1c6077a91624969e7d6ff1e1afebf1a3376a522b8a722fed6b8e4",
+      "source_path": "genuine/payslip_006.png",
+      "source_sha256": "1da476683b406bf66d6d4acd3867d82dd31dcab1721722673c23a3ebaf76453b",
+      "transform": "none",
+      "global_transform": "global_jpeg",
+      "global_params": "{\"quality\": 78}",
+      "bbox": "null",
+      "training_overlap": "Image not in any training set of the deployed model, but its source document genuine/payslip_006.png is a training image of it; only the compression is new.",
+      "edge_case_type": "JPEG-compressed page (whole-page {\"quality\": 78}), stored as PNG",
+      "sha256": "00b9613d10a1c6077a91624969e7d6ff1e1afebf1a3376a522b8a722fed6b8e4",
+      "width": 850,
+      "height": 1050,
+      "mode": "RGB",
+      "file_bytes": 313775,
+      "tamper_risk_score": 0.2233,
+      "confidence": 0.7767,
+      "predicted_label": "genuine",
+      "correct": true,
+      "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.22, confidence: 0.78)."
+    }
+  ],
+  "scoring_history": [
+    {
+      "model": {
+        "path": "data/models/fraud_model.pkl",
+        "sha256": "bcf4d02f15980f68efc63c5c6089c91118be1078bd12f1df65dd81f25e55c6a3",
+        "model_version": "1.0.0",
+        "feature_schema_version": "day4-v2-22",
+        "feature_count": 22,
+        "rf_params": {
+          "n_estimators": 100,
+          "class_weight": "balanced",
+          "random_state": 42
+        },
+        "trained_at": "2026-09-24T14:54:43.329982+00:00",
+        "n_training_samples": 75,
+        "scored_at": "2026-09-25T10:14:17+00:00"
+      },
+      "images": [
+        {
+          "demo_file": "genuine_payslip_01.png",
+          "tamper_risk_score": 0.36,
+          "confidence": 0.64,
+          "predicted_label": "genuine",
+          "correct": true,
+          "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.36, confidence: 0.64)."
+        },
+        {
+          "demo_file": "genuine_payslip_02.png",
+          "tamper_risk_score": 0.59,
+          "confidence": 0.59,
+          "predicted_label": "tampered",
+          "correct": false,
+          "interpretation": "Evidence of digital tampering detected (risk score: 0.59, confidence: 0.59). 223 anomalous hotspot region(s) detected."
+        },
+        {
+          "demo_file": "tampered_payslip_01.png",
+          "tamper_risk_score": 0.37,
+          "confidence": 0.63,
+          "predicted_label": "genuine",
+          "correct": false,
+          "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.37, confidence: 0.63)."
+        },
+        {
+          "demo_file": "tampered_payslip_02.png",
+          "tamper_risk_score": 0.14,
+          "confidence": 0.86,
+          "predicted_label": "genuine",
+          "correct": false,
+          "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.14, confidence: 0.86)."
+        },
+        {
+          "demo_file": "edge_case_01.png",
+          "tamper_risk_score": 0.35,
+          "confidence": 0.65,
+          "predicted_label": "genuine",
+          "correct": true,
+          "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.35, confidence: 0.65)."
+        }
+      ]
+    }
+  ]
+}

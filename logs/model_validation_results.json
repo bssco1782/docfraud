@@ -1,0 +1,2550 @@
+{
+ "generated": "2026-09-27T11:14:23+00:00",
+ "runs": 10,
+ "threshold": 0.5,
+ "environment": {
+  "python": "3.11.15",
+  "platform": "Linux x86_64",
+  "cpus": 4,
+  "packages": {
+   "scikit-learn": "1.9.1",
+   "numpy": "2.4.6",
+   "opencv-python": "5.0.0.93",
+   "pillow": "12.3.0",
+   "fastapi": "0.141.1"
+  }
+ },
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2",
+  "n_features": 29,
+  "rf_params": {
+   "n_estimators": 300,
+   "class_weight": "balanced",
+   "random_state": 42
+  },
+  "trained_at": "2026-09-27T08:56:01.350616+00:00",
+  "n_training_samples": 210,
+  "n_training_rows": 840
+ },
+ "integrity": [
+  [
+   "fraud_model_v1.pkl loads",
+   true,
+   "276,037 bytes"
+  ],
+  [
+   "fraud_model.pkl present",
+   true,
+   "5,742,040 bytes"
+  ],
+  [
+   "SHA-256 matches the demo manifest record",
+   true,
+   "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1"
+  ],
+  [
+   "pickle loads (DocumentFraudDetector.load)",
+   true,
+   "19 ms"
+  ],
+  [
+   "feature schema is known",
+   true,
+   "local-tamper-v2: 29 local tamper features (noise, colour, softness, ink regions + processing fingerprint); model v2"
+  ],
+  [
+   "metadata feature names == schema feature names",
+   true,
+   "29 features"
+  ],
+  [
+   "model expects 29 features",
+   true,
+   "n_features_in_=29"
+  ],
+  [
+   "forest complete (all trees fitted)",
+   true,
+   "300/300 trees"
+  ],
+  [
+   "classes are [genuine=0, tampered=1]",
+   true,
+   "[0, 1]"
+  ],
+  [
+   "recorded training files present and unchanged",
+   true,
+   "210/210 match"
+  ],
+  [
+   "ModelAPI.load_model() (the API's loader)",
+   true,
+   "17 ms"
+  ]
+ ],
+ "integrity_ok": true,
+ "test_integrity": [
+  [
+   "exactly 15 test images",
+   true,
+   "n=15"
+  ],
+  [
+   "exactly 60 train images",
+   true,
+   "n=60"
+  ],
+  [
+   "test/train paths disjoint",
+   true,
+   ""
+  ],
+  [
+   "test/train hashes disjoint",
+   true,
+   ""
+  ],
+  [
+   "labels match folder",
+   true,
+   ""
+  ],
+  [
+   "all 15 test hashes match frozen split",
+   true,
+   "15/15 match"
+  ],
+  [
+   "all 60 train hashes match frozen split",
+   true,
+   "60/60 match"
+  ],
+  [
+   "dataset fingerprint matches frozen split",
+   true,
+   "b6b1ec12a66e2f13"
+  ]
+ ],
+ "demo": [
+  {
+   "image": "genuine_payslip_01.png",
+   "role": "genuine payslip",
+   "expected": "genuine",
+   "recorded_score": 0.0567,
+   "edit": "none",
+   "edit_area_fraction": null,
+   "actual": "genuine",
+   "confidence": 0.9433,
+   "risk": 0.0567,
+   "margin": -0.4433,
+   "valid_output": true,
+   "flagged_regions": [],
+   "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94).",
+   "crash": false,
+   "pass": true
+  },
+  {
+   "image": "genuine_payslip_02.png",
+   "role": "genuine payslip",
+   "expected": "genuine",
+   "recorded_score": 0.0567,
+   "edit": "none",
+   "edit_area_fraction": null,
+   "actual": "genuine",
+   "confidence": 0.9433,
+   "risk": 0.0567,
+   "margin": -0.4433,
+   "valid_output": true,
+   "flagged_regions": [],
+   "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94).",
+   "crash": false,
+   "pass": true
+  },
+  {
+   "image": "tampered_payslip_01.png",
+   "role": "tampered payslip",
+   "expected": "tampered",
+   "recorded_score": 0.7933,
+   "edit": "text_replace_account",
+   "edit_area_fraction": 0.0007394957983193277,
+   "actual": "tampered",
+   "confidence": 0.7933,
+   "risk": 0.7933,
+   "margin": 0.2933,
+   "valid_output": true,
+   "flagged_regions": [
+    {
+     "x": 198,
+     "y": 321,
+     "width": 96,
+     "height": 9,
+     "area": 864,
+     "type": "ink"
+    }
+   ],
+   "interpretation": "Evidence of digital tampering detected (risk score: 0.79, confidence: 0.79). 1 suspicious region(s) located (see flagged_regions).",
+   "crash": false,
+   "pass": true
+  },
+  {
+   "image": "tampered_payslip_02.png",
+   "role": "tampered payslip",
+   "expected": "tampered",
+   "recorded_score": 0.1533,
+   "edit": "combo:text_replace_amount+local_resample",
+   "edit_area_fraction": 0.003753501400560224,
+   "actual": "genuine",
+   "confidence": 0.8467,
+   "risk": 0.1533,
+   "margin": -0.3467,
+   "valid_output": true,
+   "flagged_regions": [],
+   "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.15, confidence: 0.85).",
+   "crash": false,
+   "pass": false
+  },
+  {
+   "image": "edge_case_01.png",
+   "role": "edge case",
+   "expected": "genuine",
+   "recorded_score": 0.2233,
+   "edit": "none",
+   "edit_area_fraction": null,
+   "actual": "genuine",
+   "confidence": 0.7767,
+   "risk": 0.2233,
+   "margin": -0.2767,
+   "valid_output": true,
+   "flagged_regions": [],
+   "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.22, confidence: 0.78).",
+   "crash": false,
+   "pass": true
+  }
+ ],
+ "repeatability": [
+  {
+   "demo_file": "genuine_payslip_01.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 151.2
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 150.7
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 149.8
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 151.4
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 153.4
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 154.7
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 152.9
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 151.6
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 154.4
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 157.3
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.05669999999999999,
+    "std": 0.0,
+    "min": 0.0567,
+    "max": 0.0567,
+    "max_abs_dev": 6.938893903907228e-18,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.9433,
+    "std": 0.0,
+    "min": 0.9433,
+    "max": 0.9433,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "genuine_payslip_02.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 153.2
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 150.6
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 174.2
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 156.1
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 155.8
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 164.8
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 171.5
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 171.7
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 156.4
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 155.5
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.05669999999999999,
+    "std": 0.0,
+    "min": 0.0567,
+    "max": 0.0567,
+    "max_abs_dev": 6.938893903907228e-18,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.9433,
+    "std": 0.0,
+    "min": 0.9433,
+    "max": 0.9433,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "tampered_payslip_01.png",
+   "expected": "tampered",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 160.6
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 151.4
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 218.3
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 155.0
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 160.9
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 154.5
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 152.2
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 153.8
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 149.7
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 151.2
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.7933,
+    "std": 0.0,
+    "min": 0.7933,
+    "max": 0.7933,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.7933,
+    "std": 0.0,
+    "min": 0.7933,
+    "max": 0.7933,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "tampered"
+   ]
+  },
+  {
+   "demo_file": "tampered_payslip_02.png",
+   "expected": "tampered",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 157.2
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 151.9
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 155.2
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 173.3
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 168.7
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 168.5
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 160.8
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 175.8
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 159.7
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 158.6
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.1533,
+    "std": 0.0,
+    "min": 0.1533,
+    "max": 0.1533,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.8467,
+    "std": 0.0,
+    "min": 0.8467,
+    "max": 0.8467,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "edge_case_01.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 169.2
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 176.5
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 221.7
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 209.9
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 182.3
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 172.8
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 173.6
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 187.4
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 204.5
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 167.4
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.2233,
+    "std": 0.0,
+    "min": 0.2233,
+    "max": 0.2233,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.7767,
+    "std": 0.0,
+    "min": 0.7767,
+    "max": 0.7767,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  }
+ ],
+ "stable": true,
+ "heldout": {
+  "leakage": [
+   [
+    "model records its training files",
+    true,
+    "210 files"
+   ],
+   [
+    "no TEST image among the training files",
+    true,
+    "0 of 15"
+   ],
+   [
+    "no HOLDOUT image among the training files",
+    true,
+    "0 of 149"
+   ],
+   [
+    "HOLDOUT generated after the model was trained",
+    true,
+    "model 2026-09-27T08:56:01, holdout 2026-09-27T08:58:08"
+   ],
+   [
+    "no processed copy of a held-out image in training",
+    true,
+    "copies are made from training documents only"
+   ]
+  ],
+  "leakage_ok": true,
+  "sets": {
+   "TEST": {
+    "metrics": {
+     "tn": 8,
+     "fp": 2,
+     "fn": 0,
+     "tp": 5,
+     "n": 15,
+     "correct": 13,
+     "accuracy": 0.8666666666666667,
+     "precision": 0.7142857142857143,
+     "recall": 1.0,
+     "f1": 0.8333333333333333,
+     "fpr": 0.2,
+     "fnr": 0.0
+    },
+    "ci95": {
+     "accuracy": [
+      0.6211750079348376,
+      0.9626395301086407
+     ],
+     "precision": [
+      0.35892909014821267,
+      0.9177828342909844
+     ],
+     "recall": [
+      0.5655085052479191,
+      1.0
+     ]
+    },
+    "per_class": {
+     "genuine": {
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8888888888888888,
+      "support": 10
+     },
+     "tampered": {
+      "precision": 0.7142857142857143,
+      "recall": 1.0,
+      "f1": 0.8333333333333334,
+      "support": 5
+     }
+    },
+    "recall_by_method": {
+     "color_shift": [
+      1,
+      1
+     ],
+     "noise_patch": [
+      2,
+      2
+     ],
+     "text_overlay": [
+      2,
+      2
+     ]
+    },
+    "accuracy_by_doc_type": {
+     "bank_statement": [
+      1,
+      3
+     ],
+     "id_proof": [
+      6,
+      6
+     ],
+     "payslip": [
+      6,
+      6
+     ]
+    },
+    "per_image": [
+     {
+      "path": "tampered/payslip_033.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.98
+     },
+     {
+      "path": "genuine/id_proof_066.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "genuine/payslip_042.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.2967
+     },
+     {
+      "path": "genuine/bank_stmt_059.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "tampered",
+      "risk": 0.58
+     },
+     {
+      "path": "tampered/id_proof_024.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7433
+     },
+     {
+      "path": "tampered/payslip_030.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9667
+     },
+     {
+      "path": "genuine/bank_stmt_049.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0933
+     },
+     {
+      "path": "genuine/id_proof_073.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "genuine/payslip_036.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0167
+     },
+     {
+      "path": "genuine/payslip_010.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.07
+     },
+     {
+      "path": "tampered/payslip_043.png",
+      "doc_type": "payslip",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.83
+     },
+     {
+      "path": "genuine/bank_stmt_053.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "tampered",
+      "risk": 0.5033
+     },
+     {
+      "path": "genuine/id_proof_022.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0233
+     },
+     {
+      "path": "tampered/id_proof_071.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.83
+     },
+     {
+      "path": "genuine/id_proof_061.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1333
+     }
+    ]
+   },
+   "HOLDOUT": {
+    "metrics": {
+     "tn": 82,
+     "fp": 1,
+     "fn": 10,
+     "tp": 56,
+     "n": 149,
+     "correct": 138,
+     "accuracy": 0.9261744966442953,
+     "precision": 0.9824561403508771,
+     "recall": 0.8484848484848485,
+     "f1": 0.9105691056910568,
+     "fpr": 0.012048192771084338,
+     "fnr": 0.15151515151515152
+    },
+    "ci95": {
+     "accuracy": [
+      0.8726455137481939,
+      0.9582800981271071
+     ],
+     "precision": [
+      0.9070903306173727,
+      0.9968964152933198
+     ],
+     "recall": [
+      0.7430687139857184,
+      0.9155645361116449
+     ]
+    },
+    "per_class": {
+     "genuine": {
+      "precision": 0.8913043478260869,
+      "recall": 0.9879518072289156,
+      "f1": 0.9371428571428572,
+      "support": 83
+     },
+     "tampered": {
+      "precision": 0.9824561403508771,
+      "recall": 0.8484848484848485,
+      "f1": 0.9105691056910569,
+      "support": 66
+     }
+    },
+    "recall_by_method": {
+     "blur_region": [
+      8,
+      11
+     ],
+     "color_shift": [
+      10,
+      12
+     ],
+     "noise_patch": [
+      26,
+      26
+     ],
+     "text_overlay": [
+      12,
+      17
+     ]
+    },
+    "accuracy_by_doc_type": {
+     "bank_statement": [
+      43,
+      50
+     ],
+     "id_proof": [
+      47,
+      49
+     ],
+     "payslip": [
+      48,
+      50
+     ]
+    },
+    "per_image": [
+     {
+      "path": "genuine/payslip_2001.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0433
+     },
+     {
+      "path": "genuine/payslip_2002.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1333
+     },
+     {
+      "path": "genuine/payslip_2003.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0667
+     },
+     {
+      "path": "tampered/payslip_2004.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.34
+     },
+     {
+      "path": "tampered/payslip_2005.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9967
+     },
+     {
+      "path": "tampered/payslip_2006.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.85
+     },
+     {
+      "path": "genuine/payslip_2007.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.12
+     },
+     {
+      "path": "genuine/payslip_2008.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0067
+     },
+     {
+      "path": "genuine/payslip_2009.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1867
+     },
+     {
+      "path": "genuine/payslip_2010.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0267
+     },
+     {
+      "path": "genuine/payslip_2011.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3067
+     },
+     {
+      "path": "tampered/payslip_2012.png",
+      "doc_type": "payslip",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9933
+     },
+     {
+      "path": "tampered/payslip_2013.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.91
+     },
+     {
+      "path": "tampered/payslip_2014.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9633
+     },
+     {
+      "path": "tampered/payslip_2015.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 1.0
+     },
+     {
+      "path": "genuine/payslip_2016.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.12
+     },
+     {
+      "path": "tampered/payslip_2017.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.64
+     },
+     {
+      "path": "genuine/payslip_2018.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1
+     },
+     {
+      "path": "genuine/payslip_2019.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0733
+     },
+     {
+      "path": "tampered/payslip_2020.png",
+      "doc_type": "payslip",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.98
+     },
+     {
+      "path": "tampered/payslip_2021.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.98
+     },
+     {
+      "path": "genuine/payslip_2022.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0333
+     },
+     {
+      "path": "genuine/payslip_2023.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.01
+     },
+     {
+      "path": "genuine/payslip_2024.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.01
+     },
+     {
+      "path": "tampered/payslip_2025.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.31
+     },
+     {
+      "path": "tampered/payslip_2026.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.94
+     },
+     {
+      "path": "tampered/payslip_2027.png",
+      "doc_type": "payslip",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8467
+     },
+     {
+      "path": "genuine/payslip_2028.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0767
+     },
+     {
+      "path": "genuine/payslip_2029.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1233
+     },
+     {
+      "path": "genuine/payslip_2030.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "genuine/payslip_2031.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0433
+     },
+     {
+      "path": "tampered/payslip_2032.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9067
+     },
+     {
+      "path": "tampered/payslip_2033.png",
+      "doc_type": "payslip",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.6733
+     },
+     {
+      "path": "genuine/payslip_2034.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.19
+     },
+     {
+      "path": "tampered/payslip_2035.png",
+      "doc_type": "payslip",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.78
+     },
+     {
+      "path": "tampered/payslip_2036.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.86
+     },
+     {
+      "path": "tampered/payslip_2037.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9667
+     },
+     {
+      "path": "tampered/payslip_2038.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.95
+     },
+     {
+      "path": "tampered/payslip_2039.png",
+      "doc_type": "payslip",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7667
+     },
+     {
+      "path": "tampered/payslip_2040.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9767
+     },
+     {
+      "path": "genuine/payslip_2041.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3633
+     },
+     {
+      "path": "tampered/payslip_2042.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.97
+     },
+     {
+      "path": "genuine/payslip_2043.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0167
+     },
+     {
+      "path": "tampered/payslip_2044.png",
+      "doc_type": "payslip",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9233
+     },
+     {
+      "path": "genuine/payslip_2045.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1867
+     },
+     {
+      "path": "tampered/payslip_2046.png",
+      "doc_type": "payslip",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9933
+     },
+     {
+      "path": "genuine/payslip_2047.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1467
+     },
+     {
+      "path": "genuine/payslip_2048.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.16
+     },
+     {
+      "path": "tampered/payslip_2049.png",
+      "doc_type": "payslip",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.6267
+     },
+     {
+      "path": "genuine/payslip_2050.png",
+      "doc_type": "payslip",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.13
+     },
+     {
+      "path": "genuine/bank_stmt_2051.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0933
+     },
+     {
+      "path": "genuine/bank_stmt_2052.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0767
+     },
+     {
+      "path": "tampered/bank_stmt_2053.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8567
+     },
+     {
+      "path": "tampered/bank_stmt_2054.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7233
+     },
+     {
+      "path": "genuine/bank_stmt_2055.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1933
+     },
+     {
+      "path": "genuine/bank_stmt_2056.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.21
+     },
+     {
+      "path": "genuine/bank_stmt_2057.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.06
+     },
+     {
+      "path": "tampered/bank_stmt_2058.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.2133
+     },
+     {
+      "path": "tampered/bank_stmt_2059.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.89
+     },
+     {
+      "path": "tampered/bank_stmt_2060.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7267
+     },
+     {
+      "path": "genuine/bank_stmt_2061.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0867
+     },
+     {
+      "path": "tampered/bank_stmt_2062.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8933
+     },
+     {
+      "path": "genuine/bank_stmt_2063.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.2767
+     },
+     {
+      "path": "genuine/bank_stmt_2064.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0767
+     },
+     {
+      "path": "tampered/bank_stmt_2065.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.48
+     },
+     {
+      "path": "tampered/bank_stmt_2066.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8967
+     },
+     {
+      "path": "tampered/bank_stmt_2067.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9
+     },
+     {
+      "path": "tampered/bank_stmt_2068.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.61
+     },
+     {
+      "path": "genuine/bank_stmt_2069.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1533
+     },
+     {
+      "path": "genuine/bank_stmt_2070.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3767
+     },
+     {
+      "path": "genuine/bank_stmt_2071.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.2433
+     },
+     {
+      "path": "genuine/bank_stmt_2072.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.08
+     },
+     {
+      "path": "tampered/bank_stmt_2073.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.3667
+     },
+     {
+      "path": "genuine/bank_stmt_2074.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1967
+     },
+     {
+      "path": "genuine/bank_stmt_2075.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3333
+     },
+     {
+      "path": "genuine/bank_stmt_2076.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.4667
+     },
+     {
+      "path": "genuine/bank_stmt_2077.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.22
+     },
+     {
+      "path": "tampered/bank_stmt_2078.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.5733
+     },
+     {
+      "path": "genuine/bank_stmt_2079.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0833
+     },
+     {
+      "path": "tampered/bank_stmt_2080.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9433
+     },
+     {
+      "path": "genuine/bank_stmt_2081.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.2833
+     },
+     {
+      "path": "tampered/bank_stmt_2082.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.2533
+     },
+     {
+      "path": "genuine/bank_stmt_2083.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.21
+     },
+     {
+      "path": "genuine/bank_stmt_2084.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "tampered",
+      "risk": 0.59
+     },
+     {
+      "path": "tampered/bank_stmt_2085.png",
+      "doc_type": "bank_statement",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9667
+     },
+     {
+      "path": "tampered/bank_stmt_2086.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.91
+     },
+     {
+      "path": "tampered/bank_stmt_2087.png",
+      "doc_type": "bank_statement",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.63
+     },
+     {
+      "path": "genuine/bank_stmt_2088.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3233
+     },
+     {
+      "path": "genuine/bank_stmt_2089.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.07
+     },
+     {
+      "path": "genuine/bank_stmt_2090.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.29
+     },
+     {
+      "path": "genuine/bank_stmt_2091.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.3133
+     },
+     {
+      "path": "tampered/bank_stmt_2092.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.4567
+     },
+     {
+      "path": "genuine/bank_stmt_2093.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.11
+     },
+     {
+      "path": "tampered/bank_stmt_2094.png",
+      "doc_type": "bank_statement",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.34
+     },
+     {
+      "path": "genuine/bank_stmt_2095.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.32
+     },
+     {
+      "path": "genuine/bank_stmt_2096.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.34
+     },
+     {
+      "path": "genuine/bank_stmt_2097.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0733
+     },
+     {
+      "path": "genuine/bank_stmt_2098.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.23
+     },
+     {
+      "path": "genuine/bank_stmt_2099.png",
+      "doc_type": "bank_statement",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1233
+     },
+     {
+      "path": "tampered/bank_stmt_2100.png",
+      "doc_type": "bank_statement",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9267
+     },
+     {
+      "path": "tampered/id_proof_2101.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9533
+     },
+     {
+      "path": "genuine/id_proof_2102.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.01
+     },
+     {
+      "path": "genuine/id_proof_2103.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0367
+     },
+     {
+      "path": "tampered/id_proof_2104.png",
+      "doc_type": "id_proof",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.0267
+     },
+     {
+      "path": "tampered/id_proof_2105.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9733
+     },
+     {
+      "path": "tampered/id_proof_2106.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8533
+     },
+     {
+      "path": "genuine/id_proof_2107.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0067
+     },
+     {
+      "path": "tampered/id_proof_2108.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.8967
+     },
+     {
+      "path": "genuine/id_proof_2109.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "genuine/id_proof_2110.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "tampered/id_proof_2111.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.83
+     },
+     {
+      "path": "tampered/id_proof_2112.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7567
+     },
+     {
+      "path": "tampered/id_proof_2113.png",
+      "doc_type": "id_proof",
+      "method": "blur_region",
+      "actual": "tampered",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "genuine/id_proof_2114.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "tampered/id_proof_2115.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.92
+     },
+     {
+      "path": "genuine/id_proof_2116.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0333
+     },
+     {
+      "path": "genuine/id_proof_2117.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "tampered/id_proof_2118.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9633
+     },
+     {
+      "path": "genuine/id_proof_2119.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0067
+     },
+     {
+      "path": "genuine/id_proof_2120.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0667
+     },
+     {
+      "path": "genuine/id_proof_2121.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1133
+     },
+     {
+      "path": "genuine/id_proof_2122.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0567
+     },
+     {
+      "path": "genuine/id_proof_2123.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0033
+     },
+     {
+      "path": "genuine/id_proof_2124.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0033
+     },
+     {
+      "path": "genuine/id_proof_2125.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0433
+     },
+     {
+      "path": "genuine/id_proof_2126.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0067
+     },
+     {
+      "path": "genuine/id_proof_2127.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.01
+     },
+     {
+      "path": "tampered/id_proof_2128.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.86
+     },
+     {
+      "path": "tampered/id_proof_2129.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.93
+     },
+     {
+      "path": "genuine/id_proof_2130.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0433
+     },
+     {
+      "path": "genuine/id_proof_2132.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0667
+     },
+     {
+      "path": "tampered/id_proof_2133.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9967
+     },
+     {
+      "path": "genuine/id_proof_2134.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.01
+     },
+     {
+      "path": "tampered/id_proof_2135.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.97
+     },
+     {
+      "path": "tampered/id_proof_2136.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.99
+     },
+     {
+      "path": "genuine/id_proof_2137.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0667
+     },
+     {
+      "path": "genuine/id_proof_2138.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0067
+     },
+     {
+      "path": "genuine/id_proof_2139.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.1433
+     },
+     {
+      "path": "genuine/id_proof_2140.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0167
+     },
+     {
+      "path": "genuine/id_proof_2141.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "tampered/id_proof_2142.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9633
+     },
+     {
+      "path": "tampered/id_proof_2143.png",
+      "doc_type": "id_proof",
+      "method": "color_shift",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.7967
+     },
+     {
+      "path": "genuine/id_proof_2144.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0333
+     },
+     {
+      "path": "tampered/id_proof_2145.png",
+      "doc_type": "id_proof",
+      "method": "noise_patch",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9367
+     },
+     {
+      "path": "tampered/id_proof_2146.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9067
+     },
+     {
+      "path": "genuine/id_proof_2147.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0
+     },
+     {
+      "path": "tampered/id_proof_2148.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9867
+     },
+     {
+      "path": "tampered/id_proof_2149.png",
+      "doc_type": "id_proof",
+      "method": "text_overlay",
+      "actual": "tampered",
+      "predicted": "tampered",
+      "risk": 0.9633
+     },
+     {
+      "path": "genuine/id_proof_2150.png",
+      "doc_type": "id_proof",
+      "method": "-",
+      "actual": "genuine",
+      "predicted": "genuine",
+      "risk": 0.0433
+     }
+    ]
+   }
+  },
+  "combined": {
+   "metrics": {
+    "tn": 90,
+    "fp": 3,
+    "fn": 10,
+    "tp": 61,
+    "n": 164,
+    "correct": 151,
+    "accuracy": 0.9207317073170732,
+    "precision": 0.953125,
+    "recall": 0.8591549295774648,
+    "f1": 0.9037037037037037,
+    "fpr": 0.03225806451612903,
+    "fnr": 0.14084507042253522
+   },
+   "ci95": {
+    "accuracy": [
+     0.8691110864554287,
+     0.9530927056914528
+    ]
+   }
+  },
+  "test_table": "Filename                     | Doc type       | Method       | Actual   | Predicted |  Risk | Correct\n----------------------------------------------------------------------------------------------------\ntampered/payslip_033.png     | payslip        | noise_patch  | tampered | tampered  |  0.98 | YES\ngenuine/id_proof_066.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES\ngenuine/payslip_042.png      | payslip        | -            | genuine  | genuine   |  0.30 | YES\ngenuine/bank_stmt_059.png    | bank_statement | -            | genuine  | tampered  |  0.58 | NO\ntampered/id_proof_024.png    | id_proof       | color_shift  | tampered | tampered  |  0.74 | YES\ntampered/payslip_030.png     | payslip        | noise_patch  | tampered | tampered  |  0.97 | YES\ngenuine/bank_stmt_049.png    | bank_statement | -            | genuine  | genuine   |  0.09 | YES\ngenuine/id_proof_073.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES\ngenuine/payslip_036.png      | payslip        | -            | genuine  | genuine   |  0.02 | YES\ngenuine/payslip_010.png      | payslip        | -            | genuine  | genuine   |  0.07 | YES\ntampered/payslip_043.png     | payslip        | text_overlay | tampered | tampered  |  0.83 | YES\ngenuine/bank_stmt_053.png    | bank_statement | -            | genuine  | tampered  |  0.50 | NO\ngenuine/id_proof_022.png     | id_proof       | -            | genuine  | genuine   |  0.02 | YES\ntampered/id_proof_071.png    | id_proof       | text_overlay | tampered | tampered  |  0.83 | YES\ngenuine/id_proof_061.png     | id_proof       | -            | genuine  | genuine   |  0.13 | YES",
+  "previous": [
+   {
+    "when": "Day 3",
+    "model": "v0 (15 features, 25 docs)",
+    "set": "5-image test",
+    "n": 5,
+    "correct": 4,
+    "accuracy": 0.8,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6666666666666666,
+    "source": "PROGRESS.md Day 3",
+    "note": "1 tampered test image; model no longer exists"
+   },
+   {
+    "when": "Day 5",
+    "model": "v1 (day4-v2-22)",
+    "set": "frozen TEST",
+    "n": 15,
+    "correct": 9,
+    "accuracy": 0.6,
+    "precision": 0.4444444444444444,
+    "recall": 0.8,
+    "f1": 0.5714,
+    "source": "v1 model metadata / PROGRESS.md Day 5",
+    "note": "training-time holdout"
+   },
+   {
+    "when": "Day 6",
+    "model": "v1 (day4-v2-22)",
+    "set": "frozen TEST",
+    "source": "logs/final_validation_report.txt (2026-09-25T08:55:52+00:00)",
+    "n": 15,
+    "correct": 9,
+    "accuracy": 0.6,
+    "precision": 0.44439999999999996,
+    "recall": 0.8,
+    "f1": 0.5714,
+    "per_image_risk": {
+     "tampered/payslip_033.png": 0.56,
+     "genuine/id_proof_066.png": 0.82,
+     "genuine/payslip_042.png": 0.3,
+     "genuine/bank_stmt_059.png": 0.55,
+     "tampered/id_proof_024.png": 0.63,
+     "tampered/payslip_030.png": 0.9,
+     "genuine/bank_stmt_049.png": 0.61,
+     "genuine/id_proof_073.png": 0.0,
+     "genuine/payslip_036.png": 0.61,
+     "genuine/payslip_010.png": 0.47,
+     "tampered/payslip_043.png": 0.72,
+     "genuine/bank_stmt_053.png": 0.57,
+     "genuine/id_proof_022.png": 0.44,
+     "tampered/id_proof_071.png": 0.1,
+     "genuine/id_proof_061.png": 0.38
+    },
+    "note": "held-out replica of v1"
+   },
+   {
+    "when": "Day 8",
+    "model": "v1 (day4-v2-22)",
+    "set": "frozen TEST",
+    "n": 15,
+    "correct": 9,
+    "accuracy": 0.6,
+    "precision": 0.4444444444444444,
+    "recall": 0.8,
+    "f1": 0.5714,
+    "source": "PROGRESS.md Day 8 (v1 revalidation)",
+    "note": "same as Day 5 and Day 6"
+   }
+  ]
+ },
+ "errors": {
+  "available": true,
+  "missed": [
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/payslip_2004.png",
+    "method": "color_shift",
+    "risk": 0.34,
+    "changed_px": 5124,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/payslip_2025.png",
+    "method": "color_shift",
+    "risk": 0.31,
+    "changed_px": 4445,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2058.png",
+    "method": "blur_region",
+    "risk": 0.2133,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2065.png",
+    "method": "text_overlay",
+    "risk": 0.48,
+    "changed_px": 668,
+    "kind": "only the inserted words (white box on white paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2073.png",
+    "method": "text_overlay",
+    "risk": 0.3667,
+    "changed_px": 5423,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2082.png",
+    "method": "text_overlay",
+    "risk": 0.2533,
+    "changed_px": 7903,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2092.png",
+    "method": "text_overlay",
+    "risk": 0.4567,
+    "changed_px": 1428,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2094.png",
+    "method": "text_overlay",
+    "risk": 0.34,
+    "changed_px": 668,
+    "kind": "only the inserted words (white box on white paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/id_proof_2104.png",
+    "method": "blur_region",
+    "risk": 0.0267,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/id_proof_2113.png",
+    "method": "blur_region",
+    "risk": 0.0,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   }
+  ],
+  "heldout_edits_without_pixel_change": 4,
+  "heldout_edits": 71
+ },
+ "robustness": [
+  {
+   "case": "clean_rgb.jpg",
+   "bytes": 15992,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.62",
+   "crash": false,
+   "seconds": 0.03788095900017652,
+   "pass": true
+  },
+  {
+   "case": "clean_rgb.png",
+   "bytes": 1124,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.62",
+   "crash": false,
+   "seconds": 0.03820324200023606,
+   "pass": true
+  },
+  {
+   "case": "corrupt.jpg",
+   "bytes": 24,
+   "expected": "rejected",
+   "outcome": "rejected",
+   "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+   "crash": false,
+   "seconds": 0.026208393999695545,
+   "pass": true
+  },
+  {
+   "case": "grayscale.jpg",
+   "bytes": 14217,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.62",
+   "crash": false,
+   "seconds": 0.03595913400022255,
+   "pass": true
+  },
+  {
+   "case": "large_image.jpg",
+   "bytes": 555525,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.55",
+   "crash": false,
+   "seconds": 1.164188066000861,
+   "pass": true
+  },
+  {
+   "case": "small_image.jpg",
+   "bytes": 1432,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.60",
+   "crash": false,
+   "seconds": 0.024367670001083752,
+   "pass": true
+  },
+  {
+   "case": "tampered_patch.jpg",
+   "bytes": 16104,
+   "expected": "processed",
+   "outcome": "processed",
+   "detail": "risk 0.42",
+   "crash": false,
+   "seconds": 0.03936540199902083,
+   "pass": true
+  },
+  {
+   "case": "truncated demo PNG (first 50% of bytes)",
+   "bytes": 35242,
+   "expected": "rejected",
+   "outcome": "rejected",
+   "detail": "ValueError: Cannot open image 'truncated.png': image file is truncated",
+   "crash": false,
+   "seconds": 0.004230787999404129,
+   "pass": true
+  },
+  {
+   "case": "empty file",
+   "bytes": 0,
+   "expected": "rejected",
+   "outcome": "rejected",
+   "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+   "crash": false,
+   "seconds": 0.0004946480003127363,
+   "pass": true
+  },
+  {
+   "case": "text file named .png",
+   "bytes": 13,
+   "expected": "rejected",
+   "outcome": "rejected",
+   "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+   "crash": false,
+   "seconds": 0.0004032750002807006,
+   "pass": true
+  }
+ ],
+ "checklist": [
+  {
+   "item": "Model loads successfully",
+   "pass": true,
+   "detail": "DocumentFraudDetector.load and ModelAPI.load_model; schema local-tamper-v2"
+  },
+  {
+   "item": "All demo images predict correctly",
+   "pass": false,
+   "detail": "4/5 correct; wrong: tampered_payslip_02.png"
+  },
+  {
+   "item": "Scores stable within +/-2%",
+   "pass": true,
+   "detail": "50 runs (10 per image); largest deviation 0.0000"
+  },
+  {
+   "item": "No corrupted model files",
+   "pass": true,
+   "detail": "SHA-256 matches record, schema and structure valid, training files unchanged"
+  },
+  {
+   "item": "No inference crashes",
+   "pass": true,
+   "detail": "0 crashes in 229 ModelAPI calls (4 controlled rejections of invalid files)"
+  },
+  {
+   "item": "Metrics generated",
+   "pass": true,
+   "detail": "accuracy, precision, recall, F1, confusion matrices on TEST and HOLDOUT; leakage checks pass"
+  },
+  {
+   "item": "Held-out accuracy above 75%",
+   "pass": true,
+   "detail": "TEST 86.67%, HOLDOUT 92.62%"
+  }
+ ],
+ "failure_scenarios": [
+  "- Demo: 1/5 images wrong: tampered_payslip_02.png (tampered -> genuine).",
+  "- TEST: 2/10 genuine flagged (FPR 20.00%), 0/5 tampered missed (FNR 0.00%).",
+  "- HOLDOUT: 1/83 genuine flagged (FPR 1.20%), 10/66 tampered missed (FNR 15.15%).",
+  "- Missed edits by what they left on the page: visible local edit 5, no pixel changed (edit on blank paper) 3, only the inserted words (white box on white paper) 2.",
+  "- Invalid uploads are rejected, not crashed: corrupt.jpg, truncated demo PNG (first 50% of bytes), empty file, text file named .png.",
+  "- Off-distribution inputs (non-document fixtures, small, grayscale, large) still get a score: clean_rgb.jpg 0.62, clean_rgb.png 0.62, grayscale.jpg 0.62, large_image.jpg 0.55, small_image.jpg 0.60, tampered_patch.jpg 0.42. The model has no 'not a document' output; such scores are not meaningful.",
+  "- Re-saved, resized or re-exposed copies are harder: cross-validation on processed copies of the training documents gives lower accuracy than on pristine files (logs/training_log_v2.txt; logs/model_stability_report.txt section 6)."
+ ],
+ "recommendations": [
+  "- The accuracy requirement is met on synthetic data (HOLDOUT 92.62%). The next limit is real documents: collect a labelled set of real (consented or public-sample) payslips, statements and IDs and measure before any production use.",
+  "- Robustness to re-saving: processed copies are classified less accurately than pristine files, and JPEG is the weakest case. Score tiles relative to the page's own compression level (estimated JPEG quality) instead of absolute levels, and widen the processing used in training.",
+  "- Blank-paper edits: some generated 'tampered' documents change no pixel. Fix the generator to place edits on content (or record the edit box) so labels match what is on the page; report detection only on edits that changed pixels.",
+  "- Localisation: flagged_regions now boxes the anomalous region for flagged documents (logs/localization_report.txt); it misses most text overlays on bank statements, where the inserted words share the page's ink level.",
+  "- Keep the evaluation clean: HOLDOUT and TEST have now been used once for v2. A future model needs a new holdout set (new seed) so it is not selected on these.",
+  "- Calibrate the score and add a 'needs review' band around the threshold, chosen on validation data.",
+  "- Pin scikit-learn, numpy, OpenCV, Pillow and SciPy, record the model SHA-256 per release, and re-run scripts/model_stability_test.py and scripts/model_validation.py after every dependency or model change."
+ ]
+}

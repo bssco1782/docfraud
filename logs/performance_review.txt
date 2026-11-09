@@ -1,0 +1,58 @@
+==============================================================================
+DOCUMENT FRAUD DETECTION API - PERFORMANCE REVIEW
+==============================================================================
+Generated   : 2026-09-26 15:32:49 UTC
+Machine     : Linux x86_64, 4 CPUs, Python 3.11.15
+Server      : uvicorn, 1 worker, MAX_CONCURRENT_ANALYSES=2
+
+1. START-UP
+------------------------------------------------------------------------------
+  Import backend.main (fresh interpreter)  : 1.32 s
+  uvicorn launch -> /health 200            : 1.65 s (includes imports, startup validation and model load)
+  Server RSS at idle after start-up        : 178.5 MB
+
+2. PREDICTION TIME
+------------------------------------------------------------------------------
+  In-process, per stage (3 repeats x 5 demo images, 850x1050 PNG):
+    Model load (unpickle + validation) : 3 ms
+    load_image (decode + resize)            : mean      8 ms   median      7 ms   max     14 ms
+    ela_analysis (decodes again)            : mean    104 ms   median     71 ms   max    260 ms
+    extract_features (incl. ELA + decode)   : mean    199 ms   median    192 ms   max    260 ms
+    model predict_proba                     : mean     31 ms   median     27 ms   max     40 ms
+    Image is decoded twice per request (ELA + features): ~16 ms of ~199 ms feature time (8%)
+
+  End-to-end HTTP /verify, sequential (15 requests): mean    270 ms   median    264 ms   max    310 ms
+
+3. LARGE INPUTS (through the API)
+------------------------------------------------------------------------------
+  4000x5000 JPEG                      :   1.92 s   upload   0.8 MB   RSS 232.2 MB -> 262.6 MB
+  A4 PDF (page rendered at 200 DPI)   :   1.12 s   upload   2.7 MB   RSS 262.6 MB -> 296.9 MB
+
+4. MEMORY (server process)
+------------------------------------------------------------------------------
+  Idle after start-up : 178.5 MB
+  After all workloads : 489.7 MB
+  Peak (VmHWM)        : 489.7 MB
+
+5. CPU (server process)
+------------------------------------------------------------------------------
+  CPU time per /verify (sequential demo images): 275 ms
+  Clients  Requests   Throughput   Mean latency   Max latency   CPU util
+  1               4      3.70/s         256 ms        312 ms       101%
+  2               8      4.03/s         446 ms        568 ms       143%
+  4              16      3.79/s         892 ms       1162 ms       136%
+  (CPU util is server CPU seconds / wall seconds; 100% = one core fully busy.)
+
+6. MEMORY SOAK (fresh server per configuration)
+------------------------------------------------------------------------------
+  Each round: 4 concurrent clients x 5 demo requests, then one 4000x5000 image. RSS after each round (MB):
+  default allocator   : idle->rounds  179 367 442 465 450 450 496 450 453   (mean throughput 4.09/s)
+  MALLOC_ARENA_MAX=2  : idle->rounds  179 264 271 271 271 312 288 297 305   (mean throughput 3.73/s)
+  Interpretation: RSS that rises under concurrency and then levels off, and stays lower when
+  glibc arenas are capped (MALLOC_ARENA_MAX=2), is memory the allocator keeps per thread,
+  not an application leak. Capping arenas trades some throughput for a smaller footprint.
+
+MACHINE-READABLE SUMMARY
+------------------------------------------------------------------------------
+{"import_s": 1.32, "idle_rss_mb": 178.5, "peak_rss_mb": 489.7, "http_mean_ms": 270, "cpu_ms_per_request": 275, "throughput_rps": {"1": 3.7, "2": 4.03, "4": 3.79}, "soak_rss_mb": {"default allocator": [179, 367, 442, 465, 450, 450, 496, 450, 453], "MALLOC_ARENA_MAX=2": [179, 264, 271, 271, 271, 312, 288, 297, 305]}}
+==============================================================================

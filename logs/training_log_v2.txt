@@ -1,0 +1,39 @@
+--------------------------------
+DOCFRAUD MODEL v2 TRAINING LOG
+--------------------------------
+Generated (UTC): 2026-09-27T08:56:01.350616+00:00
+Script: scripts/train_tamper_model.py
+Environment: scikit-learn 1.9.1, numpy 2.4.6, opencv-python 5.0.0.93, pillow 12.3.0, scipy 1.17.1
+
+Model: data/models/fraud_model.pkl
+  version 2.0.0, feature schema local-tamper-v2 (29 features)
+  RandomForest {'n_estimators': 300, 'class_weight': 'balanced', 'random_state': 42}
+  SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+
+Training data (frozen TEST and generated HOLDOUT excluded; checked by SHA-256):
+  TRAIN: 60 frozen-split images; DEV: 150 generated documents (seed 7001)
+  210 documents (125 genuine / 85 tampered) + 3 processed copies each = 840 rows
+  Processing (both classes, same rate): 1-2 of: JPEG q60-95, resize 0.85-1.15x, brightness 0.93-1.07, contrast 0.93-1.07
+
+Cross-validation (training data only):
+  Method: repeated stratified 5-fold x 3, grouped by document (copies of a validation document never in its training fold); 210 documents, 15 folds
+  Pristine documents:  accuracy 0.913 +/- 0.039, genuine flagged (FPR) 0.021, tampered missed (FNR) 0.184
+  Processed copies:    accuracy 0.752 +/- 0.034, genuine flagged (FPR) 0.180
+  Tampered recall by method (pristine, all repeats): blur_region 23/45, color_shift 63/69, noise_patch 76/78, text_overlay 46/63
+  Processed copies flagged as tampered, by operation: brightness/contrast genuine 29/378, brightness/contrast tampered 215/294, jpeg genuine 148/399, jpeg tampered 160/279, resize genuine 26/348, resize tampered 125/192
+  Accuracy by source (majority vote over repeats): train 0.917, dev 0.927
+
+Feature importances (top 10):
+  colour_rare_blob_0_5pct          0.0687
+  noise_anomalous_frac             0.0673
+  colour_rare_blob_2pct            0.0562
+  ink_rare_frac                    0.0548
+  noise_blob_k4                    0.0545
+  flat_frac                        0.0542
+  colour_rare_blob_4pct            0.0522
+  jpeg_grid                        0.0493
+  paper_colours                    0.0480
+  noise_blob_k2                    0.0478
+
+Decision threshold: 0.5 (TAMPER_THRESHOLD, unchanged). Scores are uncalibrated RF vote fractions.
+Held-out evaluation: scripts/model_validation.py (frozen TEST + generated HOLDOUT).

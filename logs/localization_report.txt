@@ -1,0 +1,78 @@
+--------------------------------
+DOCFRAUD LOCALISATION REPORT (flagged_regions)
+--------------------------------
+Generated (UTC): 2026-09-27T11:04:35+00:00
+Script: scripts/localization_eval.py
+Model: data/models/fraud_model.pkl v2.0.0 (local-tamper-v2), SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Rule: regions in core/tamper_features.LOCATE_MASKS; at most 5, largest first; the API returns them only when tamper_risk_score >= 0.5.
+Ground truth: replayed generator runs (true edit rectangle and changed pixels per edit).
+
+DEV (design set - thresholds chosen here; optimistic)
+------------------------------------------------------------
+  150 generated documents, model-v2 training data (scores in-sample).
+  Locator (every document):
+    edits with changed pixels: 59
+    hit (a box on the edit):   49/59 (83.1%)
+    top-1 hit (largest box):   49/59 (83.1%)
+    box precision:             54/54 (100.0%)
+    mean best IoU:             0.57
+    hit by edit method:        blur_region 7/7, color_shift 12/16, noise_patch 19/19, text_overlay 11/17
+    misses:                    text_overlay on bank_statement 6, color_shift on id_proof 3, color_shift on payslip 1
+    genuine documents with boxes: 1/87; no-pixel edits with boxes: 0/4
+  API (/verify: regions only when flagged):
+    edits with changed pixels: 59; flagged by the model: 59
+    hit (a box on the edit):   49/59 (83.1%)
+    top-1 hit (largest box):   49/59 (83.1%)
+    box precision:             54/54 (100.0%)
+    mean best IoU:             0.57
+    hit by edit method:        blur_region 7/7, color_shift 12/16, noise_patch 19/19, text_overlay 11/17
+    misses:                    text_overlay on bank_statement 6, color_shift on id_proof 3, color_shift on payslip 1
+    genuine documents with boxes: 0/87; no-pixel edits with boxes: 0/4
+    flagged edits without a box: 10
+
+HELD-OUT (HOLDOUT 149 + frozen TEST 15; measured once after the design was frozen)
+------------------------------------------------------------
+  Never used to choose thresholds; the model never trained on them.
+  Locator (every document):
+    edits with changed pixels: 67
+    hit (a box on the edit):   57/67 (85.1%)
+    top-1 hit (largest box):   54/67 (80.6%)
+    box precision:             63/71 (88.7%)
+    mean best IoU:             0.61
+    hit by edit method:        blur_region 7/7, color_shift 12/13, noise_patch 28/28, text_overlay 10/19
+    misses:                    text_overlay on bank_statement 7, text_overlay on id_proof 2, color_shift on id_proof 1
+    genuine documents with boxes: 9/93; no-pixel edits with boxes: 0/4
+  API (/verify: regions only when flagged):
+    edits with changed pixels: 67; flagged by the model: 60
+    hit (a box on the edit):   55/67 (82.1%)
+    top-1 hit (largest box):   52/67 (77.6%)
+    box precision:             61/69 (88.4%)
+    mean best IoU:             0.58
+    hit by edit method:        blur_region 7/7, color_shift 10/13, noise_patch 28/28, text_overlay 10/19
+    misses:                    text_overlay on bank_statement 7, color_shift on payslip 2, text_overlay on id_proof 2, color_shift on id_proof 1
+    genuine documents with boxes: 2/93; no-pixel edits with boxes: 0/4
+    flagged edits without a box: 4
+
+RESOLUTION (DEV pages resampled with Lanczos; measurement only)
+------------------------------------------------------------
+  The tile thresholds were chosen at the generator's page size (850 x 1100 px). A resampled page gets
+  new anti-aliased colours and different noise, so the colour and noise masks fire on genuine pages too;
+  the model's score, built from the same tile maps, is unreliable there as well
+  (logs/model_robustness_report.txt).
+  scale  locator hit  locator top-1  genuine w/ locator boxes  genuine flagged  API hit  genuine w/ API boxes
+  1.00x   49/59       49/59          1/87                      0/87            49/59     0/87
+  0.75x   37/59       24/59         87/87                      4/87            19/59     4/87
+  1.50x   46/59       35/59         87/87                     55/87            42/59    55/87
+  2.50x   44/59       22/59         87/87                     86/87            44/59    86/87
+  Boxes (and scores) are only meaningful for pages at the resolution the model was trained on;
+  normalising page resolution before analysis is v3 work (logs/model_release_notes.txt).
+
+Cost
+------------------------------------------------------------
+  extract_tamper_features 111 ms vs extract_with_regions 114 ms per page (median over 10 pages); the model sees identical features.
+
+Notes
+------------------------------------------------------------
+  - A 'hit' needs only an intersection with the edit rectangle; IoU shows how tight the box is. Ink boxes cover the inserted words, which are smaller than the edit's white box, so their IoU is low even when correct.
+  - A text overlay is found through its ink (a run of glyphs with a darkness level rare on the page) or, on tinted paper, through its white box; where the page's own text shares the overlay's darkness level, neither signal fires.
+  - Regions describe where the page is anomalous, not proof of an edit; synthetic data only.

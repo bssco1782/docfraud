@@ -1,0 +1,93 @@
+================================================================================
+           DOCUMENT FRAUD DETECTION API - PERFORMANCE & LOAD TEST REPORT
+================================================================================
+Generated At:        2026-09-26 15:55:47 UTC
+Environment:         Live HTTP Server (http://127.0.0.1:8780)
+Platform:            Python 3.11.15 on linux
+Model Architecture:  RandomForestClassifier (100 estimators, 22 forensic features)
+Event Loop Model:    FastAPI + asyncio + threadpool offloading (asyncio.to_thread)
+================================================================================
+
+1. TEST CONFIGURATION
+--------------------------------------------------------------------------------
+- Standard Concurrency Test:
+  * Simulated Users:       5 concurrent users
+  * Requests per User:     10 sequential requests per user
+  * Total Requests:        50 requests per endpoint
+  * Endpoints Evaluated:   GET /health, POST /verify
+
+- Stress Testing Matrix:
+  * Tiers Evaluated:       5, 10, and 20 concurrent users
+  * Workload Profile:      High-throughput simultaneous forensic image uploads
+  * Payload Type:          Authentic RGB Document Image (PNG/JPEG)
+  * Target Success Rate:   > 95%
+  * Target Average Latency:< 2.000 seconds for /verify, < 50ms for /health
+
+================================================================================
+2. PERFORMANCE METRICS SUMMARY (5 CONCURRENT USERS, 50 REQUESTS)
+================================================================================
+[GET /health - System Readiness Check]
+- Status:                PASS (meets success-rate and average-latency targets)
+- Total Requests:        50
+- Success Rate:          100.00% (50/50)
+- Failure Rate:          0.00% (0 failed)
+- Total Test Duration:   0.079 s
+- Throughput:            633.77 req/sec
+- Average Response Time: 7.49 ms (0.0075 s)
+- Min Response Time:     1.91 ms (0.0019 s)
+- Median (p50):          6.37 ms (0.0064 s)
+- 95th Percentile (p95): 16.88 ms (0.0169 s)
+- 99th Percentile (p99): 17.16 ms (0.0172 s)
+- Max Response Time:     17.16 ms (0.0172 s)
+- Tester process RSS:    0.0 MB -> 0.0 MB (server memory only when --in-process; 0.0 = psutil not installed)
+
+[POST /verify - Forensic Document Verification]
+- Status:                PASS (meets success-rate and average-latency targets)
+- Total Requests:        50
+- Success Rate:          100.00% (50/50)
+- Failure Rate:          0.00% (0 failed)
+- Total Test Duration:   12.398 s
+- Throughput:            4.03 req/sec
+- Average Response Time: 1.194 s (1194.27 ms)
+- Min Response Time:     0.722 s (721.65 ms)
+- Median (p50):          1.129 s (1129.12 ms)
+- 95th Percentile (p95): 1.624 s (1624.00 ms)
+- 99th Percentile (p99): 1.739 s (1739.14 ms)
+- Max Response Time:     1.739 s (1739.14 ms)
+- Tester process RSS:    0.0 MB -> 0.0 MB (server memory only when --in-process; 0.0 = psutil not installed)
+- Concurrent uploads:    50 succeeded, 0 failed, status codes {200: 50}
+
+================================================================================
+3. STRESS TESTING RESULTS (SCALABILITY ACROSS CONCURRENCY TIERS)
+================================================================================
+| Concurrent Users | Total Reqs | Success Rate | Throughput (req/s) | Avg Latency | p95 Latency | Max Latency |
+|------------------|------------|--------------|---------------------|-------------|-------------|-------------|
+| 5                | 10         |       100.0% |              3.62  |      1.189s |      1.824s |      1.824s |
+| 10               | 20         |       100.0% |              4.11  |      1.666s |      3.463s |      3.463s |
+| 20               | 40         |       100.0% |              4.22  |      3.228s |      8.090s |      8.247s |
+
+Observations (computed from the table above):
+- 5 users: avg 1.19s, p95 1.82s, 3.62 req/s, 100.0% success -> meets the < 2.0s / > 95% target
+- 10 users: avg 1.67s, p95 3.46s, 4.11 req/s, 100.0% success -> meets the < 2.0s / > 95% target
+- 20 users: avg 3.23s, p95 8.09s, 4.22 req/s, 100.0% success -> misses the < 2.0s / > 95% target
+- Throughput stays near 4.2 req/s at every tier: analysis is CPU-bound, so extra users
+  queue and latency grows roughly in proportion to the number of concurrent users.
+
+================================================================================
+4. NOTES
+================================================================================
+- Feature extraction (ELA, edge and noise statistics) is CPU-bound; one uvicorn process
+  runs at most MAX_CONCURRENT_ANALYSES analyses at once (default 2) and queues the rest.
+- /health does not wait for analyses, so it stays fast while /verify is busy.
+- For server memory and CPU per request use scripts/performance_review.py.
+- More throughput needs more processes (uvicorn --workers N) or machines; not measured.
+
+================================================================================
+5. ACCEPTANCE CRITERIA (5 CONCURRENT USERS)
+================================================================================
+[x] No failed /verify requests       YES (0 failed)
+[x] No 5xx server errors             YES (0 server errors)
+[x] Success rate > 95%               YES (100.0%)
+[x] /verify average < 2.0 s          YES (1.194 s)
+[x] /health average < 50 ms          YES (7.5 ms)
+================================================================================

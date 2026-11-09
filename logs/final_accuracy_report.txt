@@ -1,0 +1,131 @@
+==============================================================================
+DOCFRAUD - FINAL ACCURACY CHECK (Day 10, Founder A)
+==============================================================================
+Generated (UTC): 2026-09-27T11:39:28+00:00
+Script         : scripts/model_accuracy_eval.py
+Model          : data/models/fraud_model.pkl v2.0.0 (local-tamper-v2)
+SHA-256        : 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Decision rule  : tampered if tamper_risk_score >= 0.5 (TAMPER_THRESHOLD; not tuned)
+Scored through : ModelAPI.predict (the /verify pipeline), one pass per document
+Positive class : tampered
+Result         : release requirements MET
+
+1. RELEASE REQUIREMENTS
+------------------------------------------------------------------------------
+  [PASS] Frozen TEST split intact                             15/15 SHA-256 and dataset fingerprint match
+  [PASS] No held-out document used in training                no TEST image among the training files: 0 of 15; no HOLDOUT image among the training files: 0 of 149
+  [PASS] TEST accuracy above 75%                              86.67% (13/15)
+  [PASS] HOLDOUT accuracy above 75%                           92.62% (138/149)
+  [PASS] TEST accuracy meets the 78% sprint target            86.67%
+  [PASS] HOLDOUT accuracy meets the 78% sprint target         92.62%
+  [PASS] Metrics identical to the recorded v2 evaluation      confusion matrices equal to Day 8 validation, Day 9 review
+
+2. METRICS
+------------------------------------------------------------------------------
+TEST (15 documents: 10 genuine, 5 tampered)
+  Accuracy     86.67%  (13/15; 95% CI 62.12% - 96.26%)
+  Precision    71.43%  (95% CI 35.89% - 91.78%)
+  Recall      100.00%  (95% CI 56.55% - 100.00%)
+  F1 score     0.8333
+  FPR          20.00%  (genuine flagged)    FNR 0.00% (tampered missed)
+  Confusion matrix:
+                       Pred Genuine   Pred Tampered
+    Actual Genuine     TN = 8         FP = 2
+    Actual Tampered    FN = 0         TP = 5
+
+HOLDOUT (149 documents: 83 genuine, 66 tampered)
+  Accuracy     92.62%  (138/149; 95% CI 87.26% - 95.83%)
+  Precision    98.25%  (95% CI 90.71% - 99.69%)
+  Recall       84.85%  (95% CI 74.31% - 91.56%)
+  F1 score     0.9106
+  FPR           1.20%  (genuine flagged)    FNR 15.15% (tampered missed)
+  Confusion matrix:
+                       Pred Genuine   Pred Tampered
+    Actual Genuine     TN = 82        FP = 1
+    Actual Tampered    FN = 10        TP = 56
+
+COMBINED (TEST + HOLDOUT) (164 documents: 93 genuine, 71 tampered)
+  Accuracy     92.07%  (151/164; 95% CI 86.91% - 95.31%)
+  Precision    95.31%
+  Recall       85.92%
+  F1 score     0.9037
+  FPR           3.23%  (genuine flagged)    FNR 14.08% (tampered missed)
+  Confusion matrix:
+                       Pred Genuine   Pred Tampered
+    Actual Genuine     TN = 90        FP = 3
+    Actual Tampered    FN = 10        TP = 61
+
+  Per class:
+    TEST     genuine   precision  100.00%  recall   80.00%  F1 0.8889  support 10
+    TEST     tampered  precision   71.43%  recall  100.00%  F1 0.8333  support 5
+    HOLDOUT  genuine   precision   89.13%  recall   98.80%  F1 0.9371  support 83
+    HOLDOUT  tampered  precision   98.25%  recall   84.85%  F1 0.9106  support 66
+
+  Accuracy by document type:
+    TEST     bank_statement 1/3, id_proof 6/6, payslip 6/6
+    HOLDOUT  bank_statement 43/50, id_proof 47/49, payslip 48/50
+  Tampered documents caught, by edit method:
+    TEST     color_shift 1/1, noise_patch 2/2, text_overlay 2/2
+    HOLDOUT  blur_region 8/11, color_shift 10/12, noise_patch 26/26, text_overlay 12/17
+
+3. COMPARISON WITH PREVIOUS METRICS
+------------------------------------------------------------------------------
+  When              Model                       Set             n  Accuracy  Precision   Recall      F1
+  Day 3             v0 (15 features, 25 docs)   5-image test    5    80.00%     50.00%  100.00%  0.6667
+  Day 5             v1 (day4-v2-22)             frozen TEST    15    60.00%     44.44%   80.00%  0.5714
+  Day 6             v1 (day4-v2-22)             frozen TEST    15    60.00%     44.44%   80.00%  0.5714
+  Day 8             v1 (day4-v2-22)             frozen TEST    15    60.00%     44.44%   80.00%  0.5714
+  Day 8 validation  v2 (local-tamper-v2)        TEST           15    86.67%     71.43%  100.00%  0.8333
+  Day 8 validation  v2 (local-tamper-v2)        HOLDOUT       149    92.62%     98.25%   84.85%  0.9106
+  Day 9 review      v2 (local-tamper-v2)        TEST           15    86.67%     71.43%  100.00%  0.8333
+  Day 9 review      v2 (local-tamper-v2)        HOLDOUT       149    92.62%     98.25%   84.85%  0.9106
+  Day 10 (this run) v2 (local-tamper-v2)        TEST           15    86.67%     71.43%  100.00%  0.8333
+  Day 10 (this run) v2 (local-tamper-v2)        HOLDOUT       149    92.62%     98.25%   84.85%  0.9106
+  Sources:
+    Day 3 5-image test: PROGRESS.md Day 3
+    Day 5 frozen TEST: v1 model metadata / PROGRESS.md Day 5
+    Day 6 frozen TEST: logs/final_validation_report.txt (2026-09-25T08:55:52+00:00)
+    Day 8 frozen TEST: PROGRESS.md Day 8 (v1 revalidation)
+    Day 8 validation TEST: logs/model_validation_results.json (generated 2026-09-27)
+    Day 8 validation HOLDOUT: logs/model_validation_results.json (generated 2026-09-27)
+    Day 9 review TEST: logs/model_review_results.json (generated 2026-09-27)
+    Day 9 review HOLDOUT: logs/model_review_results.json (generated 2026-09-27)
+  Change since the recorded v2 evaluation: none - identical confusion matrices (deterministic model, unchanged files).
+  Against model v1 on the same 15 TEST images: 60.00% (9/15) -> 86.67% (13/15).
+
+4. ERRORS
+------------------------------------------------------------------------------
+  False positives (3): genuine/bank_stmt_059.png 0.58, genuine/bank_stmt_053.png 0.50, genuine/bank_stmt_2084.png 0.59
+  False negatives (10), by what the edit left on the page:
+    visible local edit: 5 (color_shift 0.34, color_shift 0.31, text_overlay 0.37, text_overlay 0.25, text_overlay 0.46)
+    no pixel changed (edit on blank paper): 3 (blur_region 0.21, blur_region 0.03, blur_region 0.00)
+    only the inserted words (white box on white paper): 2 (text_overlay 0.48, text_overlay 0.34)
+  Near the threshold (|score - 0.5| <= 0.05): 4 documents, 3 of them wrong.
+
+  Frozen TEST set, per image:
+    Filename                     | Doc type       | Method       | Actual   | Predicted |  Risk | Correct
+    ----------------------------------------------------------------------------------------------------
+    tampered/payslip_033.png     | payslip        | noise_patch  | tampered | tampered  |  0.98 | YES
+    genuine/id_proof_066.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES
+    genuine/payslip_042.png      | payslip        | -            | genuine  | genuine   |  0.30 | YES
+    genuine/bank_stmt_059.png    | bank_statement | -            | genuine  | tampered  |  0.58 | NO
+    tampered/id_proof_024.png    | id_proof       | color_shift  | tampered | tampered  |  0.74 | YES
+    tampered/payslip_030.png     | payslip        | noise_patch  | tampered | tampered  |  0.97 | YES
+    genuine/bank_stmt_049.png    | bank_statement | -            | genuine  | genuine   |  0.09 | YES
+    genuine/id_proof_073.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES
+    genuine/payslip_036.png      | payslip        | -            | genuine  | genuine   |  0.02 | YES
+    genuine/payslip_010.png      | payslip        | -            | genuine  | genuine   |  0.07 | YES
+    tampered/payslip_043.png     | payslip        | text_overlay | tampered | tampered  |  0.83 | YES
+    genuine/bank_stmt_053.png    | bank_statement | -            | genuine  | tampered  |  0.50 | NO
+    genuine/id_proof_022.png     | id_proof       | -            | genuine  | genuine   |  0.02 | YES
+    tampered/id_proof_071.png    | id_proof       | text_overlay | tampered | tampered  |  0.83 | YES
+    genuine/id_proof_061.png     | id_proof       | -            | genuine  | genuine   |  0.13 | YES
+
+5. NOTES
+------------------------------------------------------------------------------
+  - TEST has only 15 images: its 95% interval runs well below 75%. HOLDOUT (149 documents, generated
+    after the model was saved) is the main evidence.
+  - Both sets come from the same synthetic generator as the training data. Accuracy on real
+    documents is unknown, and degraded files score much lower (logs/model_robustness_report.txt).
+  - TEST and HOLDOUT have been scored several times since Day 8 but never used to train, tune or
+    choose anything. A new model needs a new holdout set.

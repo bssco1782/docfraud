@@ -1,0 +1,25 @@
+============================================================
+Date (UTC):        2026-09-24T14:54:43.338336+00:00
+Dataset sha256:    b6b1ec12a66e2f13a8a21eb7e8f40bc27b144132ba201643ce736a2b71e847d5
+Dataset size:      75 usable of 75 (skipped 0)
+Genuine:           48
+Tampered:          27
+Evaluation:        holdout 80/20 (train=60, test=15)
+Train size:        60
+Test size:         15
+Random seed:       42
+Feature count:     22
+Feature schema:    day4-v2-22
+Feature names:     ela_mean, ela_std, ela_max, ela_p95, ela_high_ratio, ela_block_max_ratio, ela_hotspot_count, noise_std, noise_block_inconsistency, laplacian_var, blockiness, bytes_per_pixel, copy_move_matches, exif_edit_flag, text_height_std, image_width, image_height, aspect_ratio, grayscale_mean, grayscale_std, edge_density, dark_pixel_ratio
+RF params:         {'n_estimators': 100, 'class_weight': 'balanced', 'random_state': 42} (other params = sklearn defaults)
+Accuracy:          0.6000
+Precision:         0.4444  (positive class = tampered)
+Recall:            0.8000
+F1-score:          0.5714
+Confusion matrix (rows=actual, cols=predicted; [genuine, tampered]):
+                   [[5, 5], [1, 4]]
+TP=4 TN=5 FP=5 FN=1
+Test files:        tampered/payslip_033.png, genuine/id_proof_066.png, genuine/payslip_042.png, genuine/bank_stmt_059.png, tampered/id_proof_024.png, tampered/payslip_030.png, genuine/bank_stmt_049.png, genuine/id_proof_073.png, genuine/payslip_036.png, genuine/payslip_010.png, tampered/payslip_043.png, genuine/bank_stmt_053.png, genuine/id_proof_022.png, tampered/id_proof_071.png, genuine/id_proof_061.png
+Model path:        C:\MAIN START UP BACKEND\data\models\fraud_model.pkl
+Saved model is refit on all usable samples after holdout evaluation.
+

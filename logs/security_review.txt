@@ -1,0 +1,146 @@
+==============================================================================
+DOCUMENT FRAUD DETECTION API - SECURITY REVIEW (Day 9, Founder B)
+==============================================================================
+Scope      : backend/ (all), core/ image and PDF loading, tests/, scripts/ that
+             load models or touch the API
+Method     : code review; hostile-input probe through the API (19 crafted files);
+             live uvicorn server checked with curl; regression tests in
+             tests/test_hardening.py (28 tests)
+Environment: Linux x86_64, Python 3.11.15, 4 CPUs
+Not done   : dependency vulnerability scan (pip-audit not installed), penetration
+             test, review of a deployed/networked setup (none exists)
+
+Status key : FIXED = changed and covered by a test; NOT VULNERABLE = checked, no
+             change needed; ACCEPTED = known, documented, low risk for a prototype;
+             OPEN = needs work before real deployment
+
+------------------------------------------------------------------------------
+1. API KEY PROTECTION
+------------------------------------------------------------------------------
+S1  Key compared with `!=` (response time can leak how much of a guess matched)
+    FIXED    hmac.compare_digest (constant time). Test: same-length wrong key -> 403.
+S2  Public default key "default-api-key" used silently when API_KEY is unset
+    FIXED (warning) / OPEN (policy)
+             Startup now logs a WARNING for the default key and for keys shorter
+             than 16 characters. The server still starts with the default; a
+             deployment should refuse it (recommendation R1).
+S3  Unauthenticated requests
+    NOT VULNERABLE  /verify without a key -> 401, wrong key -> 403, checked before
+             the body is read (live: 12 MB upload without key answered in 1 ms).
+             Unknown routes -> 404 before auth, so route existence of protected
+             paths is not probed via 401/403.
+S4  Single shared key, no rotation, no per-client keys, plain-text in env
+    OPEN     R2.
+
+------------------------------------------------------------------------------
+2. FILE UPLOAD VALIDATION
+------------------------------------------------------------------------------
+S5  Extension allow-list (.jpg .jpeg .png .pdf), empty file, missing file
+    NOT VULNERABLE  Verified by existing tests and the probe.
+S6  Content not matching extension (text renamed .jpg, PDF renamed .png)
+    NOT VULNERABLE  Decoders reject it -> 400. A PNG renamed .pdf is opened by
+             PyMuPDF as an image document and analysed normally (harmless).
+S7  Decompression bomb: 140 KB PNG declaring 12000x12000 px
+    FIXED    Before: accepted, 9.4 s, process peak ~943 MB. After: rejected from
+             the header before decoding, 400 in 0.01 s. Limit MAX_IMAGE_PIXELS
+             (40 MP) also set as Pillow's own bomb threshold.
+S8  Oversized PDF page (page 1 is rasterised at 200 DPI)
+    FIXED    Page size is read before rendering; pages over 40 MP -> 400. (A
+             5000x5000 pt page would render to ~13900x13900 px, ~580 MB of
+             pixels - computed, not run; PyMuPDF already refused 14400 pt pages.)
+S9  Password-protected PDF
+    FIXED    Clear 400 "Password-protected PDFs are not supported" (was a
+             confusing "document closed" error).
+S10 Tiny / extremely narrow images (1x1, 20000x10)
+    FIXED    Were HTTP 500 from an OpenCV crash; now 400 (shortest side >= 16 px
+             after scaling to 2000 px).
+
+------------------------------------------------------------------------------
+3. FILE SIZE LIMITS
+------------------------------------------------------------------------------
+S11 Size enforced only after the whole multipart body was received and spooled
+    FIXED    FastAPI parses the form before the handler runs, so the old handler
+             checks ran after a client had uploaded everything. New
+             UploadSizeLimitMiddleware rejects Content-Length > MAX_FILE_SIZE + 64 KB
+             before reading, and counts bytes for chunked uploads.
+             Live: 12 MB upload -> 413 in 1 ms; 12 MB chunked (no Content-Length)
+             -> 413 in 46 ms. Unit test proves a streamed body is cut off at the
+             limit (read ~5 KB of a 1 MB stream).
+S12 Files just under 10 MB rejected because the multipart framing was counted
+    FIXED    (bug, see bug_fix_report.txt B5) Framing allowance of 64 KB; the file
+             part itself is still checked exactly against MAX_FILE_SIZE.
+
+------------------------------------------------------------------------------
+4. PATH TRAVERSAL
+------------------------------------------------------------------------------
+S13 Client filename such as ../../etc/passwd.png
+    NOT VULNERABLE  The upload is written to tempfile.NamedTemporaryFile (random
+             name in the system temp dir); the client filename only supplies the
+             extension. Hardened further: only Path(filename).name is passed on.
+             Test asserts the analyzer receives "passwd.png".
+S14 Temporary files
+    NOT VULNERABLE  Created with a random name, deleted in a finally block after
+             every prediction, including failures.
+S15 MODEL_PATH
+    ACCEPTED Operator-controlled environment variable, not reachable by clients.
+
+------------------------------------------------------------------------------
+5. INPUT SANITIZATION & INFORMATION DISCLOSURE
+------------------------------------------------------------------------------
+S16 Server temp paths in 400 messages ("Cannot open image '/tmp/tmpabc.png'")
+    FIXED    The path is replaced by the uploaded file's base name. Test asserts
+             the temp directory never appears in the error.
+S17 Exception text in 500 responses (e.g. OpenCV source paths and internals)
+    FIXED    500s now return "Internal Server Error: unexpected error ... (request
+             id X)"; the traceback is logged under the same request ID.
+S18 Log injection via filename control characters (e.g. ANSI escapes that
+    rewrite terminal output)
+    FIXED    Filenames are logged with repr(). Test sends a raw \x1b in the
+             multipart filename and checks the log line is escaped (the test fails
+             when the fix is reverted).
+S19 X-Request-ID header echoed into logs and responses
+    FIXED (by design) Accepted only if 1-64 chars of [A-Za-z0-9._-]; otherwise a
+             new ID is generated.
+S20 `threshold` query parameter
+    NOT VULNERABLE  Validated to [0, 1] -> 422 otherwise (still ignored).
+
+------------------------------------------------------------------------------
+6. TRANSPORT, CORS AND DEPLOYMENT
+------------------------------------------------------------------------------
+S21 CORS preflight rejected by the API-key middleware (OPTIONS has no key)
+    FIXED    Functional bug with security impact: browsers could not call /verify
+             cross-origin at all. Middleware order is now RequestContext -> CORS ->
+             API key -> upload limit. Live: preflight from an allowed origin -> 200,
+             from other origins -> 400.
+S22 allow_credentials=True together with allow_origins=["*"]
+    FIXED    Credentials are allowed only for an explicit origin list. Auth uses a
+             header, not cookies. Startup warns while CORS_ORIGINS=*.
+S23 No HTTPS, no rate limiting, no request queue limit
+    OPEN     R3, R4. Mitigated: size, pixel and concurrency limits bound the cost
+             of each request.
+S24 Model file loaded with pickle (arbitrary code if the file is replaced)
+    ACCEPTED Only the committed, trusted model is loaded; documented. R5.
+S25 /docs, /redoc, /openapi.json public
+    ACCEPTED Useful for the demo; disable in production (R6).
+S26 Unpinned dependencies
+    OPEN     R7.
+
+------------------------------------------------------------------------------
+RECOMMENDATIONS (not implemented)
+------------------------------------------------------------------------------
+R1  Refuse to start with the default API key unless an explicit dev flag is set.
+R2  Per-client API keys, stored hashed, with rotation and revocation.
+R3  Terminate TLS at a reverse proxy (nginx / cloud load balancer).
+R4  Rate limiting per key/IP and a bounded request queue (proxy or middleware).
+R5  Sign or hash-check the model file at startup (the demo manifest already
+    records its SHA-256; scripts/validate_environment.py checks it).
+R6  Serve docs only when an ENABLE_DOCS setting is true.
+R7  Pin dependency versions (known-good set in logs/environment_validation.txt)
+    and run pip-audit in CI.
+
+SUMMARY
+  Fixed: 14 (S1, S2 warning, S7-S12, S16-S19, S21, S22)
+  Not vulnerable after review: 6 (S3, S5, S6, S13, S14, S20)
+  Accepted for the prototype: 3 (S15, S24, S25)
+  Open before real deployment: 4 (S2 policy, S4, S23, S26)
+==============================================================================

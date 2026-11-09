@@ -1,0 +1,1861 @@
+{
+ "generated": "2026-09-27T11:39:28+00:00",
+ "environment": {
+  "python": "3.11.15",
+  "platform": "Linux x86_64",
+  "cpus": 4,
+  "packages": {
+   "scikit-learn": "1.9.1",
+   "numpy": "2.4.6",
+   "opencv-python": "5.0.0.93",
+   "pillow": "12.3.0",
+   "fastapi": "0.141.1"
+  }
+ },
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2"
+ },
+ "threshold": 0.5,
+ "frozen_split": [
+  {
+   "check": "exactly 15 test images",
+   "pass": true,
+   "detail": "n=15"
+  },
+  {
+   "check": "exactly 60 train images",
+   "pass": true,
+   "detail": "n=60"
+  },
+  {
+   "check": "test/train paths disjoint",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "test/train hashes disjoint",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "labels match folder",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "all 15 test hashes match frozen split",
+   "pass": true,
+   "detail": "15/15 match"
+  },
+  {
+   "check": "all 60 train hashes match frozen split",
+   "pass": true,
+   "detail": "60/60 match"
+  },
+  {
+   "check": "dataset fingerprint matches frozen split",
+   "pass": true,
+   "detail": "b6b1ec12a66e2f13"
+  }
+ ],
+ "frozen_split_ok": true,
+ "leakage": [
+  [
+   "model records its training files",
+   true,
+   "210 files"
+  ],
+  [
+   "no TEST image among the training files",
+   true,
+   "0 of 15"
+  ],
+  [
+   "no HOLDOUT image among the training files",
+   true,
+   "0 of 149"
+  ],
+  [
+   "HOLDOUT generated after the model was trained",
+   true,
+   "model 2026-09-27T08:56:01, holdout 2026-09-27T08:58:08"
+  ],
+  [
+   "no processed copy of a held-out image in training",
+   true,
+   "copies are made from training documents only"
+  ]
+ ],
+ "leakage_ok": true,
+ "sets": {
+  "TEST": {
+   "metrics": {
+    "tn": 8,
+    "fp": 2,
+    "fn": 0,
+    "tp": 5,
+    "n": 15,
+    "correct": 13,
+    "accuracy": 0.8666666666666667,
+    "precision": 0.7142857142857143,
+    "recall": 1.0,
+    "f1": 0.8333333333333333,
+    "fpr": 0.2,
+    "fnr": 0.0
+   },
+   "ci95": {
+    "accuracy": [
+     0.6211750079348376,
+     0.9626395301086407
+    ],
+    "precision": [
+     0.35892909014821267,
+     0.9177828342909844
+    ],
+    "recall": [
+     0.5655085052479191,
+     1.0
+    ]
+   },
+   "per_class": {
+    "genuine": {
+     "precision": 1.0,
+     "recall": 0.8,
+     "f1": 0.8888888888888888,
+     "support": 10
+    },
+    "tampered": {
+     "precision": 0.7142857142857143,
+     "recall": 1.0,
+     "f1": 0.8333333333333334,
+     "support": 5
+    }
+   },
+   "recall_by_method": {
+    "color_shift": [
+     1,
+     1
+    ],
+    "noise_patch": [
+     2,
+     2
+    ],
+    "text_overlay": [
+     2,
+     2
+    ]
+   },
+   "accuracy_by_doc_type": {
+    "bank_statement": [
+     1,
+     3
+    ],
+    "id_proof": [
+     6,
+     6
+    ],
+    "payslip": [
+     6,
+     6
+    ]
+   },
+   "per_image": [
+    {
+     "path": "tampered/payslip_033.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.98
+    },
+    {
+     "path": "genuine/id_proof_066.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "genuine/payslip_042.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.2967
+    },
+    {
+     "path": "genuine/bank_stmt_059.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "tampered",
+     "risk": 0.58
+    },
+    {
+     "path": "tampered/id_proof_024.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7433
+    },
+    {
+     "path": "tampered/payslip_030.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9667
+    },
+    {
+     "path": "genuine/bank_stmt_049.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0933
+    },
+    {
+     "path": "genuine/id_proof_073.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "genuine/payslip_036.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0167
+    },
+    {
+     "path": "genuine/payslip_010.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.07
+    },
+    {
+     "path": "tampered/payslip_043.png",
+     "doc_type": "payslip",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.83
+    },
+    {
+     "path": "genuine/bank_stmt_053.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "tampered",
+     "risk": 0.5033
+    },
+    {
+     "path": "genuine/id_proof_022.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0233
+    },
+    {
+     "path": "tampered/id_proof_071.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.83
+    },
+    {
+     "path": "genuine/id_proof_061.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1333
+    }
+   ]
+  },
+  "HOLDOUT": {
+   "metrics": {
+    "tn": 82,
+    "fp": 1,
+    "fn": 10,
+    "tp": 56,
+    "n": 149,
+    "correct": 138,
+    "accuracy": 0.9261744966442953,
+    "precision": 0.9824561403508771,
+    "recall": 0.8484848484848485,
+    "f1": 0.9105691056910568,
+    "fpr": 0.012048192771084338,
+    "fnr": 0.15151515151515152
+   },
+   "ci95": {
+    "accuracy": [
+     0.8726455137481939,
+     0.9582800981271071
+    ],
+    "precision": [
+     0.9070903306173727,
+     0.9968964152933198
+    ],
+    "recall": [
+     0.7430687139857184,
+     0.9155645361116449
+    ]
+   },
+   "per_class": {
+    "genuine": {
+     "precision": 0.8913043478260869,
+     "recall": 0.9879518072289156,
+     "f1": 0.9371428571428572,
+     "support": 83
+    },
+    "tampered": {
+     "precision": 0.9824561403508771,
+     "recall": 0.8484848484848485,
+     "f1": 0.9105691056910569,
+     "support": 66
+    }
+   },
+   "recall_by_method": {
+    "blur_region": [
+     8,
+     11
+    ],
+    "color_shift": [
+     10,
+     12
+    ],
+    "noise_patch": [
+     26,
+     26
+    ],
+    "text_overlay": [
+     12,
+     17
+    ]
+   },
+   "accuracy_by_doc_type": {
+    "bank_statement": [
+     43,
+     50
+    ],
+    "id_proof": [
+     47,
+     49
+    ],
+    "payslip": [
+     48,
+     50
+    ]
+   },
+   "per_image": [
+    {
+     "path": "genuine/payslip_2001.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0433
+    },
+    {
+     "path": "genuine/payslip_2002.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1333
+    },
+    {
+     "path": "genuine/payslip_2003.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0667
+    },
+    {
+     "path": "tampered/payslip_2004.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.34
+    },
+    {
+     "path": "tampered/payslip_2005.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9967
+    },
+    {
+     "path": "tampered/payslip_2006.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.85
+    },
+    {
+     "path": "genuine/payslip_2007.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.12
+    },
+    {
+     "path": "genuine/payslip_2008.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0067
+    },
+    {
+     "path": "genuine/payslip_2009.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1867
+    },
+    {
+     "path": "genuine/payslip_2010.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0267
+    },
+    {
+     "path": "genuine/payslip_2011.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3067
+    },
+    {
+     "path": "tampered/payslip_2012.png",
+     "doc_type": "payslip",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9933
+    },
+    {
+     "path": "tampered/payslip_2013.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.91
+    },
+    {
+     "path": "tampered/payslip_2014.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9633
+    },
+    {
+     "path": "tampered/payslip_2015.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 1.0
+    },
+    {
+     "path": "genuine/payslip_2016.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.12
+    },
+    {
+     "path": "tampered/payslip_2017.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.64
+    },
+    {
+     "path": "genuine/payslip_2018.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1
+    },
+    {
+     "path": "genuine/payslip_2019.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0733
+    },
+    {
+     "path": "tampered/payslip_2020.png",
+     "doc_type": "payslip",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.98
+    },
+    {
+     "path": "tampered/payslip_2021.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.98
+    },
+    {
+     "path": "genuine/payslip_2022.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0333
+    },
+    {
+     "path": "genuine/payslip_2023.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.01
+    },
+    {
+     "path": "genuine/payslip_2024.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.01
+    },
+    {
+     "path": "tampered/payslip_2025.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.31
+    },
+    {
+     "path": "tampered/payslip_2026.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.94
+    },
+    {
+     "path": "tampered/payslip_2027.png",
+     "doc_type": "payslip",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8467
+    },
+    {
+     "path": "genuine/payslip_2028.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0767
+    },
+    {
+     "path": "genuine/payslip_2029.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1233
+    },
+    {
+     "path": "genuine/payslip_2030.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "genuine/payslip_2031.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0433
+    },
+    {
+     "path": "tampered/payslip_2032.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9067
+    },
+    {
+     "path": "tampered/payslip_2033.png",
+     "doc_type": "payslip",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.6733
+    },
+    {
+     "path": "genuine/payslip_2034.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.19
+    },
+    {
+     "path": "tampered/payslip_2035.png",
+     "doc_type": "payslip",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.78
+    },
+    {
+     "path": "tampered/payslip_2036.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.86
+    },
+    {
+     "path": "tampered/payslip_2037.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9667
+    },
+    {
+     "path": "tampered/payslip_2038.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.95
+    },
+    {
+     "path": "tampered/payslip_2039.png",
+     "doc_type": "payslip",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7667
+    },
+    {
+     "path": "tampered/payslip_2040.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9767
+    },
+    {
+     "path": "genuine/payslip_2041.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3633
+    },
+    {
+     "path": "tampered/payslip_2042.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.97
+    },
+    {
+     "path": "genuine/payslip_2043.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0167
+    },
+    {
+     "path": "tampered/payslip_2044.png",
+     "doc_type": "payslip",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9233
+    },
+    {
+     "path": "genuine/payslip_2045.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1867
+    },
+    {
+     "path": "tampered/payslip_2046.png",
+     "doc_type": "payslip",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9933
+    },
+    {
+     "path": "genuine/payslip_2047.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1467
+    },
+    {
+     "path": "genuine/payslip_2048.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.16
+    },
+    {
+     "path": "tampered/payslip_2049.png",
+     "doc_type": "payslip",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.6267
+    },
+    {
+     "path": "genuine/payslip_2050.png",
+     "doc_type": "payslip",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.13
+    },
+    {
+     "path": "genuine/bank_stmt_2051.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0933
+    },
+    {
+     "path": "genuine/bank_stmt_2052.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0767
+    },
+    {
+     "path": "tampered/bank_stmt_2053.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8567
+    },
+    {
+     "path": "tampered/bank_stmt_2054.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7233
+    },
+    {
+     "path": "genuine/bank_stmt_2055.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1933
+    },
+    {
+     "path": "genuine/bank_stmt_2056.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.21
+    },
+    {
+     "path": "genuine/bank_stmt_2057.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.06
+    },
+    {
+     "path": "tampered/bank_stmt_2058.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.2133
+    },
+    {
+     "path": "tampered/bank_stmt_2059.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.89
+    },
+    {
+     "path": "tampered/bank_stmt_2060.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7267
+    },
+    {
+     "path": "genuine/bank_stmt_2061.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0867
+    },
+    {
+     "path": "tampered/bank_stmt_2062.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8933
+    },
+    {
+     "path": "genuine/bank_stmt_2063.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.2767
+    },
+    {
+     "path": "genuine/bank_stmt_2064.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0767
+    },
+    {
+     "path": "tampered/bank_stmt_2065.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.48
+    },
+    {
+     "path": "tampered/bank_stmt_2066.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8967
+    },
+    {
+     "path": "tampered/bank_stmt_2067.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9
+    },
+    {
+     "path": "tampered/bank_stmt_2068.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.61
+    },
+    {
+     "path": "genuine/bank_stmt_2069.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1533
+    },
+    {
+     "path": "genuine/bank_stmt_2070.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3767
+    },
+    {
+     "path": "genuine/bank_stmt_2071.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.2433
+    },
+    {
+     "path": "genuine/bank_stmt_2072.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.08
+    },
+    {
+     "path": "tampered/bank_stmt_2073.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.3667
+    },
+    {
+     "path": "genuine/bank_stmt_2074.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1967
+    },
+    {
+     "path": "genuine/bank_stmt_2075.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3333
+    },
+    {
+     "path": "genuine/bank_stmt_2076.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.4667
+    },
+    {
+     "path": "genuine/bank_stmt_2077.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.22
+    },
+    {
+     "path": "tampered/bank_stmt_2078.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.5733
+    },
+    {
+     "path": "genuine/bank_stmt_2079.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0833
+    },
+    {
+     "path": "tampered/bank_stmt_2080.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9433
+    },
+    {
+     "path": "genuine/bank_stmt_2081.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.2833
+    },
+    {
+     "path": "tampered/bank_stmt_2082.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.2533
+    },
+    {
+     "path": "genuine/bank_stmt_2083.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.21
+    },
+    {
+     "path": "genuine/bank_stmt_2084.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "tampered",
+     "risk": 0.59
+    },
+    {
+     "path": "tampered/bank_stmt_2085.png",
+     "doc_type": "bank_statement",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9667
+    },
+    {
+     "path": "tampered/bank_stmt_2086.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.91
+    },
+    {
+     "path": "tampered/bank_stmt_2087.png",
+     "doc_type": "bank_statement",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.63
+    },
+    {
+     "path": "genuine/bank_stmt_2088.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3233
+    },
+    {
+     "path": "genuine/bank_stmt_2089.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.07
+    },
+    {
+     "path": "genuine/bank_stmt_2090.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.29
+    },
+    {
+     "path": "genuine/bank_stmt_2091.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.3133
+    },
+    {
+     "path": "tampered/bank_stmt_2092.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.4567
+    },
+    {
+     "path": "genuine/bank_stmt_2093.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.11
+    },
+    {
+     "path": "tampered/bank_stmt_2094.png",
+     "doc_type": "bank_statement",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.34
+    },
+    {
+     "path": "genuine/bank_stmt_2095.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.32
+    },
+    {
+     "path": "genuine/bank_stmt_2096.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.34
+    },
+    {
+     "path": "genuine/bank_stmt_2097.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0733
+    },
+    {
+     "path": "genuine/bank_stmt_2098.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.23
+    },
+    {
+     "path": "genuine/bank_stmt_2099.png",
+     "doc_type": "bank_statement",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1233
+    },
+    {
+     "path": "tampered/bank_stmt_2100.png",
+     "doc_type": "bank_statement",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9267
+    },
+    {
+     "path": "tampered/id_proof_2101.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9533
+    },
+    {
+     "path": "genuine/id_proof_2102.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.01
+    },
+    {
+     "path": "genuine/id_proof_2103.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0367
+    },
+    {
+     "path": "tampered/id_proof_2104.png",
+     "doc_type": "id_proof",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.0267
+    },
+    {
+     "path": "tampered/id_proof_2105.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9733
+    },
+    {
+     "path": "tampered/id_proof_2106.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8533
+    },
+    {
+     "path": "genuine/id_proof_2107.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0067
+    },
+    {
+     "path": "tampered/id_proof_2108.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.8967
+    },
+    {
+     "path": "genuine/id_proof_2109.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "genuine/id_proof_2110.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "tampered/id_proof_2111.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.83
+    },
+    {
+     "path": "tampered/id_proof_2112.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7567
+    },
+    {
+     "path": "tampered/id_proof_2113.png",
+     "doc_type": "id_proof",
+     "method": "blur_region",
+     "actual": "tampered",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "genuine/id_proof_2114.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "tampered/id_proof_2115.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.92
+    },
+    {
+     "path": "genuine/id_proof_2116.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0333
+    },
+    {
+     "path": "genuine/id_proof_2117.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "tampered/id_proof_2118.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9633
+    },
+    {
+     "path": "genuine/id_proof_2119.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0067
+    },
+    {
+     "path": "genuine/id_proof_2120.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0667
+    },
+    {
+     "path": "genuine/id_proof_2121.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1133
+    },
+    {
+     "path": "genuine/id_proof_2122.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0567
+    },
+    {
+     "path": "genuine/id_proof_2123.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0033
+    },
+    {
+     "path": "genuine/id_proof_2124.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0033
+    },
+    {
+     "path": "genuine/id_proof_2125.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0433
+    },
+    {
+     "path": "genuine/id_proof_2126.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0067
+    },
+    {
+     "path": "genuine/id_proof_2127.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.01
+    },
+    {
+     "path": "tampered/id_proof_2128.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.86
+    },
+    {
+     "path": "tampered/id_proof_2129.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.93
+    },
+    {
+     "path": "genuine/id_proof_2130.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0433
+    },
+    {
+     "path": "genuine/id_proof_2132.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0667
+    },
+    {
+     "path": "tampered/id_proof_2133.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9967
+    },
+    {
+     "path": "genuine/id_proof_2134.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.01
+    },
+    {
+     "path": "tampered/id_proof_2135.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.97
+    },
+    {
+     "path": "tampered/id_proof_2136.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.99
+    },
+    {
+     "path": "genuine/id_proof_2137.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0667
+    },
+    {
+     "path": "genuine/id_proof_2138.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0067
+    },
+    {
+     "path": "genuine/id_proof_2139.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.1433
+    },
+    {
+     "path": "genuine/id_proof_2140.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0167
+    },
+    {
+     "path": "genuine/id_proof_2141.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "tampered/id_proof_2142.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9633
+    },
+    {
+     "path": "tampered/id_proof_2143.png",
+     "doc_type": "id_proof",
+     "method": "color_shift",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.7967
+    },
+    {
+     "path": "genuine/id_proof_2144.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0333
+    },
+    {
+     "path": "tampered/id_proof_2145.png",
+     "doc_type": "id_proof",
+     "method": "noise_patch",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9367
+    },
+    {
+     "path": "tampered/id_proof_2146.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9067
+    },
+    {
+     "path": "genuine/id_proof_2147.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0
+    },
+    {
+     "path": "tampered/id_proof_2148.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9867
+    },
+    {
+     "path": "tampered/id_proof_2149.png",
+     "doc_type": "id_proof",
+     "method": "text_overlay",
+     "actual": "tampered",
+     "predicted": "tampered",
+     "risk": 0.9633
+    },
+    {
+     "path": "genuine/id_proof_2150.png",
+     "doc_type": "id_proof",
+     "method": "-",
+     "actual": "genuine",
+     "predicted": "genuine",
+     "risk": 0.0433
+    }
+   ]
+  }
+ },
+ "combined": {
+  "metrics": {
+   "tn": 90,
+   "fp": 3,
+   "fn": 10,
+   "tp": 61,
+   "n": 164,
+   "correct": 151,
+   "accuracy": 0.9207317073170732,
+   "precision": 0.953125,
+   "recall": 0.8591549295774648,
+   "f1": 0.9037037037037037,
+   "fpr": 0.03225806451612903,
+   "fnr": 0.14084507042253522
+  },
+  "ci95": {
+   "accuracy": [
+    0.8691110864554287,
+    0.9530927056914528
+   ]
+  }
+ },
+ "test_table": "Filename                     | Doc type       | Method       | Actual   | Predicted |  Risk | Correct\n----------------------------------------------------------------------------------------------------\ntampered/payslip_033.png     | payslip        | noise_patch  | tampered | tampered  |  0.98 | YES\ngenuine/id_proof_066.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES\ngenuine/payslip_042.png      | payslip        | -            | genuine  | genuine   |  0.30 | YES\ngenuine/bank_stmt_059.png    | bank_statement | -            | genuine  | tampered  |  0.58 | NO\ntampered/id_proof_024.png    | id_proof       | color_shift  | tampered | tampered  |  0.74 | YES\ntampered/payslip_030.png     | payslip        | noise_patch  | tampered | tampered  |  0.97 | YES\ngenuine/bank_stmt_049.png    | bank_statement | -            | genuine  | genuine   |  0.09 | YES\ngenuine/id_proof_073.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES\ngenuine/payslip_036.png      | payslip        | -            | genuine  | genuine   |  0.02 | YES\ngenuine/payslip_010.png      | payslip        | -            | genuine  | genuine   |  0.07 | YES\ntampered/payslip_043.png     | payslip        | text_overlay | tampered | tampered  |  0.83 | YES\ngenuine/bank_stmt_053.png    | bank_statement | -            | genuine  | tampered  |  0.50 | NO\ngenuine/id_proof_022.png     | id_proof       | -            | genuine  | genuine   |  0.02 | YES\ntampered/id_proof_071.png    | id_proof       | text_overlay | tampered | tampered  |  0.83 | YES\ngenuine/id_proof_061.png     | id_proof       | -            | genuine  | genuine   |  0.13 | YES",
+ "errors": {
+  "available": true,
+  "missed": [
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/payslip_2004.png",
+    "method": "color_shift",
+    "risk": 0.34,
+    "changed_px": 5124,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/payslip_2025.png",
+    "method": "color_shift",
+    "risk": 0.31,
+    "changed_px": 4445,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2058.png",
+    "method": "blur_region",
+    "risk": 0.2133,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2065.png",
+    "method": "text_overlay",
+    "risk": 0.48,
+    "changed_px": 668,
+    "kind": "only the inserted words (white box on white paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2073.png",
+    "method": "text_overlay",
+    "risk": 0.3667,
+    "changed_px": 5423,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2082.png",
+    "method": "text_overlay",
+    "risk": 0.2533,
+    "changed_px": 7903,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2092.png",
+    "method": "text_overlay",
+    "risk": 0.4567,
+    "changed_px": 1428,
+    "kind": "visible local edit"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/bank_stmt_2094.png",
+    "method": "text_overlay",
+    "risk": 0.34,
+    "changed_px": 668,
+    "kind": "only the inserted words (white box on white paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/id_proof_2104.png",
+    "method": "blur_region",
+    "risk": 0.0267,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   },
+   {
+    "set": "HOLDOUT",
+    "path": "tampered/id_proof_2113.png",
+    "method": "blur_region",
+    "risk": 0.0,
+    "changed_px": 0,
+    "kind": "no pixel changed (edit on blank paper)"
+   }
+  ],
+  "heldout_edits_without_pixel_change": 4,
+  "heldout_edits": 71
+ },
+ "near_threshold": {
+  "band": 0.05,
+  "n": 4,
+  "wrong": 3,
+  "documents": [
+   {
+    "path": "genuine/bank_stmt_053.png",
+    "actual": "genuine",
+    "risk": 0.5033
+   },
+   {
+    "path": "tampered/bank_stmt_2065.png",
+    "actual": "tampered",
+    "risk": 0.48
+   },
+   {
+    "path": "genuine/bank_stmt_2076.png",
+    "actual": "genuine",
+    "risk": 0.4667
+   },
+   {
+    "path": "tampered/bank_stmt_2092.png",
+    "actual": "tampered",
+    "risk": 0.4567
+   }
+  ]
+ },
+ "previous": [
+  {
+   "when": "Day 3",
+   "model": "v0 (15 features, 25 docs)",
+   "set": "5-image test",
+   "n": 5,
+   "correct": 4,
+   "accuracy": 0.8,
+   "precision": 0.5,
+   "recall": 1.0,
+   "f1": 0.6666666666666666,
+   "source": "PROGRESS.md Day 3",
+   "note": "1 tampered test image; model no longer exists"
+  },
+  {
+   "when": "Day 5",
+   "model": "v1 (day4-v2-22)",
+   "set": "frozen TEST",
+   "n": 15,
+   "correct": 9,
+   "accuracy": 0.6,
+   "precision": 0.4444444444444444,
+   "recall": 0.8,
+   "f1": 0.5714,
+   "source": "v1 model metadata / PROGRESS.md Day 5",
+   "note": "training-time holdout"
+  },
+  {
+   "when": "Day 6",
+   "model": "v1 (day4-v2-22)",
+   "set": "frozen TEST",
+   "source": "logs/final_validation_report.txt (2026-09-25T08:55:52+00:00)",
+   "n": 15,
+   "correct": 9,
+   "accuracy": 0.6,
+   "precision": 0.44439999999999996,
+   "recall": 0.8,
+   "f1": 0.5714,
+   "note": "held-out replica of v1"
+  },
+  {
+   "when": "Day 8",
+   "model": "v1 (day4-v2-22)",
+   "set": "frozen TEST",
+   "n": 15,
+   "correct": 9,
+   "accuracy": 0.6,
+   "precision": 0.4444444444444444,
+   "recall": 0.8,
+   "f1": 0.5714,
+   "source": "PROGRESS.md Day 8 (v1 revalidation)",
+   "note": "same as Day 5 and Day 6"
+  },
+  {
+   "when": "Day 8 validation",
+   "model": "v2 (local-tamper-v2)",
+   "set": "TEST",
+   "n": 15,
+   "correct": 13,
+   "accuracy": 0.8666666666666667,
+   "precision": 0.7142857142857143,
+   "recall": 1.0,
+   "f1": 0.8333333333333333,
+   "cm": [
+    8,
+    2,
+    0,
+    5
+   ],
+   "source": "logs/model_validation_results.json (generated 2026-09-27)"
+  },
+  {
+   "when": "Day 8 validation",
+   "model": "v2 (local-tamper-v2)",
+   "set": "HOLDOUT",
+   "n": 149,
+   "correct": 138,
+   "accuracy": 0.9261744966442953,
+   "precision": 0.9824561403508771,
+   "recall": 0.8484848484848485,
+   "f1": 0.9105691056910568,
+   "cm": [
+    82,
+    1,
+    10,
+    56
+   ],
+   "source": "logs/model_validation_results.json (generated 2026-09-27)"
+  },
+  {
+   "when": "Day 9 review",
+   "model": "v2 (local-tamper-v2)",
+   "set": "TEST",
+   "n": 15,
+   "correct": 13,
+   "accuracy": 0.8666666666666667,
+   "precision": 0.7142857142857143,
+   "recall": 1.0,
+   "f1": 0.8333333333333333,
+   "cm": [
+    8,
+    2,
+    0,
+    5
+   ],
+   "source": "logs/model_review_results.json (generated 2026-09-27)"
+  },
+  {
+   "when": "Day 9 review",
+   "model": "v2 (local-tamper-v2)",
+   "set": "HOLDOUT",
+   "n": 149,
+   "correct": 138,
+   "accuracy": 0.9261744966442953,
+   "precision": 0.9824561403508771,
+   "recall": 0.8484848484848485,
+   "f1": 0.9105691056910568,
+   "cm": [
+    82,
+    1,
+    10,
+    56
+   ],
+   "source": "logs/model_review_results.json (generated 2026-09-27)"
+  }
+ ],
+ "same_as_recorded": true,
+ "requirements": [
+  {
+   "check": "Frozen TEST split intact",
+   "pass": true,
+   "detail": "15/15 SHA-256 and dataset fingerprint match"
+  },
+  {
+   "check": "No held-out document used in training",
+   "pass": true,
+   "detail": "no TEST image among the training files: 0 of 15; no HOLDOUT image among the training files: 0 of 149"
+  },
+  {
+   "check": "TEST accuracy above 75%",
+   "pass": true,
+   "detail": "86.67% (13/15)"
+  },
+  {
+   "check": "HOLDOUT accuracy above 75%",
+   "pass": true,
+   "detail": "92.62% (138/149)"
+  },
+  {
+   "check": "TEST accuracy meets the 78% sprint target",
+   "pass": true,
+   "detail": "86.67%"
+  },
+  {
+   "check": "HOLDOUT accuracy meets the 78% sprint target",
+   "pass": true,
+   "detail": "92.62%"
+  },
+  {
+   "check": "Metrics identical to the recorded v2 evaluation",
+   "pass": true,
+   "detail": "confusion matrices equal to Day 8 validation, Day 9 review"
+  }
+ ],
+ "requirements_met": true
+}

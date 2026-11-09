@@ -1,0 +1,65 @@
+========================================================================
+DOCUMENT FRAUD DETECTION API - COMPREHENSIVE TEST REPORT (DAY 6)
+========================================================================
+Generated      : 2026-09-26 14:41:43 UTC
+Test module    : tests/test_api_comprehensive.py
+Command        : pytest tests/test_api_comprehensive.py -v
+Python         : 3.11.15 (Linux)
+Overall status : PASS (pytest exit code 0)
+
+SUMMARY
+------------------------------------------------------------------------
+Total tests executed : 31
+Passed               : 31
+Failed               : 0
+Errors               : 0
+Skipped              : 0
+Pass rate            : 100.0%
+
+RESULTS BY CATEGORY
+------------------------------------------------------------------------
+Category                Total  Passed  Failed  Skipped
+Health endpoint             3       3       0        0
+Authentication              4       4       0        0
+File validation             8       8       0        0
+Verify endpoint            10      10       0        0
+Error handling              6       6       0        0
+
+FAILED TESTS
+------------------------------------------------------------------------
+None
+
+COVERAGE SUMMARY (backend/ package, measured on this test module only)
+------------------------------------------------------------------------
+Name                        Stmts   Miss  Cover   Missing
+---------------------------------------------------------
+backend/__init__.py             0      0   100%
+backend/config.py              23      4    83%   21-22, 37, 41
+backend/error_handlers.py      74     10    86%   71, 101, 120, 122, 146, 157, 172-173, 184-185
+backend/exceptions.py          34      4    88%   75, 89, 100, 128
+backend/main.py               101      9    91%   44-46, 450, 455-456, 468, 474-476
+backend/model_utils.py         97     32    67%   49, 52-54, 64-67, 81-94, 115, 121-123, 127, 135, 144-149, 165, 186-187
+---------------------------------------------------------
+TOTAL                         329     59    82%
+
+EXECUTION TIME
+------------------------------------------------------------------------
+pytest test time     : 0.60 s
+Total wall time      : 3.24 s (includes interpreter start-up and coverage)
+
+NOTES
+------------------------------------------------------------------------
+- Most /verify tests patch backend.main.analyze_document (mock_model fixture) so
+  they exercise auth, validation and error handling without model inference.
+- test_valid_image_returns_prediction and test_corrupted_file_rejected run the
+  real trained model from data/models/fraud_model.pkl.
+- Auth tests patch backend.config.API_KEY with a fixed test key (test_api_key).
+- Oversized upload test lowers MAX_FILE_SIZE to 1 KB instead of sending 10 MB.
+
+HOW TO RUN
+------------------------------------------------------------------------
+pytest tests/test_api_comprehensive.py -v
+pytest -v
+pytest tests/test_api_comprehensive.py --cov=backend --cov-report=term-missing
+python scripts/generate_api_test_report.py
+========================================================================

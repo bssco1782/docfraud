@@ -1,0 +1,1917 @@
+{
+ "generated": "2026-09-27T09:23:27+00:00",
+ "runs": 10,
+ "tolerance": 0.02,
+ "threshold": 0.5,
+ "environment": {
+  "python": "3.11.15",
+  "platform": "Linux x86_64",
+  "cpus": 4,
+  "packages": {
+   "scikit-learn": "1.9.1",
+   "numpy": "2.4.6",
+   "opencv-python": "5.0.0.93",
+   "pillow": "12.3.0",
+   "fastapi": "0.141.1"
+  }
+ },
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2",
+  "n_features": 29,
+  "rf_params": {
+   "n_estimators": 300,
+   "class_weight": "balanced",
+   "random_state": 42
+  },
+  "n_training_samples": 210
+ },
+ "repeatability": [
+  {
+   "demo_file": "genuine_payslip_01.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 346.5
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 316.7
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 314.9
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 342.9
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 332.8
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 327.7
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 321.5
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 313.9
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 359.7
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 326.9
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.05669999999999999,
+    "std": 0.0,
+    "min": 0.0567,
+    "max": 0.0567,
+    "max_abs_dev": 6.938893903907228e-18,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.9433,
+    "std": 0.0,
+    "min": 0.9433,
+    "max": 0.9433,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "genuine_payslip_02.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 314.4
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 300.4
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 349.1
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 321.7
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 375.9
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 337.3
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 333.1
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 313.9
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 342.7
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.0567,
+     "confidence": 0.9433,
+     "label": "genuine",
+     "ms": 363.6
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.05669999999999999,
+    "std": 0.0,
+    "min": 0.0567,
+    "max": 0.0567,
+    "max_abs_dev": 6.938893903907228e-18,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.9433,
+    "std": 0.0,
+    "min": 0.9433,
+    "max": 0.9433,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "tampered_payslip_01.png",
+   "expected": "tampered",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 344.5
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 311.3
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 324.2
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 331.4
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 336.5
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 308.5
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 314.1
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 324.8
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 318.6
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.7933,
+     "confidence": 0.7933,
+     "label": "tampered",
+     "ms": 323.2
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.7933,
+    "std": 0.0,
+    "min": 0.7933,
+    "max": 0.7933,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.7933,
+    "std": 0.0,
+    "min": 0.7933,
+    "max": 0.7933,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "tampered"
+   ]
+  },
+  {
+   "demo_file": "tampered_payslip_02.png",
+   "expected": "tampered",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 398.8
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 293.9
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 321.0
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 340.3
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 336.4
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 341.9
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 319.4
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 328.2
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 309.7
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.1533,
+     "confidence": 0.8467,
+     "label": "genuine",
+     "ms": 369.5
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.1533,
+    "std": 0.0,
+    "min": 0.1533,
+    "max": 0.1533,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.8467,
+    "std": 0.0,
+    "min": 0.8467,
+    "max": 0.8467,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  },
+  {
+   "demo_file": "edge_case_01.png",
+   "expected": "genuine",
+   "runs": [
+    {
+     "run": 1,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 333.3
+    },
+    {
+     "run": 2,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 318.2
+    },
+    {
+     "run": 3,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 315.3
+    },
+    {
+     "run": 4,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 288.4
+    },
+    {
+     "run": 5,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 342.2
+    },
+    {
+     "run": 6,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 370.1
+    },
+    {
+     "run": 7,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 365.0
+    },
+    {
+     "run": 8,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 334.9
+    },
+    {
+     "run": 9,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 360.9
+    },
+    {
+     "run": 10,
+     "tamper_risk_score": 0.2233,
+     "confidence": 0.7767,
+     "label": "genuine",
+     "ms": 363.8
+    }
+   ],
+   "crashes": 0,
+   "pass": true,
+   "score": {
+    "mean": 0.2233,
+    "std": 0.0,
+    "min": 0.2233,
+    "max": 0.2233,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "confidence": {
+    "mean": 0.7767,
+    "std": 0.0,
+    "min": 0.7767,
+    "max": 0.7767,
+    "max_abs_dev": 0.0,
+    "distinct": 1
+   },
+   "labels": [
+    "genuine"
+   ]
+  }
+ ],
+ "execution_paths": [
+  {
+   "check": "file path input (ModelAPI.predict(path))",
+   "calls": 5,
+   "pass": true,
+   "detail": "1 call per image",
+   "mismatches": []
+  },
+  {
+   "check": "fresh ModelAPI (model reloaded from disk)",
+   "calls": 5,
+   "pass": true,
+   "detail": "1 call per image",
+   "mismatches": []
+  },
+  {
+   "check": "POST /verify route (in-process TestClient)",
+   "calls": 10,
+   "pass": true,
+   "detail": "2 requests per image, HTTP 200; route model = deployed artifact",
+   "mismatches": []
+  },
+  {
+   "check": "4 concurrent threads, one shared ModelAPI",
+   "calls": 10,
+   "pass": true,
+   "detail": "10 calls, 2 per image",
+   "mismatches": []
+  },
+  {
+   "check": "separate Python process",
+   "calls": 5,
+   "pass": true,
+   "detail": "new interpreter, model loaded from disk, 1 call per image",
+   "mismatches": []
+  }
+ ],
+ "features": [
+  {
+   "demo_file": "genuine_payslip_01.png",
+   "runs": 10,
+   "n_features": 29,
+   "all_finite": true,
+   "identical_across_runs": true,
+   "reencode_same_pixels": true,
+   "reencode_different_bytes": true,
+   "reencode_identical_features": true,
+   "reencode_changed_features": [],
+   "features": {
+    "noise_floor": 0.0,
+    "noise_excess_p999": 29.0,
+    "noise_blob_k2": 5.0,
+    "noise_blob_k2_fill": 1.0,
+    "noise_blob_k4": 5.0,
+    "noise_blob_k4_fill": 1.0,
+    "noise_anomalous_frac": 0.007417542848912574,
+    "colour_rare_blob_0_5pct": 3.0,
+    "colour_rare_blob_0_5pct_fill": 1.0,
+    "colour_rare_blob_1pct": 3.0,
+    "colour_rare_blob_1pct_fill": 1.0,
+    "colour_rare_blob_2pct": 60.0,
+    "colour_rare_blob_2pct_fill": 1.0,
+    "colour_rare_blob_4pct": 80.0,
+    "colour_rare_blob_4pct_fill": 1.0,
+    "colour_novel_blob_d10": 80.0,
+    "colour_novel_blob_d20": 73.0,
+    "colour_novel_p999": 184.11952639521968,
+    "soft_blob_s1_0": 0.0,
+    "soft_total_s1_0": 0.0,
+    "soft_blob_s1_6": 0.0,
+    "soft_total_s1_6": 0.0,
+    "soft_frac": 0.0,
+    "ink_rare_line": 4.0,
+    "ink_rare_frac": 0.1192214111922141,
+    "jpeg_grid": 0.8942556977272034,
+    "flat_frac": 0.7380815209563589,
+    "paper_colours": 7.0,
+    "ink_levels": 12.0
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "genuine_payslip_02.png",
+   "runs": 10,
+   "n_features": 29,
+   "all_finite": true,
+   "identical_across_runs": true,
+   "reencode_same_pixels": true,
+   "reencode_different_bytes": true,
+   "reencode_identical_features": true,
+   "reencode_changed_features": [],
+   "features": {
+    "noise_floor": 0.0,
+    "noise_excess_p999": 28.5575008392334,
+    "noise_blob_k2": 5.0,
+    "noise_blob_k2_fill": 1.0,
+    "noise_blob_k4": 5.0,
+    "noise_blob_k4_fill": 1.0,
+    "noise_anomalous_frac": 0.007921647702722166,
+    "colour_rare_blob_0_5pct": 3.0,
+    "colour_rare_blob_0_5pct_fill": 1.0,
+    "colour_rare_blob_1pct": 3.0,
+    "colour_rare_blob_1pct_fill": 1.0,
+    "colour_rare_blob_2pct": 73.0,
+    "colour_rare_blob_2pct_fill": 0.6403508771929824,
+    "colour_rare_blob_4pct": 80.0,
+    "colour_rare_blob_4pct_fill": 1.0,
+    "colour_novel_blob_d10": 80.0,
+    "colour_novel_blob_d20": 73.0,
+    "colour_novel_p999": 184.11952639521968,
+    "soft_blob_s1_0": 0.0,
+    "soft_total_s1_0": 0.0,
+    "soft_blob_s1_6": 0.0,
+    "soft_total_s1_6": 0.0,
+    "soft_frac": 0.0,
+    "ink_rare_line": 4.0,
+    "ink_rare_frac": 0.1163895486935867,
+    "jpeg_grid": 0.864282488822937,
+    "flat_frac": 0.735560996687311,
+    "paper_colours": 7.0,
+    "ink_levels": 12.0
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "tampered_payslip_01.png",
+   "runs": 10,
+   "n_features": 29,
+   "all_finite": true,
+   "identical_across_runs": true,
+   "reencode_same_pixels": true,
+   "reencode_different_bytes": true,
+   "reencode_identical_features": true,
+   "reencode_changed_features": [],
+   "features": {
+    "noise_floor": 0.0,
+    "noise_excess_p999": 29.114999771118164,
+    "noise_blob_k2": 5.0,
+    "noise_blob_k2_fill": 1.0,
+    "noise_blob_k4": 5.0,
+    "noise_blob_k4_fill": 1.0,
+    "noise_anomalous_frac": 0.007777617744490854,
+    "colour_rare_blob_0_5pct": 3.0,
+    "colour_rare_blob_0_5pct_fill": 1.0,
+    "colour_rare_blob_1pct": 3.0,
+    "colour_rare_blob_1pct_fill": 1.0,
+    "colour_rare_blob_2pct": 73.0,
+    "colour_rare_blob_2pct_fill": 0.6403508771929824,
+    "colour_rare_blob_4pct": 80.0,
+    "colour_rare_blob_4pct_fill": 1.0,
+    "colour_novel_blob_d10": 80.0,
+    "colour_novel_blob_d20": 73.0,
+    "colour_novel_p999": 184.11952639521968,
+    "soft_blob_s1_0": 0.0,
+    "soft_total_s1_0": 0.0,
+    "soft_blob_s1_6": 0.0,
+    "soft_total_s1_6": 0.0,
+    "soft_frac": 0.0,
+    "ink_rare_line": 14.0,
+    "ink_rare_frac": 0.14489311163895488,
+    "jpeg_grid": 0.8963575959205627,
+    "flat_frac": 0.7366412213740458,
+    "paper_colours": 7.0,
+    "ink_levels": 12.0
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "tampered_payslip_02.png",
+   "runs": 10,
+   "n_features": 29,
+   "all_finite": true,
+   "identical_across_runs": true,
+   "reencode_same_pixels": true,
+   "reencode_different_bytes": true,
+   "reencode_identical_features": true,
+   "reencode_changed_features": [],
+   "features": {
+    "noise_floor": 0.0,
+    "noise_excess_p999": 27.5,
+    "noise_blob_k2": 5.0,
+    "noise_blob_k2_fill": 1.0,
+    "noise_blob_k4": 5.0,
+    "noise_blob_k4_fill": 1.0,
+    "noise_anomalous_frac": 0.007705602765375198,
+    "colour_rare_blob_0_5pct": 3.0,
+    "colour_rare_blob_0_5pct_fill": 1.0,
+    "colour_rare_blob_1pct": 3.0,
+    "colour_rare_blob_1pct_fill": 1.0,
+    "colour_rare_blob_2pct": 73.0,
+    "colour_rare_blob_2pct_fill": 0.6403508771929824,
+    "colour_rare_blob_4pct": 80.0,
+    "colour_rare_blob_4pct_fill": 1.0,
+    "colour_novel_blob_d10": 80.0,
+    "colour_novel_blob_d20": 73.0,
+    "colour_novel_p999": 184.11952639521968,
+    "soft_blob_s1_0": 0.0,
+    "soft_total_s1_0": 0.0,
+    "soft_blob_s1_6": 0.0,
+    "soft_total_s1_6": 0.0,
+    "soft_frac": 0.0,
+    "ink_rare_line": 4.0,
+    "ink_rare_frac": 0.10776942355889724,
+    "jpeg_grid": 0.8943658471107483,
+    "flat_frac": 0.7362811464784675,
+    "paper_colours": 7.0,
+    "ink_levels": 11.0
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "edge_case_01.png",
+   "runs": 10,
+   "n_features": 29,
+   "all_finite": true,
+   "identical_across_runs": true,
+   "reencode_same_pixels": true,
+   "reencode_different_bytes": true,
+   "reencode_identical_features": true,
+   "reencode_changed_features": [],
+   "features": {
+    "noise_floor": 0.0,
+    "noise_excess_p999": 25.5575008392334,
+    "noise_blob_k2": 69.0,
+    "noise_blob_k2_fill": 0.9583333333333334,
+    "noise_blob_k4": 26.0,
+    "noise_blob_k4_fill": 0.8666666666666667,
+    "noise_anomalous_frac": 0.05422727927408901,
+    "colour_rare_blob_0_5pct": 3.0,
+    "colour_rare_blob_0_5pct_fill": 1.0,
+    "colour_rare_blob_1pct": 21.0,
+    "colour_rare_blob_1pct_fill": 1.0,
+    "colour_rare_blob_2pct": 73.0,
+    "colour_rare_blob_2pct_fill": 0.6403508771929824,
+    "colour_rare_blob_4pct": 99.0,
+    "colour_rare_blob_4pct_fill": 0.673469387755102,
+    "colour_novel_blob_d10": 80.0,
+    "colour_novel_blob_d20": 80.0,
+    "colour_novel_p999": 183.78864389564444,
+    "soft_blob_s1_0": 0.0,
+    "soft_total_s1_0": 0.0,
+    "soft_blob_s1_6": 0.0,
+    "soft_total_s1_6": 0.0,
+    "soft_frac": 0.0,
+    "ink_rare_line": 6.0,
+    "ink_rare_frac": 0.11818181818181818,
+    "jpeg_grid": 0.9048547744750977,
+    "flat_frac": 0.737433386144318,
+    "paper_colours": 20.0,
+    "ink_levels": 13.0
+   },
+   "pass": true
+  }
+ ],
+ "ela": [
+  {
+   "demo_file": "genuine_payslip_01.png",
+   "runs": 10,
+   "heatmap_sha256": [
+    "07294758f71dd0abe200e255a838f04533ba1e0f1080aefd552322414da32d9e"
+   ],
+   "ela_score": [
+    62.50450091752195
+   ],
+   "heatmap_shape_ok": true,
+   "features_agree_with_heatmap": true,
+   "disagreeing_features": [],
+   "ela_stats": {
+    "ela_mean": 12.487081527709961,
+    "ela_std": 28.799074172973633,
+    "ela_max": 255.0,
+    "ela_p95": 70.0,
+    "ela_high_ratio": 0.07053669467787115
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "genuine_payslip_02.png",
+   "runs": 10,
+   "heatmap_sha256": [
+    "466ebafa252d72c09daef28942e6d63fec1c2e339387ce8ae5f5fee6692473f2"
+   ],
+   "ela_score": [
+    63.36181320010915
+   ],
+   "heatmap_shape_ok": true,
+   "features_agree_with_heatmap": true,
+   "disagreeing_features": [],
+   "ela_stats": {
+    "ela_mean": 12.71601676940918,
+    "ela_std": 29.153507232666016,
+    "ela_max": 255.0,
+    "ela_p95": 70.0,
+    "ela_high_ratio": 0.07210084033613445
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "tampered_payslip_01.png",
+   "runs": 10,
+   "heatmap_sha256": [
+    "5ee536fede3819b4d82cd2ba9800ba281311f57e9f6bbbd54f240d5670752d37"
+   ],
+   "ela_score": [
+    62.66350389148987
+   ],
+   "heatmap_shape_ok": true,
+   "features_agree_with_heatmap": true,
+   "disagreeing_features": [],
+   "ela_stats": {
+    "ela_mean": 12.535926818847656,
+    "ela_std": 28.879350662231445,
+    "ela_max": 255.0,
+    "ela_p95": 70.0,
+    "ela_high_ratio": 0.07076078431372548
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "tampered_payslip_02.png",
+   "runs": 10,
+   "heatmap_sha256": [
+    "9a620531fe8cb4d92f6f205627c2ce4da902fce6847e9e2f0d94ffd957b63097"
+   ],
+   "ela_score": [
+    62.73797627128651
+   ],
+   "heatmap_shape_ok": true,
+   "features_agree_with_heatmap": true,
+   "disagreeing_features": [],
+   "ela_stats": {
+    "ela_mean": 12.617506980895996,
+    "ela_std": 28.853271484375,
+    "ela_max": 255.0,
+    "ela_p95": 70.0,
+    "ela_high_ratio": 0.07160896358543417
+   },
+   "pass": true
+  },
+  {
+   "demo_file": "edge_case_01.png",
+   "runs": 10,
+   "heatmap_sha256": [
+    "b3f6165948bb44bc367d77473ae960eac7791dde334ba8d676eac6340ea7071b"
+   ],
+   "ela_score": [
+    46.5145941014508
+   ],
+   "heatmap_shape_ok": true,
+   "features_agree_with_heatmap": true,
+   "disagreeing_features": [],
+   "ela_stats": {
+    "ela_mean": 7.926565647125244,
+    "ela_std": 17.246397018432617,
+    "ela_max": 210.0,
+    "ela_p95": 40.0,
+    "ela_high_ratio": 0.03196190476190476
+   },
+   "pass": true
+  }
+ ],
+ "drift": {
+  "recorded_at": "2026-09-27T09:05:37+00:00",
+  "model_sha256_recorded": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "model_sha256_current": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "model_unchanged": true,
+  "images": [
+   {
+    "demo_file": "genuine_payslip_01.png",
+    "recorded_score": 0.0567,
+    "recorded_label": "genuine",
+    "current_score": 0.0567,
+    "current_label": "genuine",
+    "delta": 0.0,
+    "pass": true
+   },
+   {
+    "demo_file": "genuine_payslip_02.png",
+    "recorded_score": 0.0567,
+    "recorded_label": "genuine",
+    "current_score": 0.0567,
+    "current_label": "genuine",
+    "delta": 0.0,
+    "pass": true
+   },
+   {
+    "demo_file": "tampered_payslip_01.png",
+    "recorded_score": 0.7933,
+    "recorded_label": "tampered",
+    "current_score": 0.7933,
+    "current_label": "tampered",
+    "delta": 0.0,
+    "pass": true
+   },
+   {
+    "demo_file": "tampered_payslip_02.png",
+    "recorded_score": 0.1533,
+    "recorded_label": "genuine",
+    "current_score": 0.1533,
+    "current_label": "genuine",
+    "delta": 0.0,
+    "pass": true
+   },
+   {
+    "demo_file": "edge_case_01.png",
+    "recorded_score": 0.2233,
+    "recorded_label": "genuine",
+    "current_score": 0.2233,
+    "current_label": "genuine",
+    "delta": 0.0,
+    "pass": true
+   }
+  ],
+  "pass": true,
+  "unscored": []
+ },
+ "input_sensitivity": [
+  {
+   "demo_file": "genuine_payslip_01.png",
+   "expected": "genuine",
+   "baseline_score": 0.0567,
+   "baseline_label": "genuine",
+   "variants": [
+    {
+     "variant": "JPEG re-save q=95",
+     "score": 0.1933,
+     "delta": 0.1366,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_frac",
+       1.02
+      ],
+      [
+       "ink_rare_line",
+       0.68
+      ],
+      [
+       "ink_levels",
+       0.54
+      ]
+     ]
+    },
+    {
+     "variant": "JPEG re-save q=75",
+     "score": 0.2167,
+     "delta": 0.16,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_2pct_fill",
+       4.61
+      ],
+      [
+       "colour_rare_blob_4pct_fill",
+       4.31
+      ],
+      [
+       "colour_rare_blob_4pct",
+       3.96
+      ]
+     ]
+    },
+    {
+     "variant": "2-px border crop",
+     "score": 0.51,
+     "delta": 0.45330000000000004,
+     "label": "tampered",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_2pct_fill",
+       1.79
+      ],
+      [
+       "colour_rare_blob_2pct",
+       0.75
+      ],
+      [
+       "flat_frac",
+       0.66
+      ]
+     ]
+    },
+    {
+     "variant": "resize to 98%",
+     "score": 0.1567,
+     "delta": 0.1,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_1pct",
+       1.95
+      ],
+      [
+       "ink_levels",
+       0.81
+      ],
+      [
+       "noise_anomalous_frac",
+       0.69
+      ]
+     ]
+    },
+    {
+     "variant": "brightness +3%",
+     "score": 0.3633,
+     "delta": 0.3066,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_2pct_fill",
+       1.72
+      ],
+      [
+       "flat_frac",
+       1.29
+      ],
+      [
+       "colour_rare_blob_2pct",
+       0.33
+      ]
+     ]
+    },
+    {
+     "variant": "brightness -3%",
+     "score": 0.1067,
+     "delta": 0.05,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       1.36
+      ],
+      [
+       "ink_levels",
+       0.54
+      ],
+      [
+       "colour_rare_blob_4pct",
+       0.31
+      ]
+     ]
+    }
+   ],
+   "max_abs_delta": 0.45330000000000004,
+   "flips": [
+    "2-px border crop"
+   ],
+   "errors": []
+  },
+  {
+   "demo_file": "genuine_payslip_02.png",
+   "expected": "genuine",
+   "baseline_score": 0.0567,
+   "baseline_label": "genuine",
+   "variants": [
+    {
+     "variant": "JPEG re-save q=95",
+     "score": 0.2933,
+     "delta": 0.2366,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       1.02
+      ],
+      [
+       "ink_rare_frac",
+       0.46
+      ],
+      [
+       "paper_colours",
+       0.45
+      ]
+     ]
+    },
+    {
+     "variant": "JPEG re-save q=75",
+     "score": 0.2633,
+     "delta": 0.20659999999999998,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_4pct_fill",
+       4.31
+      ],
+      [
+       "colour_rare_blob_4pct",
+       3.94
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       2.9
+      ]
+     ]
+    },
+    {
+     "variant": "2-px border crop",
+     "score": 0.5033,
+     "delta": 0.4466,
+     "label": "tampered",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "jpeg_grid",
+       1.05
+      ],
+      [
+       "flat_frac",
+       0.66
+      ],
+      [
+       "colour_novel_blob_d20",
+       0.47
+      ]
+     ]
+    },
+    {
+     "variant": "resize to 98%",
+     "score": 0.2233,
+     "delta": 0.1666,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_1pct",
+       1.95
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       1.55
+      ],
+      [
+       "ink_levels",
+       1.08
+      ]
+     ]
+    },
+    {
+     "variant": "brightness +3%",
+     "score": 0.2933,
+     "delta": 0.2366,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "flat_frac",
+       1.29
+      ],
+      [
+       "noise_excess_p999",
+       0.35
+      ],
+      [
+       "ink_rare_frac",
+       0.31
+      ]
+     ]
+    },
+    {
+     "variant": "brightness -3%",
+     "score": 0.2033,
+     "delta": 0.1466,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       0.34
+      ],
+      [
+       "colour_rare_blob_4pct",
+       0.31
+      ],
+      [
+       "ink_levels",
+       0.27
+      ]
+     ]
+    }
+   ],
+   "max_abs_delta": 0.4466,
+   "flips": [
+    "2-px border crop"
+   ],
+   "errors": []
+  },
+  {
+   "demo_file": "tampered_payslip_01.png",
+   "expected": "tampered",
+   "baseline_score": 0.7933,
+   "baseline_label": "tampered",
+   "variants": [
+    {
+     "variant": "JPEG re-save q=95",
+     "score": 0.18,
+     "delta": -0.6133,
+     "label": "genuine",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       2.71
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       1.72
+      ],
+      [
+       "paper_colours",
+       0.45
+      ]
+     ]
+    },
+    {
+     "variant": "JPEG re-save q=75",
+     "score": 0.29,
+     "delta": -0.5033000000000001,
+     "label": "genuine",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_4pct_fill",
+       4.31
+      ],
+      [
+       "colour_rare_blob_4pct",
+       3.94
+      ],
+      [
+       "ink_rare_line",
+       3.39
+      ]
+     ]
+    },
+    {
+     "variant": "2-px border crop",
+     "score": 0.73,
+     "delta": -0.06330000000000002,
+     "label": "tampered",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "flat_frac",
+       0.68
+      ],
+      [
+       "noise_excess_p999",
+       0.59
+      ],
+      [
+       "colour_novel_blob_d20",
+       0.47
+      ]
+     ]
+    },
+    {
+     "variant": "resize to 98%",
+     "score": 0.2367,
+     "delta": -0.5566,
+     "label": "genuine",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       2.71
+      ],
+      [
+       "colour_rare_blob_1pct",
+       1.95
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       1.63
+      ]
+     ]
+    },
+    {
+     "variant": "brightness +3%",
+     "score": 0.6733,
+     "delta": -0.12,
+     "label": "tampered",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "flat_frac",
+       1.29
+      ],
+      [
+       "ink_levels",
+       0.27
+      ],
+      [
+       "noise_excess_p999",
+       0.22
+      ]
+     ]
+    },
+    {
+     "variant": "brightness -3%",
+     "score": 0.6067,
+     "delta": -0.1866,
+     "label": "tampered",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_2pct_fill",
+       1.72
+      ],
+      [
+       "ink_rare_frac",
+       0.95
+      ],
+      [
+       "ink_levels",
+       0.54
+      ]
+     ]
+    }
+   ],
+   "max_abs_delta": 0.6133,
+   "flips": [
+    "JPEG re-save q=95",
+    "JPEG re-save q=75",
+    "resize to 98%"
+   ],
+   "errors": []
+  },
+  {
+   "demo_file": "tampered_payslip_02.png",
+   "expected": "tampered",
+   "baseline_score": 0.1533,
+   "baseline_label": "genuine",
+   "variants": [
+    {
+     "variant": "JPEG re-save q=95",
+     "score": 0.3367,
+     "delta": 0.1834,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       1.02
+      ],
+      [
+       "paper_colours",
+       0.56
+      ],
+      [
+       "ink_rare_frac",
+       0.3
+      ]
+     ]
+    },
+    {
+     "variant": "JPEG re-save q=75",
+     "score": 0.2633,
+     "delta": 0.10999999999999999,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_4pct_fill",
+       4.31
+      ],
+      [
+       "colour_rare_blob_4pct",
+       3.96
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       2.9
+      ]
+     ]
+    },
+    {
+     "variant": "2-px border crop",
+     "score": 0.5067,
+     "delta": 0.35340000000000005,
+     "label": "tampered",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "flat_frac",
+       0.63
+      ],
+      [
+       "colour_novel_blob_d20",
+       0.47
+      ],
+      [
+       "colour_rare_blob_2pct",
+       0.43
+      ]
+     ]
+    },
+    {
+     "variant": "resize to 98%",
+     "score": 0.2833,
+     "delta": 0.13,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_1pct",
+       1.95
+      ],
+      [
+       "colour_rare_blob_2pct_fill",
+       1.55
+      ],
+      [
+       "ink_levels",
+       1.08
+      ]
+     ]
+    },
+    {
+     "variant": "brightness +3%",
+     "score": 0.2667,
+     "delta": 0.1134,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "flat_frac",
+       1.26
+      ],
+      [
+       "noise_excess_p999",
+       0.43
+      ],
+      [
+       "ink_rare_frac",
+       0.19
+      ]
+     ]
+    },
+    {
+     "variant": "brightness -3%",
+     "score": 0.3533,
+     "delta": 0.2,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       0.34
+      ],
+      [
+       "colour_rare_blob_4pct",
+       0.31
+      ],
+      [
+       "ink_levels",
+       0.27
+      ]
+     ]
+    }
+   ],
+   "max_abs_delta": 0.35340000000000005,
+   "flips": [
+    "2-px border crop"
+   ],
+   "errors": []
+  },
+  {
+   "demo_file": "edge_case_01.png",
+   "expected": "genuine",
+   "baseline_score": 0.2233,
+   "baseline_label": "genuine",
+   "variants": [
+    {
+     "variant": "JPEG re-save q=95",
+     "score": 0.2033,
+     "delta": -0.01999999999999999,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_4pct_fill",
+       1.49
+      ],
+      [
+       "ink_rare_frac",
+       0.74
+      ],
+      [
+       "colour_rare_blob_1pct",
+       0.49
+      ]
+     ]
+    },
+    {
+     "variant": "JPEG re-save q=75",
+     "score": 0.2767,
+     "delta": 0.0534,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_4pct_fill",
+       1.46
+      ],
+      [
+       "ink_rare_line",
+       1.36
+      ],
+      [
+       "colour_rare_blob_4pct",
+       0.82
+      ]
+     ]
+    },
+    {
+     "variant": "2-px border crop",
+     "score": 0.8867,
+     "delta": 0.6634,
+     "label": "tampered",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "soft_total_s1_0",
+       16.22
+      ],
+      [
+       "soft_blob_s1_0",
+       9.71
+      ],
+      [
+       "soft_total_s1_6",
+       8.34
+      ]
+     ]
+    },
+    {
+     "variant": "resize to 98%",
+     "score": 0.8433,
+     "delta": 0.6200000000000001,
+     "label": "tampered",
+     "flip": true,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_1pct_fill",
+       2.77
+      ],
+      [
+       "soft_total_s1_6",
+       2.51
+      ],
+      [
+       "colour_rare_blob_0_5pct_fill",
+       2.04
+      ]
+     ]
+    },
+    {
+     "variant": "brightness +3%",
+     "score": 0.48,
+     "delta": 0.2567,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "ink_rare_line",
+       2.37
+      ],
+      [
+       "ink_rare_frac",
+       2.17
+      ],
+      [
+       "colour_rare_blob_4pct_fill",
+       1.49
+      ]
+     ]
+    },
+    {
+     "variant": "brightness -3%",
+     "score": 0.2967,
+     "delta": 0.07340000000000002,
+     "label": "genuine",
+     "flip": false,
+     "largest_feature_shifts": [
+      [
+       "colour_rare_blob_2pct_fill",
+       1.67
+      ],
+      [
+       "colour_rare_blob_4pct_fill",
+       1.44
+      ],
+      [
+       "ink_rare_frac",
+       1.13
+      ]
+     ]
+    }
+   ],
+   "max_abs_delta": 0.6634,
+   "flips": [
+    "2-px border crop",
+    "resize to 98%"
+   ],
+   "errors": []
+  }
+ ],
+ "retrain_seeds": {
+  "training_data": "210 training documents (60 TRAIN + 150 DEV) + processed copies = 840 rows, rebuilt by scripts/train_tamper_model.py",
+  "n_training_images": 210,
+  "n_training_rows": 840,
+  "fingerprint_matches_model_metadata": true,
+  "recorded_seed": 42,
+  "recorded_seed_reproduces_deployed": true,
+  "seeds": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "deployed_trees": 300,
+  "per_image": [
+   {
+    "demo_file": "genuine_payslip_01.png",
+    "expected": "genuine",
+    "deployed_score": 0.056666666666666664,
+    "per_seed": {
+     "0": 0.07,
+     "1": 0.07666666666666666,
+     "2": 0.07,
+     "3": 0.07333333333333333,
+     "4": 0.07666666666666666,
+     "5": 0.06666666666666667,
+     "6": 0.08,
+     "7": 0.03666666666666667,
+     "8": 0.06333333333333334,
+     "9": 0.056666666666666664
+    },
+    "mean": 0.067,
+    "std": 0.012060035010083694,
+    "min": 0.03666666666666667,
+    "max": 0.08,
+    "max_abs_dev": 0.030333333333333337,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "genuine_payslip_02.png",
+    "expected": "genuine",
+    "deployed_score": 0.056666666666666664,
+    "per_seed": {
+     "0": 0.03333333333333333,
+     "1": 0.06333333333333334,
+     "2": 0.04666666666666667,
+     "3": 0.04666666666666667,
+     "4": 0.06666666666666667,
+     "5": 0.06,
+     "6": 0.05333333333333334,
+     "7": 0.05333333333333334,
+     "8": 0.06333333333333334,
+     "9": 0.07
+    },
+    "mean": 0.05566666666666666,
+    "std": 0.010651030205780307,
+    "min": 0.03333333333333333,
+    "max": 0.07,
+    "max_abs_dev": 0.02233333333333333,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "tampered_payslip_01.png",
+    "expected": "tampered",
+    "deployed_score": 0.7933333333333333,
+    "per_seed": {
+     "0": 0.7733333333333333,
+     "1": 0.73,
+     "2": 0.7866666666666666,
+     "3": 0.7533333333333333,
+     "4": 0.77,
+     "5": 0.7766666666666666,
+     "6": 0.8,
+     "7": 0.75,
+     "8": 0.7966666666666666,
+     "9": 0.7433333333333333
+    },
+    "mean": 0.768,
+    "std": 0.022120880030716085,
+    "min": 0.73,
+    "max": 0.8,
+    "max_abs_dev": 0.038000000000000034,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "tampered_payslip_02.png",
+    "expected": "tampered",
+    "deployed_score": 0.15333333333333332,
+    "per_seed": {
+     "0": 0.13666666666666666,
+     "1": 0.11,
+     "2": 0.14,
+     "3": 0.1,
+     "4": 0.12333333333333334,
+     "5": 0.12666666666666668,
+     "6": 0.11666666666666667,
+     "7": 0.10666666666666667,
+     "8": 0.11666666666666667,
+     "9": 0.09
+    },
+    "mean": 0.11666666666666667,
+    "std": 0.0149071198499986,
+    "min": 0.09,
+    "max": 0.14,
+    "max_abs_dev": 0.026666666666666672,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 0
+   },
+   {
+    "demo_file": "edge_case_01.png",
+    "expected": "genuine",
+    "deployed_score": 0.22333333333333333,
+    "per_seed": {
+     "0": 0.17,
+     "1": 0.15,
+     "2": 0.19666666666666666,
+     "3": 0.15333333333333332,
+     "4": 0.19666666666666666,
+     "5": 0.19,
+     "6": 0.15333333333333332,
+     "7": 0.17,
+     "8": 0.16333333333333333,
+     "9": 0.21333333333333335
+    },
+    "mean": 0.17566666666666667,
+    "std": 0.020925794820959347,
+    "min": 0.15,
+    "max": 0.21333333333333335,
+    "max_abs_dev": 0.03766666666666668,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   }
+  ],
+  "wide_forest_trees": 900,
+  "wide_forest_per_image": [
+   {
+    "demo_file": "genuine_payslip_01.png",
+    "expected": "genuine",
+    "deployed_score": 0.056666666666666664,
+    "per_seed": {
+     "0": 0.07888888888888888,
+     "1": 0.07333333333333333,
+     "2": 0.058888888888888886,
+     "3": 0.07333333333333333,
+     "4": 0.06111111111111111,
+     "5": 0.07111111111111111,
+     "6": 0.07111111111111111,
+     "7": 0.056666666666666664,
+     "8": 0.06888888888888889,
+     "9": 0.07222222222222222
+    },
+    "mean": 0.06855555555555556,
+    "std": 0.0068502500630214895,
+    "min": 0.056666666666666664,
+    "max": 0.07888888888888888,
+    "max_abs_dev": 0.0118888888888889,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "genuine_payslip_02.png",
+    "expected": "genuine",
+    "deployed_score": 0.056666666666666664,
+    "per_seed": {
+     "0": 0.03888888888888889,
+     "1": 0.04666666666666667,
+     "2": 0.06111111111111111,
+     "3": 0.052222222222222225,
+     "4": 0.07777777777777778,
+     "5": 0.06666666666666667,
+     "6": 0.04777777777777778,
+     "7": 0.04777777777777778,
+     "8": 0.05,
+     "9": 0.06444444444444444
+    },
+    "mean": 0.05533333333333333,
+    "std": 0.01116431705518264,
+    "min": 0.03888888888888889,
+    "max": 0.07777777777777778,
+    "max_abs_dev": 0.022444444444444447,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "tampered_payslip_01.png",
+    "expected": "tampered",
+    "deployed_score": 0.7933333333333333,
+    "per_seed": {
+     "0": 0.7855555555555556,
+     "1": 0.7666666666666667,
+     "2": 0.7955555555555556,
+     "3": 0.7677777777777778,
+     "4": 0.7622222222222222,
+     "5": 0.7877777777777778,
+     "6": 0.78,
+     "7": 0.7811111111111111,
+     "8": 0.7633333333333333,
+     "9": 0.7588888888888888
+    },
+    "mean": 0.7748888888888888,
+    "std": 0.012000000000000009,
+    "min": 0.7588888888888888,
+    "max": 0.7955555555555556,
+    "max_abs_dev": 0.020666666666666722,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   },
+   {
+    "demo_file": "tampered_payslip_02.png",
+    "expected": "tampered",
+    "deployed_score": 0.15333333333333332,
+    "per_seed": {
+     "0": 0.12555555555555556,
+     "1": 0.12777777777777777,
+     "2": 0.12777777777777777,
+     "3": 0.11333333333333333,
+     "4": 0.12222222222222222,
+     "5": 0.10777777777777778,
+     "6": 0.12,
+     "7": 0.1111111111111111,
+     "8": 0.10444444444444445,
+     "9": 0.09555555555555556
+    },
+    "mean": 0.11555555555555555,
+    "std": 0.010351835287868543,
+    "min": 0.09555555555555556,
+    "max": 0.12777777777777777,
+    "max_abs_dev": 0.01999999999999999,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 0
+   },
+   {
+    "demo_file": "edge_case_01.png",
+    "expected": "genuine",
+    "deployed_score": 0.22333333333333333,
+    "per_seed": {
+     "0": 0.19777777777777777,
+     "1": 0.1811111111111111,
+     "2": 0.2011111111111111,
+     "3": 0.17,
+     "4": 0.19444444444444445,
+     "5": 0.17333333333333334,
+     "6": 0.17666666666666667,
+     "7": 0.19666666666666666,
+     "8": 0.1711111111111111,
+     "9": 0.19666666666666666
+    },
+    "mean": 0.18588888888888888,
+    "std": 0.011895117786743169,
+    "min": 0.17,
+    "max": 0.2011111111111111,
+    "max_abs_dev": 0.01588888888888887,
+    "label_flips_vs_deployed": 0,
+    "correct_seeds": 10
+   }
+  ]
+ },
+ "pass": true,
+ "findings": [
+  "- genuine_payslip_01.png: label flips under 2-px border crop (max score change 0.45).",
+  "- genuine_payslip_02.png: label flips under 2-px border crop (max score change 0.45).",
+  "- tampered_payslip_01.png: label flips under JPEG re-save q=95, JPEG re-save q=75, resize to 98% (max score change 0.61).",
+  "- tampered_payslip_02.png: label flips under 2-px border crop (max score change 0.35).",
+  "- edge_case_01.png: label flips under 2-px border crop, resize to 98% (max score change 0.66).",
+  "- Overall 8/30 content-preserving variants change the label. Features most often among the largest shifts in those cases: colour_rare_blob_2pct_fill (3x), flat_frac (3x), ink_rare_line (3x), colour_rare_blob_2pct (2x)."
+ ],
+ "recommendations": [
+  "- Keep the inference path as it is: it is deterministic (identical output on every call, path, thread and process). Record the SHA-256 of fraud_model.pkl in every release and re-run this script after any dependency upgrade; scikit-learn / numpy / OpenCV / Pillow versions are part of the model.",
+  "- Pin the package versions listed above (requirements.txt is unpinned). A different library version is the most likely source of future score drift, and pickle compatibility is not guaranteed across scikit-learn versions.",
+  "- Retraining noise: with 300 trees the demo scores move by up to 0.07 between seeds (mean std 0.016); 900 trees gives mean std 0.010. When the model is next retrained, consider n_estimators=900 (choose it by train-only cross-validation, not on the frozen test set or the demo images).",
+  "- Report scores near the threshold as 'needs review' instead of a hard genuine/tampered verdict (e.g. a band around TAMPER_THRESHOLD, set from validation data), so near-threshold images are not presented as confident decisions.",
+  "- Input sensitivity is a model-quality problem, not a determinism problem. The label flips above come mostly with large shifts in colour_rare_blob_2pct_fill, flat_frac, ink_rare_line, which change when a page is re-saved, resized or re-exposed, so the model partly measures the file's processing history rather than the edit. Measure local anomalies relative to the page's own compression level (estimated JPEG quality, noise floor) and widen the processing applied to training copies.",
+  "- Stability says nothing about accuracy: see logs/model_validation_report.txt (held-out accuracy and demo results)."
+ ]
+}

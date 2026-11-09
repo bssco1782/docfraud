@@ -1,0 +1,187 @@
+--------------------------------
+DOCFRAUD MODEL STABILITY REPORT
+--------------------------------
+Generated (UTC): 2026-09-27T09:23:27+00:00
+Script: scripts/model_stability_test.py --runs 10
+Environment: Python 3.11.15, Linux x86_64, 4 CPUs; scikit-learn 1.9.1, numpy 2.4.6, opencv-python 5.0.0.93, pillow 12.3.0, fastapi 0.141.1
+
+Model:
+  data/models/fraud_model.pkl (loaded by the API)
+  SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+  version 2.0.0, feature schema local-tamper-v2, 29 features
+  RandomForest {'n_estimators': 300, 'class_weight': 'balanced', 'random_state': 42}, trained on 210 documents
+  Decision rule: tampered if tamper_risk_score >= 0.5 (TAMPER_THRESHOLD)
+
+Images: 5 demo images in data/demo/ (demo_manifest.json). Demonstration images only,
+  not a validation set.
+Tolerance: every run within +/-0.02 of the image's mean (2 points on the 0-1 score
+  scale), for both tamper_risk_score and confidence; the label must never change.
+
+--------------------------------
+SUMMARY
+--------------------------------
+[PASS] 1. Repeatability: 50 calls (10 per image) through ModelAPI.predict(bytes);
+         5/5 images returned the identical score and confidence on every run; largest deviation 0.0000
+[PASS] 2. Execution paths: 35 extra calls over 5 paths; 5/5 paths equal to run 1
+[PASS] 3. Feature extraction: 29 features (local-tamper-v2) bitwise identical on 10 runs and after lossless re-encode
+[PASS] 4. ELA (analyzer): heatmap and score identical on 10 runs; Day-4 ELA features agree with heatmap
+[PASS] 5. Drift: model SHA-256 matches the demo manifest record; max score change 0.0000
+
+STABILITY (gating checks 1-5): PASS
+
+Informational (not gating):
+  6. Input sensitivity: 8 label flip(s) in 30 content-preserving variants (edge_case_01.png, genuine_payslip_01.png, genuine_payslip_02.png, tampered_payslip_01.png, tampered_payslip_02.png)
+  7. Retraining seeds: recorded seed 42 reproduces the deployed artifact: YES; demo labels that change with the seed: 0/5
+
+--------------------------------
+1. REPEATABILITY (10 runs per image, ModelAPI.predict(bytes, filename) = the /verify call)
+--------------------------------
+Image                      Label (all runs)  Score mean     std    min    max  max dev Conf mean     std  ms avg  Result
+--------------------------------------------------------------------------------------------------------------------------
+genuine_payslip_01.png     genuine               0.0567  0.0000   0.06   0.06   0.0000    0.9433  0.0000     330  PASS
+genuine_payslip_02.png     genuine               0.0567  0.0000   0.06   0.06   0.0000    0.9433  0.0000     335  PASS
+tampered_payslip_01.png    tampered              0.7933  0.0000   0.79   0.79   0.0000    0.7933  0.0000     324  PASS
+tampered_payslip_02.png    genuine               0.1533  0.0000   0.15   0.15   0.0000    0.8467  0.0000     336  PASS
+edge_case_01.png           genuine               0.2233  0.0000   0.22   0.22   0.0000    0.7767  0.0000     339  PASS
+
+Per-run tamper_risk_score / confidence:
+  genuine_payslip_01.png     0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94
+  genuine_payslip_02.png     0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94 0.06/0.94
+  tampered_payslip_01.png    0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79 0.79/0.79
+  tampered_payslip_02.png    0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85 0.15/0.85
+  edge_case_01.png           0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78 0.22/0.78
+Crashes: 0
+
+--------------------------------
+2. EXECUTION PATHS (each result compared with run 1)
+--------------------------------
+[PASS] file path input (ModelAPI.predict(path))       5 calls - 1 call per image
+[PASS] fresh ModelAPI (model reloaded from disk)      5 calls - 1 call per image
+[PASS] POST /verify route (in-process TestClient)    10 calls - 2 requests per image, HTTP 200; route model = deployed artifact
+[PASS] 4 concurrent threads, one shared ModelAPI     10 calls - 10 calls, 2 per image
+[PASS] separate Python process                        5 calls - new interpreter, model loaded from disk, 1 call per image
+
+--------------------------------
+3. FEATURE EXTRACTION CONSISTENCY
+--------------------------------
+Image                      Features  Finite Identical x10  Re-encode  Result
+--------------------------------------------------------------------------------
+genuine_payslip_01.png           29     yes           yes       same  PASS
+genuine_payslip_02.png           29     yes           yes       same  PASS
+tampered_payslip_01.png          29     yes           yes       same  PASS
+tampered_payslip_02.png          29     yes           yes       same  PASS
+edge_case_01.png                 29     yes           yes       same  PASS
+Re-encode = the image saved again as PNG (compress_level=9): identical pixels, different file bytes (5/5).
+
+--------------------------------
+4. ELA CONSISTENCY
+--------------------------------
+Image                      ELA score  ela_mean  ela_p95 high ratio Heatmap SHA-256    Runs identical  Result
+----------------------------------------------------------------------------------------------------------------
+genuine_payslip_01.png        62.505    12.487     70.0     0.0705 07294758f71dd0ab   yes             PASS
+genuine_payslip_02.png        63.362    12.716     70.0     0.0721 466ebafa252d72c0   yes             PASS
+tampered_payslip_01.png       62.664    12.536     70.0     0.0708 5ee536fede3819b4   yes             PASS
+tampered_payslip_02.png       62.738    12.618     70.0     0.0716 9a620531fe8cb4d9   yes             PASS
+edge_case_01.png              46.515     7.927     40.0     0.0320 b3f6165948bb44bc   yes             PASS
+ELA features in the 22-feature vector recomputed from the heatmap: agree for all images.
+
+--------------------------------
+5. PREDICTION DRIFT (vs demo manifest record)
+--------------------------------
+Recorded: 2026-09-27T09:05:37+00:00; model SHA-256 recorded 1d374648e967af72..., current 1d374648e967af72... -> unchanged
+Image                      Recorded  Current    Delta Label recorded -> now    Result
+----------------------------------------------------------------------------------------
+genuine_payslip_01.png         0.06   0.0567  +0.0000 genuine -> genuine       PASS
+genuine_payslip_02.png         0.06   0.0567  +0.0000 genuine -> genuine       PASS
+tampered_payslip_01.png        0.79   0.7933  +0.0000 tampered -> tampered     PASS
+tampered_payslip_02.png        0.15   0.1533  +0.0000 genuine -> genuine       PASS
+edge_case_01.png               0.22   0.2233  +0.0000 genuine -> genuine       PASS
+
+--------------------------------
+6. INPUT SENSITIVITY (informational)
+--------------------------------
+Content-preserving variants of each demo image, scored through ModelAPI.predict (temp files,
+deleted after the run). 'Largest feature shifts' = features that moved most, in units of their
+std over the model's training rows (descriptive; the forest combines many features).
+Image / variant              Score  Change  Label     Flip  Largest feature shifts
+----------------------------------------------------------------------------------------------------------------------
+genuine_payslip_01.png        0.06          genuine         (unmodified; expected genuine)
+  JPEG re-save q=95           0.19   +0.14  genuine         ink_rare_frac 1.0, ink_rare_line 0.7, ink_levels 0.5
+  JPEG re-save q=75           0.22   +0.16  genuine         colour_rare_blob_2pct_fill 4.6, colour_rare_blob_4pct_fill 4.3, colour_rare_blob_4pct 4.0
+  2-px border crop            0.51   +0.45  tampered  YES   colour_rare_blob_2pct_fill 1.8, colour_rare_blob_2pct 0.8, flat_frac 0.7
+  resize to 98%               0.16   +0.10  genuine         colour_rare_blob_1pct 1.9, ink_levels 0.8, noise_anomalous_frac 0.7
+  brightness +3%              0.36   +0.31  genuine         colour_rare_blob_2pct_fill 1.7, flat_frac 1.3, colour_rare_blob_2pct 0.3
+  brightness -3%              0.11   +0.05  genuine         ink_rare_line 1.4, ink_levels 0.5, colour_rare_blob_4pct 0.3
+genuine_payslip_02.png        0.06          genuine         (unmodified; expected genuine)
+  JPEG re-save q=95           0.29   +0.24  genuine         ink_rare_line 1.0, ink_rare_frac 0.5, paper_colours 0.5
+  JPEG re-save q=75           0.26   +0.21  genuine         colour_rare_blob_4pct_fill 4.3, colour_rare_blob_4pct 3.9, colour_rare_blob_2pct_fill 2.9
+  2-px border crop            0.50   +0.45  tampered  YES   jpeg_grid 1.1, flat_frac 0.7, colour_novel_blob_d20 0.5
+  resize to 98%               0.22   +0.17  genuine         colour_rare_blob_1pct 1.9, colour_rare_blob_2pct_fill 1.6, ink_levels 1.1
+  brightness +3%              0.29   +0.24  genuine         flat_frac 1.3, noise_excess_p999 0.3, ink_rare_frac 0.3
+  brightness -3%              0.20   +0.15  genuine         ink_rare_line 0.3, colour_rare_blob_4pct 0.3, ink_levels 0.3
+tampered_payslip_01.png       0.79          tampered        (unmodified; expected tampered)
+  JPEG re-save q=95           0.18   -0.61  genuine   YES   ink_rare_line 2.7, colour_rare_blob_2pct_fill 1.7, paper_colours 0.5
+  JPEG re-save q=75           0.29   -0.50  genuine   YES   colour_rare_blob_4pct_fill 4.3, colour_rare_blob_4pct 3.9, ink_rare_line 3.4
+  2-px border crop            0.73   -0.06  tampered        flat_frac 0.7, noise_excess_p999 0.6, colour_novel_blob_d20 0.5
+  resize to 98%               0.24   -0.56  genuine   YES   ink_rare_line 2.7, colour_rare_blob_1pct 1.9, colour_rare_blob_2pct_fill 1.6
+  brightness +3%              0.67   -0.12  tampered        flat_frac 1.3, ink_levels 0.3, noise_excess_p999 0.2
+  brightness -3%              0.61   -0.19  tampered        colour_rare_blob_2pct_fill 1.7, ink_rare_frac 0.9, ink_levels 0.5
+tampered_payslip_02.png       0.15          genuine         (unmodified; expected tampered)
+  JPEG re-save q=95           0.34   +0.18  genuine         ink_rare_line 1.0, paper_colours 0.6, ink_rare_frac 0.3
+  JPEG re-save q=75           0.26   +0.11  genuine         colour_rare_blob_4pct_fill 4.3, colour_rare_blob_4pct 4.0, colour_rare_blob_2pct_fill 2.9
+  2-px border crop            0.51   +0.35  tampered  YES   flat_frac 0.6, colour_novel_blob_d20 0.5, colour_rare_blob_2pct 0.4
+  resize to 98%               0.28   +0.13  genuine         colour_rare_blob_1pct 1.9, colour_rare_blob_2pct_fill 1.6, ink_levels 1.1
+  brightness +3%              0.27   +0.11  genuine         flat_frac 1.3, noise_excess_p999 0.4, ink_rare_frac 0.2
+  brightness -3%              0.35   +0.20  genuine         ink_rare_line 0.3, colour_rare_blob_4pct 0.3, ink_levels 0.3
+edge_case_01.png              0.22          genuine         (unmodified; expected genuine)
+  JPEG re-save q=95           0.20   -0.02  genuine         colour_rare_blob_4pct_fill 1.5, ink_rare_frac 0.7, colour_rare_blob_1pct 0.5
+  JPEG re-save q=75           0.28   +0.05  genuine         colour_rare_blob_4pct_fill 1.5, ink_rare_line 1.4, colour_rare_blob_4pct 0.8
+  2-px border crop            0.89   +0.66  tampered  YES   soft_total_s1_0 16.2, soft_blob_s1_0 9.7, soft_total_s1_6 8.3
+  resize to 98%               0.84   +0.62  tampered  YES   colour_rare_blob_1pct_fill 2.8, soft_total_s1_6 2.5, colour_rare_blob_0_5pct_fill 2.0
+  brightness +3%              0.48   +0.26  genuine         ink_rare_line 2.4, ink_rare_frac 2.2, colour_rare_blob_4pct_fill 1.5
+  brightness -3%              0.30   +0.07  genuine         colour_rare_blob_2pct_fill 1.7, colour_rare_blob_4pct_fill 1.4, ink_rare_frac 1.1
+
+Label flips per variant (out of 5 images): JPEG re-save q=95 1, JPEG re-save q=75 1, 2-px border crop 4, resize to 98% 2, brightness +3% 0, brightness -3% 0
+
+--------------------------------
+7. RETRAINING-SEED SENSITIVITY (informational)
+--------------------------------
+The deployed configuration refit in memory on 210 training documents (60 TRAIN + 150 DEV) + processed copies = 840 rows, rebuilt by scripts/train_tamper_model.py; training data matches the model metadata; nothing saved.
+Recorded seed 42 reproduces the deployed artifact's probabilities exactly (840 training rows + 5 demo images): YES
+Seeds 0-9, 300 trees (deployed size):
+Image                      Expected  Deployed Seed min    max    std Label changes Correct seeds
+--------------------------------------------------------------------------------------------------
+genuine_payslip_01.png     genuine       0.06     0.04   0.08  0.012         0/10         10/10
+genuine_payslip_02.png     genuine       0.06     0.03   0.07  0.011         0/10         10/10
+tampered_payslip_01.png    tampered      0.79     0.73   0.80  0.022         0/10         10/10
+tampered_payslip_02.png    tampered      0.15     0.09   0.14  0.015         0/10          0/10
+edge_case_01.png           genuine       0.22     0.15   0.21  0.021         0/10         10/10
+
+Same seeds with 900 trees (NOT deployed; shows how much a larger forest reduces seed noise):
+Image                      Seed min    max    std Label changes
+----------------------------------------------------------------
+genuine_payslip_01.png         0.06   0.08  0.007         0/10
+genuine_payslip_02.png         0.04   0.08  0.011         0/10
+tampered_payslip_01.png        0.76   0.80  0.012         0/10
+tampered_payslip_02.png        0.10   0.13  0.010         0/10
+edge_case_01.png               0.17   0.20  0.012         0/10
+
+--------------------------------
+INCONSISTENT OR UNSTABLE OUTPUTS
+--------------------------------
+- genuine_payslip_01.png: label flips under 2-px border crop (max score change 0.45).
+- genuine_payslip_02.png: label flips under 2-px border crop (max score change 0.45).
+- tampered_payslip_01.png: label flips under JPEG re-save q=95, JPEG re-save q=75, resize to 98% (max score change 0.61).
+- tampered_payslip_02.png: label flips under 2-px border crop (max score change 0.35).
+- edge_case_01.png: label flips under 2-px border crop, resize to 98% (max score change 0.66).
+- Overall 8/30 content-preserving variants change the label. Features most often among the largest shifts in those cases: colour_rare_blob_2pct_fill (3x), flat_frac (3x), ink_rare_line (3x), colour_rare_blob_2pct (2x).
+
+--------------------------------
+SUGGESTED IMPROVEMENTS
+--------------------------------
+- Keep the inference path as it is: it is deterministic (identical output on every call, path, thread and process). Record the SHA-256 of fraud_model.pkl in every release and re-run this script after any dependency upgrade; scikit-learn / numpy / OpenCV / Pillow versions are part of the model.
+- Pin the package versions listed above (requirements.txt is unpinned). A different library version is the most likely source of future score drift, and pickle compatibility is not guaranteed across scikit-learn versions.
+- Retraining noise: with 300 trees the demo scores move by up to 0.07 between seeds (mean std 0.016); 900 trees gives mean std 0.010. When the model is next retrained, consider n_estimators=900 (choose it by train-only cross-validation, not on the frozen test set or the demo images).
+- Report scores near the threshold as 'needs review' instead of a hard genuine/tampered verdict (e.g. a band around TAMPER_THRESHOLD, set from validation data), so near-threshold images are not presented as confident decisions.
+- Input sensitivity is a model-quality problem, not a determinism problem. The label flips above come mostly with large shifts in colour_rare_blob_2pct_fill, flat_frac, ink_rare_line, which change when a page is re-saved, resized or re-exposed, so the model partly measures the file's processing history rather than the edit. Measure local anomalies relative to the page's own compression level (estimated JPEG quality, noise floor) and widen the processing applied to training copies.
+- Stability says nothing about accuracy: see logs/model_validation_report.txt (held-out accuracy and demo results).

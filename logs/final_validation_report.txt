@@ -1,0 +1,160 @@
+--------------------------------
+DOCFRAUD FINAL MODEL VALIDATION
+--------------------------------
+Generated (UTC): 2026-09-25T08:55:52+00:00
+Script: scripts/final_validation.py
+
+Model:
+  Deployed artifact (loaded by API): data/models/fraud_model.pkl
+  RandomForest {'n_estimators': 100, 'class_weight': 'balanced', 'random_state': 42} (other params = sklearn defaults)
+  Trained on 75 images at 2026-09-24T14:54:43.329982+00:00
+  Held-out replica used for metrics: same class / params / seed / features,
+  fitted in memory on the 60 frozen TRAIN images only (not saved).
+  Not validated: local-forensics-v1 model (fraud_model_local_v1.pkl) - never
+  finalized; Day-5 CV stopped before grid/final, awaiting review.
+
+Model version:
+  1.0.0 / feature schema day4-v2-22 (22 features; code schema day4-v2-22)
+
+Validation dataset:
+  Frozen 15-image test set (day5-frozen-v1, dataset_sha256 b6b1ec12a66e2f13...)
+
+Test images:
+  15 (10 genuine / 5 tampered)
+
+Test-set integrity:
+  PASS
+    [x] exactly 15 test images - n=15
+    [x] exactly 60 train images - n=60
+    [x] test/train paths disjoint
+    [x] test/train hashes disjoint
+    [x] labels match folder
+    [x] all 15 test hashes match frozen split - 15/15 match
+    [x] all 60 train hashes match frozen split - 60/60 match
+    [x] dataset fingerprint matches frozen split - b6b1ec12a66e2f13
+
+Training leakage:
+  Held-out replica (metrics below): PASS - trained on 60 TRAIN images only
+  Deployed artifact fraud_model.pkl: FAIL - trained on all 75 images,
+    including all 15 frozen test images. Its test-set numbers are NOT valid.
+    [ ] deployed artifact not trained on test images - fraud_model.pkl n_training_samples=75 (dataset = 75 incl. all 15 test images; refit on full data after Day-5 holdout)
+    [x] deployed artifact's Day-5 holdout files == frozen test list - 15/15 overlap
+    [x] no test image in augmentation train_v1 - 114 rows, 0 hits
+    [x] no test image in augmentation train_v2 - 114 rows, 0 hits
+    [x] no test image in augmentation train_v2_1 - 114 rows, 0 hits
+    [x] no test image in feature cache - 176 keys, 0 hits
+    [x] no test image in CV / model-selection results - 0 hits
+    [x] frozen test not yet consumed by ml_recovery final - local-forensics model never finalized
+
+--------------------------------
+OVERALL METRICS (held-out replica, valid)
+--------------------------------
+Accuracy:            60.00%  (9/15)
+Precision:           44.44%  (positive class = tampered)
+Recall:              80.00%
+F1:                  0.5714
+
+True Negatives:      5
+False Positives:     5
+False Negatives:     1
+True Positives:      4
+
+False Positive Rate: 50.00%  (5/10 genuine flagged)
+False Negative Rate: 20.00%  (1/5 tampered missed)
+
+Reproduces Day-5 holdout confusion matrix [[5, 5], [1, 4]]: YES
+Decision threshold: RandomForest default (0.5 vote), not tuned.
+Risk score = RF vote fraction for 'tampered' - uncalibrated, not a fraud probability.
+
+--------------------------------
+CONFUSION MATRIX (held-out replica)
+--------------------------------
+                   Pred Genuine   Pred Tampered
+Actual Genuine     TN = 5         FP = 5
+Actual Tampered    FN = 1         TP = 4
+
+--------------------------------
+PER-IMAGE RESULTS (held-out replica, all 15)
+--------------------------------
+Filename                     | Doc type       | Method       | Actual   | Predicted |  Risk | Correct
+----------------------------------------------------------------------------------------------------
+tampered/payslip_033.png     | payslip        | noise_patch  | tampered | tampered  |  0.56 | YES
+genuine/id_proof_066.png     | id_proof       | -            | genuine  | tampered  |  0.82 | NO
+genuine/payslip_042.png      | payslip        | -            | genuine  | genuine   |  0.30 | YES
+genuine/bank_stmt_059.png    | bank_statement | -            | genuine  | tampered  |  0.55 | NO
+tampered/id_proof_024.png    | id_proof       | color_shift  | tampered | tampered  |  0.63 | YES
+tampered/payslip_030.png     | payslip        | noise_patch  | tampered | tampered  |  0.90 | YES
+genuine/bank_stmt_049.png    | bank_statement | -            | genuine  | tampered  |  0.61 | NO
+genuine/id_proof_073.png     | id_proof       | -            | genuine  | genuine   |  0.00 | YES
+genuine/payslip_036.png      | payslip        | -            | genuine  | tampered  |  0.61 | NO
+genuine/payslip_010.png      | payslip        | -            | genuine  | genuine   |  0.47 | YES
+tampered/payslip_043.png     | payslip        | text_overlay | tampered | tampered  |  0.72 | YES
+genuine/bank_stmt_053.png    | bank_statement | -            | genuine  | tampered  |  0.57 | NO
+genuine/id_proof_022.png     | id_proof       | -            | genuine  | genuine   |  0.44 | YES
+tampered/id_proof_071.png    | id_proof       | text_overlay | tampered | genuine   |  0.10 | NO
+genuine/id_proof_061.png     | id_proof       | -            | genuine  | genuine   |  0.38 | YES
+
+Incorrect: 6
+  genuine/id_proof_066.png: actual genuine, predicted tampered (risk 0.82)
+  genuine/bank_stmt_059.png: actual genuine, predicted tampered (risk 0.55)
+  genuine/bank_stmt_049.png: actual genuine, predicted tampered (risk 0.61)
+  genuine/payslip_036.png: actual genuine, predicted tampered (risk 0.61)
+  genuine/bank_stmt_053.png: actual genuine, predicted tampered (risk 0.57)
+  tampered/id_proof_071.png: actual tampered, predicted genuine (risk 0.10)
+
+--------------------------------
+DEPLOYED ARTIFACT ON TEST SET (CONTAMINATED - NOT A VALID MEASURE)
+--------------------------------
+fraud_model.pkl has seen every test image during training; this only shows
+how well it memorised them.
+Accuracy 100.00% (15/15), precision 100.00%, recall 100.00%, F1 1.0000
+                   Pred Genuine   Pred Tampered
+Actual Genuine     TN = 10        FP = 0
+Actual Tampered    FN = 0         TP = 5
+
+--------------------------------
+EDGE CASE RESULTS
+--------------------------------
+Path: backend.model_utils.ModelAPI.predict (deployed artifact) + extract_features
+Source image: genuine/bank_stmt_011.png (TRAIN split; temp copies only, deleted after run)
+Reference risk of untouched source: 0.22
+
+Small image:
+  PASS
+    - 80x60 px                 PASS processed        risk 0.47  0.31s  peak 0 MB  
+    - 16x16 px                 PASS processed        risk 0.44  0.25s  peak 0 MB  
+Large image:
+  PASS
+    - 2550x3150 px             PASS processed        risk 0.31  13.16s  peak 158 MB  
+    - 4000x5000 px             PASS processed        risk 0.31  14.60s  peak 156 MB  
+Grayscale:
+  PASS
+    - mode L                   PASS processed        risk 0.18  3.83s  peak 46 MB  
+    - mode LA                  PASS processed        risk 0.18  3.52s  peak 46 MB  
+Low quality:
+  PASS
+    - 0.5x + blur + JPEG q=5   PASS processed        risk 0.28  1.39s  peak 11 MB  
+    - JPEG q=1                 PASS processed        risk 0.45  3.63s  peak 46 MB  
+
+--------------------------------
+LIMITATIONS
+--------------------------------
+- Held-out accuracy 60.00% is below the 78% sprint target. The model flags 5/10 genuine documents (FPR 50.00%) - for an NBFC this means many good applicants sent to manual review.
+- It misses 1/5 tampered documents (FNR 20.00%).
+- n=15 (10 genuine / 5 tampered): one image moves accuracy by 6.7 points and recall by 20 points. Wide uncertainty; not a stable estimate.
+- The deployed artifact was refit on all 75 images including the test set, so there is no clean held-out number for the exact bytes in production. The replica has identical config and data minus the 15 test images.
+- The 22 features are whole-image statistics; tampering in this dataset is local. Day-5 CV on train only gave 58.3% for these features, consistent with this result.
+- The better-scoring local-forensics-v1 representation (CV 73.3%) has no finalized model and was not evaluated here - doing so now would be test-set model selection.
+- Data is synthetic (3 templates, 4 simple tamper methods). No real NBFC documents; real-world performance is unknown.
+- Risk score is an uncalibrated RF vote fraction; do not present it as a probability.
+- ModelAPI.predict returns flagged_regions=[] always; the API gives no localisation evidence.
+- Images above 2000 px are downscaled before feature extraction; very small images are processed but carry little information, so their scores are not meaningful.
+- Large inputs are slow: 13.2s for the 2550x3150 case (feature extraction runs twice there: once directly, once via ModelAPI).
+
+--------------------------------
+READINESS
+--------------------------------
+Validation run completed:        YES
+Model meets 78% target:          NO
+READY FOR DAY-6 VALIDATION:      NO
+PRODUCTION READY:                NO

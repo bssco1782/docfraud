@@ -1,0 +1,29 @@
+==============================================================================
+DOCFRAUD - MODEL DEPLOYMENT APPROVAL CHECKLIST (Day 10, Founder A)
+==============================================================================
+Generated (UTC): 2026-09-27T11:41:25+00:00   Script: scripts/final_model_validation.py
+Model: data/models/fraud_model.pkl v2.0.0, SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+
+[x] Model file loads correctly
+      33/33 load, dependency, serialization and runtime checks without failure (0 warnings)
+[x] Demo images validated
+      5/5 valid outputs, identical over 10 runs, equal to the recorded scores; 4/5 correct (known miss: tampered_payslip_02.png)
+[x] Accuracy report generated
+      TEST 86.67%, HOLDOUT 92.62% (> 75% required); logs/final_accuracy_report.txt
+[x] Performance validated
+      5/5 targets met; logs/inference_benchmark_report.txt
+[x] No critical bugs found
+      16/16 review checks without failure; 0 crashes; 0 open issues (non-blocking list in Appendix C)
+[x] Release report completed
+      5/5 sections; final_model_release_report.txt, model_signoff_checklist.txt
+
+Decision: APPROVED
+  APPROVED for release (model v2.0.0) for the live demo, the investor presentation and an internal pilot on synthetic or non-decision documents. NOT APPROVED for automated fraud decisions on real documents.
+Conditions:
+  1. Install with the pinned scikit-learn (requirements.txt) and keep MODEL_PATH at the default data/models/fraud_model.pkl; the file's SHA-256 must match this report.
+  2. Present tamper_risk_score as a risk indicator for human review, never as a probability of fraud; quote accuracy as measured on synthetic documents.
+  3. Keep a person in the loop for every flagged document, and for pages that were re-saved, scanned, photographed, rotated or cropped (accuracy 50-87% on such pages).
+  4. Operator conditions from DEPLOYMENT.md still apply (API_KEY, CORS_ORIGINS, HTTPS).
+  5. Rollback: MODEL_PATH=data/models/fraud_model_v1.pkl and restart (verified in Appendix A).
+
+Full report: logs/final_model_release_report.txt

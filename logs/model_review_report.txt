@@ -1,0 +1,222 @@
+--------------------------------
+DOCFRAUD MODEL REVIEW REPORT
+--------------------------------
+Generated (UTC): 2026-09-27T10:23:22+00:00
+Script: scripts/model_review.py
+Environment: Python 3.11.15, Linux x86_64, 4 CPUs; scikit-learn 1.9.1, numpy 2.4.6, opencv-python 5.0.0.93, pillow 12.3.0, fastapi 0.141.1
+Model: data/models/fraud_model.pkl v2.0.0 (local-tamper-v2, 29 features), SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Decision rule: tampered if tamper_risk_score >= 0.5 (unchanged).
+
+--------------------------------
+RELEASE CHECKLIST
+--------------------------------
+[PASS] Model file loads successfully  ModelAPI loaded v2.0.0 (local-tamper-v2); SHA-256 1d374648e967af72... matches the demo record
+[PASS] Metrics documented             TEST 86.67%, HOLDOUT 92.62% in this report and logs/model_validation_report.txt
+[PASS] Feature importance generated   logs/feature_importance_report.txt (29 features)
+[PASS] Robustness tests completed     logs/model_robustness_report.txt (14 variants, 2366 predictions)
+[PASS] Demo images validated          5/5 scored, scores equal the manifest record; 4/5 correct
+[PASS] No prediction crashes          0 crashes in 2545 predictions (review + robustness)
+Result: 6/6 items pass
+
+--------------------------------
+1. PERFORMANCE REVIEW (held-out documents, deployed file)
+--------------------------------
+Leakage checks: PASS; frozen split intact: YES.
+Set          n           Accuracy (95% CI) Precision   Recall     F1      FPR      FNR
+----------------------------------------------------------------------------------------
+TEST        15    86.67% (62.12%-96.26%)    71.43%  100.00%  0.833   20.00%    0.00%
+HOLDOUT    149    92.62% (87.26%-95.83%)    98.25%   84.85%  0.911    1.20%   15.15%
+COMBINED   164    92.07% (86.91%-95.31%)    95.31%   85.92%  0.904    3.23%   14.08%
+
+TEST confusion matrix:
+                   Pred Genuine   Pred Tampered
+Actual Genuine     TN = 8         FP = 2
+Actual Tampered    FN = 0         TP = 5
+  Class      Precision   Recall     F1 Support
+  genuine      100.00%   80.00%  0.889      10
+  tampered      71.43%  100.00%  0.833       5
+  Tampered caught by method: color_shift 1/1, noise_patch 2/2, text_overlay 2/2
+  Accuracy by document type: bank_statement 1/3, id_proof 6/6, payslip 6/6
+
+HOLDOUT confusion matrix:
+                   Pred Genuine   Pred Tampered
+Actual Genuine     TN = 82        FP = 1
+Actual Tampered    FN = 10        TP = 56
+  Class      Precision   Recall     F1 Support
+  genuine       89.13%   98.80%  0.937      83
+  tampered      98.25%   84.85%  0.911      66
+  Tampered caught by method: blur_region 8/11, color_shift 10/12, noise_patch 26/26, text_overlay 12/17
+  Accuracy by document type: bank_statement 43/50, id_proof 47/49, payslip 48/50
+
+Comparison with previous reports:
+When   Model                      Set              n  Accuracy Precision   Recall     F1  Source
+----------------------------------------------------------------------------------------------------------------------
+Day 3  v0 (15 features, 25 docs)  5-image test     5    80.00%    50.00%  100.00%  0.667  PROGRESS.md Day 3
+Day 5  v1 (day4-v2-22)            frozen TEST     15    60.00%    44.44%   80.00%  0.571  v1 model metadata / PROGRESS.md Day 5
+Day 6  v1 (day4-v2-22)            frozen TEST     15    60.00%    44.44%   80.00%  0.571  logs/final_validation_report.txt (2026-09-25T08:55:52+00:00)
+Day 8  v1 (day4-v2-22)            frozen TEST     15    60.00%    44.44%   80.00%  0.571  PROGRESS.md Day 8 (v1 revalidation)
+Day 8  v2 (local-tamper-v2)       TEST            15    86.67%    71.43%  100.00%  0.833  logs/model_validation_results.json
+Day 8  v2 (local-tamper-v2)       HOLDOUT        149    92.62%    98.25%   84.85%  0.911  logs/model_validation_results.json
+Day 9  v2 (local-tamper-v2)       TEST            15    86.67%    71.43%  100.00%  0.833  this review
+Day 9  v2 (local-tamper-v2)       HOLDOUT        149    92.62%    98.25%   84.85%  0.911  this review
+Day 9 confusion matrices identical to the Day 8 v2 record: YES (same model file; confirms reproducibility).
+
+Weak classes and errors:
+- Weaker class: tampered (recall 85.92%, 10 missed) vs genuine (specificity 96.77%, 3 flagged). The model errs towards 'genuine'.
+- By document type (TEST + HOLDOUT): bank_statement 44/53 (83.02%), id_proof 53/55 (96.36%), payslip 54/56 (96.43%); weakest: bank_statement.
+- Tampered caught by edit method: blur_region 8/11 (72.73%), text_overlay 14/19 (73.68%), color_shift 11/13 (84.62%), noise_patch 28/28 (100.00%).
+- Missed edits by what they left: visible local edit 5, no pixel changed (edit on blank paper) 3, only the inserted words (white box on white paper) 2. 4 of 71 held-out edits changed no pixel.
+
+False positives (3):
+  genuine/bank_stmt_059.png          bank_statement  risk 0.58
+  genuine/bank_stmt_053.png          bank_statement  risk 0.50
+  genuine/bank_stmt_2084.png         bank_statement  risk 0.59
+
+False negatives (10) and what the edit left on the page:
+  HOLDOUT  tampered/payslip_2004.png          color_shift   risk 0.34  changed px  5124  visible local edit
+  HOLDOUT  tampered/payslip_2025.png          color_shift   risk 0.31  changed px  4445  visible local edit
+  HOLDOUT  tampered/bank_stmt_2058.png        blur_region   risk 0.21  changed px     0  no pixel changed (edit on blank paper)
+  HOLDOUT  tampered/bank_stmt_2065.png        text_overlay  risk 0.48  changed px   668  only the inserted words (white box on white paper)
+  HOLDOUT  tampered/bank_stmt_2073.png        text_overlay  risk 0.37  changed px  5423  visible local edit
+  HOLDOUT  tampered/bank_stmt_2082.png        text_overlay  risk 0.25  changed px  7903  visible local edit
+  HOLDOUT  tampered/bank_stmt_2092.png        text_overlay  risk 0.46  changed px  1428  visible local edit
+  HOLDOUT  tampered/bank_stmt_2094.png        text_overlay  risk 0.34  changed px   668  only the inserted words (white box on white paper)
+  HOLDOUT  tampered/id_proof_2104.png         blur_region   risk 0.03  changed px     0  no pixel changed (edit on blank paper)
+  HOLDOUT  tampered/id_proof_2113.png         blur_region   risk 0.00  changed px     0  no pixel changed (edit on blank paper)
+
+--------------------------------
+2. PREDICTION QUALITY (held-out genuine and tampered documents)
+--------------------------------
+Risk score distribution (164 documents; # = documents):
+Score band  Genuine                                           Tampered                                          
+0.0-0.1         53  ########################################        2  ##                                      
+0.1-0.2         19  ##############                                  0                                          
+0.2-0.3          9  #######                                         2  ##                                      
+0.3-0.4          8  ######                                          4  ###                                     
+0.4-0.5          1  #                                               2  ##                                      
+0.5-0.6          3  ##                                              1  #                                       
+0.6-0.7          0                                                  5  ####                                    
+0.7-0.8          0                                                  7  #####                                   
+0.8-0.9          0                                                 13  ##########                              
+0.9-1.0          0                                                 35  ##########################              
+Genuine scores:  mean 0.126, median 0.077, range 0.00-0.59
+Tampered scores: mean 0.796, median 0.897, range 0.00-1.00
+
+Calibration (share of documents in each score band that are actually tampered):
+  0.0-0.1  n= 55  tampered   3.64%
+  0.1-0.2  n= 19  tampered   0.00%
+  0.2-0.3  n= 11  tampered  18.18%
+  0.3-0.4  n= 12  tampered  33.33%
+  0.4-0.5  n=  3  tampered  66.67%
+  0.5-0.6  n=  4  tampered  25.00%
+  0.6-0.7  n=  5  tampered 100.00%
+  0.7-0.8  n=  7  tampered 100.00%
+  0.8-0.9  n= 13  tampered 100.00%
+  0.9-1.0  n= 35  tampered 100.00%
+
+Confidence (max(score, 1 - score)) vs correctness:
+  0.5-0.6  n=  7  accuracy  28.57%
+  0.6-0.7  n= 17  accuracy  76.47%
+  0.7-0.8  n= 18  accuracy  88.89%
+  0.8-0.9  n= 31  accuracy 100.00%
+  0.9-1.0  n= 91  accuracy  97.80%
+Near the threshold (|score - 0.5| <= 0.1): 7 documents, 2 correct.
+
+Incorrect predictions (13):
+  TEST     genuine/bank_stmt_059.png          bank_statement  -             actual genuine  risk 0.58  confidence 0.58
+  TEST     genuine/bank_stmt_053.png          bank_statement  -             actual genuine  risk 0.50  confidence 0.50
+  HOLDOUT  tampered/payslip_2004.png          payslip         color_shift   actual tampered risk 0.34  confidence 0.66
+  HOLDOUT  tampered/payslip_2025.png          payslip         color_shift   actual tampered risk 0.31  confidence 0.69
+  HOLDOUT  tampered/bank_stmt_2058.png        bank_statement  blur_region   actual tampered risk 0.21  confidence 0.79
+  HOLDOUT  tampered/bank_stmt_2065.png        bank_statement  text_overlay  actual tampered risk 0.48  confidence 0.52
+  HOLDOUT  tampered/bank_stmt_2073.png        bank_statement  text_overlay  actual tampered risk 0.37  confidence 0.63
+  HOLDOUT  tampered/bank_stmt_2082.png        bank_statement  text_overlay  actual tampered risk 0.25  confidence 0.75
+  HOLDOUT  genuine/bank_stmt_2084.png         bank_statement  -             actual genuine  risk 0.59  confidence 0.59
+  HOLDOUT  tampered/bank_stmt_2092.png        bank_statement  text_overlay  actual tampered risk 0.46  confidence 0.54
+  HOLDOUT  tampered/bank_stmt_2094.png        bank_statement  text_overlay  actual tampered risk 0.34  confidence 0.66
+  HOLDOUT  tampered/id_proof_2104.png         id_proof        blur_region   actual tampered risk 0.03  confidence 0.97
+  HOLDOUT  tampered/id_proof_2113.png         id_proof        blur_region   actual tampered risk 0.00  confidence 1.00
+
+Edge cases - demo images:
+  genuine_payslip_01.png     expected genuine  predicted genuine  risk 0.06  PASS
+  genuine_payslip_02.png     expected genuine  predicted genuine  risk 0.06  PASS
+  tampered_payslip_01.png    expected tampered predicted tampered risk 0.79  PASS
+  tampered_payslip_02.png    expected tampered predicted genuine  risk 0.15  FAIL
+  edge_case_01.png           expected genuine  predicted genuine  risk 0.22  PASS
+Edge cases - non-document test fixtures and invalid files:
+  clean_rgb.jpg                              processed risk 0.62
+  clean_rgb.png                              processed risk 0.62
+  corrupt.jpg                                rejected  ValueError: cannot identify image file: UnidentifiedImageError
+  grayscale.jpg                              processed risk 0.62
+  large_image.jpg                            processed risk 0.55
+  small_image.jpg                            processed risk 0.60
+  tampered_patch.jpg                         processed risk 0.42
+  truncated demo PNG (first 50% of bytes)    rejected  ValueError: Cannot open image 'truncated.png': image file is truncated
+  empty file                                 rejected  ValueError: cannot identify image file: UnidentifiedImageError
+  text file named .png                       rejected  ValueError: cannot identify image file: UnidentifiedImageError
+Edge cases - degraded held-out copies (logs/model_robustness_report.txt): median score and share above the threshold
+  Variant        genuine median   flagged  tampered median    caught
+  jpeg_q85                 0.47   31/93               0.62   58/71  
+  downscale_75             0.39    4/93               0.48   34/71  
+  downscale_50             0.56   68/93               0.58   57/71  
+  down_up_50               0.51   53/93               0.57   50/71  
+  rotate_90                0.24   33/93               0.84   62/71  
+  rotate_180               0.52   57/93               0.83   69/71  
+  skew_1deg                0.29    4/93               0.72   43/71  
+  skew_3deg                0.48   26/93               0.69   48/71  
+  crop_2px                 0.47   30/93               0.81   68/71  
+  crop_5pct                0.30   18/93               0.75   64/71  
+  crop_10pct               0.45   16/93               0.69   65/71  
+  blur_r0_5                0.29    0/93               0.62   45/71  
+  blur_r1_0                0.38    2/93               0.61   49/71  
+
+--------------------------------
+3. OPTIMISATION REVIEW
+--------------------------------
+Model size: 5.5 MB on disk; 300 trees, 70,304 nodes, 35,302 leaves; depth mean 19.6, max 28; unpickle 13 ms. Saved with n_jobs=-1, served with n_jobs=1.
+
+Process memory (clean subprocess, MB):
+  after Python start 9; after imports (numpy, OpenCV, sklearn, FastAPI) 152; after model load 164 (+12, load 23 ms)
+  after a typical page 169; after a 4000x5000 page 170; peak (VmHWM) 289
+
+Inference time per stage (median ms):
+  Stage                                                       typical page  4000x5000 JPEG
+  page size                                                  850x1050 after load_image 1600x2000 after load_image
+  decode (load_image)                                                  9.0           464.5
+  noise features                                                       9.9            53.0
+  colour features                                                     46.7           175.6
+  softness features                                                   10.5            48.5
+  ink features                                                        32.5           143.1
+  all features (extract_tamper_features)                             113.2           956.1
+  forest, as saved (n_jobs=-1, predict + predict_proba)              183.9           196.8
+  forest, as served since Day 9 (n_jobs=1, predict_proba)             21.3            19.8
+End-to-end (median ms):
+  typical page, ModelAPI.predict (served)                           135.7
+  typical page, pre-Day-9 path (n_jobs=-1, two forest passes)       296.9
+  4000x5000 JPEG, ModelAPI.predict (served)                        1055.3
+
+Forest alternatives (grouped 5-fold CV on training data only; NOT deployed):
+  Parameters                                    CV acc    +/-  processed  size MB  predict ms
+  n_estimators=100                               0.905  0.026      0.744     1.82         9.8
+  n_estimators=200                               0.924  0.018      0.744     3.63        13.6
+  n_estimators=300 (deployed)                    0.924  0.018      0.741     5.45        20.2
+  n_estimators=300, min_samples_leaf=3           0.900  0.028      0.727     3.77        20.9
+  n_estimators=100, min_samples_leaf=3           0.910  0.028      0.740     1.26         7.5
+  n_estimators=300, max_depth=12                 0.924  0.018      0.748     4.14        21.2
+
+Optimisation applied on Day 9 (outputs unchanged):
+- ModelAPI.load_model sets the forest to n_jobs=1: one document per call, so joblib thread start-up only added latency and competed with the MAX_CONCURRENT_ANALYSES request slots.
+- ModelAPI.predict makes one forest pass (predict_proba) and takes the argmax as the class, exactly as RandomForestClassifier.predict does, instead of calling predict and predict_proba.
+- Typical page end-to-end: 297 ms -> 136 ms (2.2x faster). Scores, confidences and interpretations were compared before and after on 175 files (164 held-out, 5 demo, 6 fixtures): identical.
+
+--------------------------------
+RECOMMENDATIONS FOR FUTURE VERSIONS
+--------------------------------
+- Robustness first: the largest risk for real uploads is degraded input (jpeg_q85, downscale_75, downscale_50, down_up_50, rotate_90, rotate_180, skew_1deg, skew_3deg, crop_2px lose more than 10 points). Train with those degradations for both classes and normalise pages (deskew, auto-rotate, trim borders, fixed resolution) before feature extraction.
+- Model size: n_estimators=200 reaches CV accuracy 0.924 (deployed 0.924) at 3.63 MB (deployed 5.45 MB). A smaller forest is an option for v3; choose it by CV on training data and confirm on a NEW holdout set.
+- Save future models with n_jobs=1 (single-document inference) so any loader gets the fast path; ModelAPI now enforces it at load time.
+- After the Day-9 change, feature extraction dominates: 113 of 136 ms on a typical page, with the colour (47 ms) and ink (32 ms) groups the most expensive. On a 4000x5000 JPEG, decoding and downscaling take 464 of 1055 ms: decode JPEGs at reduced size (Pillow draft mode) before the 2000-px downscale.
+- Calibrate scores (isotonic / Platt on validation data) and add a 'needs review' band around the threshold; report calibrated risk to users instead of raw vote fractions.
+- Return the anomalous region in flagged_regions (the features already locate it).
+- Validate on real, consented documents before any production decision; every figure here is synthetic.
+- Pin package versions and record the model SHA-256 per release; re-run the Day 8 and Day 9 scripts after any change.

@@ -1,0 +1,18 @@
+# Lint/format settings for the project. Run: ruff check . && ruff format --check backend
+line-length = 120
+target-version = "py310"
+
+[lint]
+select = ["E", "F", "W", "I"]
+# E501: long strings in OpenAPI examples and log messages are kept on one line for readability.
+ignore = ["E501"]
+
+[lint.isort]
+known-first-party = ["backend", "core", "scripts", "tests"]
+
+[lint.per-file-ignores]
+# Scripts and some tests add the repo root to sys.path before importing project modules.
+# E702/E731 (semicolon statements, assigned lambdas) are existing style in the offline
+# experiment scripts; kept to avoid churn in code owned by the model/data founders.
+"scripts/*" = ["E402", "E702", "E731"]
+"tests/*" = ["E402"]

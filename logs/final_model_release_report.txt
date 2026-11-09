@@ -1,0 +1,245 @@
+==============================================================================
+DOCFRAUD - FINAL MODEL RELEASE REPORT
+Model v2.0.0 (local-tamper-v2) - Day 10 final QA and sign-off, Founder A
+==============================================================================
+Generated (UTC): 2026-09-27T11:41:25+00:00
+Script         : scripts/final_model_validation.py
+Model file     : data/models/fraud_model.pkl (5.5 MB)
+SHA-256        : 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Model          : RandomForestClassifier, n_estimators=300, class_weight=balanced, random_state=42; trained 2026-09-27T08:56:01 UTC
+Decision rule  : tampered if tamper_risk_score >= 0.5 (TAMPER_THRESHOLD)
+Environment    : Linux x86_64, 4 CPUs, Python 3.11.15; scikit-learn 1.9.1, numpy 2.4.6, opencv-python 5.0.0.93, pillow 12.3.0, fastapi 0.141.1
+
+DECISION: APPROVED - sign-off 6/6
+  APPROVED for release (model v2.0.0) for the live demo, the investor presentation and an internal pilot on synthetic or non-decision documents. NOT APPROVED for automated fraud decisions on real documents.
+
+SECTION 1: FINAL METRICS
+------------------------------------------------------------------------------
+  Held-out evaluation through ModelAPI.predict (positive class = tampered); nothing tuned on these sets.
+  Set           n  Accuracy            95% CI  Precision   Recall      F1  TN/FP/FN/TP
+  TEST         15    86.67%     62.12%-96.26%     71.43%  100.00%  0.8333  8/2/0/5
+  HOLDOUT     149    92.62%     87.26%-95.83%     98.25%   84.85%  0.9106  82/1/10/56
+  Combined    164    92.07%     86.91%-95.31%     95.31%   85.92%  0.9037  90/3/10/61
+
+  Combined confusion matrix:
+                       Pred Genuine   Pred Tampered
+    Actual Genuine     TN = 90        FP = 3
+    Actual Tampered    FN = 10        TP = 61
+
+  Release requirements:
+    [PASS] Frozen TEST split intact - 15/15 SHA-256 and dataset fingerprint match
+    [PASS] No held-out document used in training - no TEST image among the training files: 0 of 15; no HOLDOUT image among the training files: 0 of 149
+    [PASS] TEST accuracy above 75% - 86.67% (13/15)
+    [PASS] HOLDOUT accuracy above 75% - 92.62% (138/149)
+    [PASS] TEST accuracy meets the 78% sprint target - 86.67%
+    [PASS] HOLDOUT accuracy meets the 78% sprint target - 92.62%
+    [PASS] Metrics identical to the recorded v2 evaluation - confusion matrices equal to Day 8 validation, Day 9 review
+
+  Comparison with previous metrics (frozen TEST, 15 images):
+    model v1 (Days 5, 6, 8): 60.00% (9/15)  ->  model v2 (Day 8, Day 9, Day 10): 86.67% (13/15).
+    v2 metrics are identical in every evaluation since Day 8 (same confusion matrices).
+  Details: logs/final_accuracy_report.txt
+
+SECTION 2: DEMO VALIDATION RESULTS
+------------------------------------------------------------------------------
+  File Name                  Actual    Prediction  Confidence  Risk Score  Pass/Fail Regions
+  genuine_payslip_01.png     genuine   genuine         0.9433      0.0567  PASS      -
+  genuine_payslip_02.png     genuine   genuine         0.9433      0.0567  PASS      -
+  tampered_payslip_01.png    tampered  tampered        0.7933      0.7933  PASS      ink 96x9 at (198,321)
+  tampered_payslip_02.png    tampered  genuine         0.8467      0.1533  FAIL      -
+  edge_case_01.png           genuine   genuine         0.7767      0.2233  PASS      -
+
+  Correct: 4/5. Five demonstration images do not measure accuracy (Section 1 does).
+  Consistent: yes - every score equals the score recorded for this model in data/demo/demo_manifest.json;
+    over HTTP (real server, 10 requests per image) every response equals the in-process output.
+  Stable: yes - 10 runs per image, largest score deviation 0.0000.
+  Confidence: reasonable - always max(score, 1 - score), between 0.5 and 1; below 0.6: none.
+  Failure: tampered_payslip_02.png (0.15) - edit 'combo:text_replace_amount+local_resample' missed; this edit type is not in model v2's training data.
+
+SECTION 3: PERFORMANCE RESULTS
+------------------------------------------------------------------------------
+  Measured 2026-09-27T11:41:13 UTC on Linux x86_64, 4 CPUs (logs/inference_benchmark_report.txt).
+  Model load (ModelAPI.load_model): average 14 ms (min 12, max 15).
+  In-process inference, 507 predictions (169 documents x 3):
+    average 124 ms, minimum 75 ms, maximum 267 ms (median 136, p95 163); first call after load 161 ms.
+    2400x1800 JPEG (test fixture): average 657 ms (max 841)
+    4000x5000 JPEG page (20 MP): average 1131 ms (max 1459)
+    A4 PDF, one page (rendered at 200 DPI): average 634 ms (max 636)
+  HTTP /verify, sequential: average 171 ms, minimum 148 ms, maximum 311 ms.
+  HTTP /verify, 5 concurrent users: average 530 ms, p95 672 ms, max 743 ms; success 100%; 8.3 requests/s.
+  Targets:
+    [PASS] every repeated prediction identical (score, confidence, regions, interpretation), in-process and over HTTP
+           507 in-process predictions, 0 documents with differing repeats; HTTP responses differing from in-process: 0
+    [PASS] 0 crashes; every HTTP request answered 200
+           0 in-process crashes; HTTP errors: 0
+    [PASS] every typical page (longest side <= 2000 px) under 2 s in-process
+           slowest typical page 267 ms
+    [PASS] p95 <= 2x median; median run-to-run variation per document <= 10%
+           p95 163 ms = 1.20x median; run-to-run variation median 3.6%
+    [PASS] /verify average < 2 s at 5 concurrent users and success rate > 95% (sprint targets)
+           5 users: average 530 ms, p95 672 ms, success 100% (50/50)
+
+SECTION 4: KNOWN LIMITATIONS
+------------------------------------------------------------------------------
+  - Synthetic data only: one generator, three templates (payslip, bank statement, ID proof), four
+    edit types. Accuracy on real documents has never been measured.
+  - Held-out accuracy by document type: bank_statement 83.02% (44/53), id_proof 96.36% (53/55), payslip 96.43% (54/56).
+  - Degraded pages (164 held-out documents, 92.07% unmodified): JPEG q85 73.17%,
+    50% downscale 50.00%, 180 deg rotation 64.02%, 3 deg skew 70.12%, 2 px crop 79.88% (logs/model_robustness_report.txt).
+  - Non-document images get a score and are often reported as tampered (Appendix C).
+  - Scores are uncalibrated vote fractions; 4 held-out documents lie within 0.05 of the threshold.
+  - Missed edits: blur on blank paper changes no pixel (undetectable); text overlays whose ink matches
+    the page; some colour shifts. Text-replacement edits (demo tampered_payslip_02) were never trained.
+  - flagged_regions: a box lands on 55/67 held-out edits; boxes are anomalies, not proof, and unreliable on resampled pages (logs/localization_report.txt).
+  - Only page 1 of a PDF is analysed. One uvicorn process served 8.3 requests/s on 4 CPUs; multi-worker set-ups are unmeasured.
+  Full list, edge cases, failure scenarios and future work: logs/model_limitations.txt
+
+SECTION 5: RELEASE RECOMMENDATION
+------------------------------------------------------------------------------
+  Sign-off checklist:
+    [x] Model file loads correctly   33/33 load, dependency, serialization and runtime checks without failure (0 warnings)
+    [x] Demo images validated        5/5 valid outputs, identical over 10 runs, equal to the recorded scores; 4/5 correct (known miss: tampered_payslip_02.png)
+    [x] Accuracy report generated    TEST 86.67%, HOLDOUT 92.62% (> 75% required); logs/final_accuracy_report.txt
+    [x] Performance validated        5/5 targets met; logs/inference_benchmark_report.txt
+    [x] No critical bugs found       16/16 review checks without failure; 0 crashes; 0 open issues (non-blocking list in Appendix C)
+    [x] Release report completed     5/5 sections; final_model_release_report.txt, model_signoff_checklist.txt
+
+  Decision: APPROVED for release (model v2.0.0) for the live demo, the investor presentation and an internal pilot on synthetic or non-decision documents. NOT APPROVED for automated fraud decisions on real documents.
+
+  Conditions of release:
+    1. Install with the pinned scikit-learn (requirements.txt) and keep MODEL_PATH at the default data/models/fraud_model.pkl; the file's SHA-256 must match this report.
+    2. Present tamper_risk_score as a risk indicator for human review, never as a probability of fraud; quote accuracy as measured on synthetic documents.
+    3. Keep a person in the loop for every flagged document, and for pages that were re-saved, scanned, photographed, rotated or cropped (accuracy 50-87% on such pages).
+    4. Operator conditions from DEPLOYMENT.md still apply (API_KEY, CORS_ORIGINS, HTTPS).
+    5. Rollback: MODEL_PATH=data/models/fraud_model_v1.pkl and restart (verified in Appendix A).
+
+  Required before any production use on real documents:
+    - Evaluate on a labelled, consented set of real documents and meet the accuracy target there.
+    - Train and test with degraded pages (re-save, scan, rotation, crop, resolution) or normalise pages first.
+    - Calibrate scores and add a 'needs review' band around the threshold.
+    - Reject or flag non-document images.
+    - Build a new holdout set: TEST and HOLDOUT have been used for v2's evaluation.
+
+APPENDIX A: MODEL VALIDATION (load, dependencies, serialization, runtime)
+------------------------------------------------------------------------------
+  Model file and loading:
+  [PASS] fraud_model_v1.pkl loads
+         276,037 bytes
+  [PASS] fraud_model.pkl present
+         5,742,040 bytes
+  [PASS] SHA-256 matches the demo manifest record
+         1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+  [PASS] pickle loads (DocumentFraudDetector.load)
+         16 ms
+  [PASS] feature schema is known
+         local-tamper-v2: 29 local tamper features (noise, colour, softness, ink regions + processing fingerprint); model v2
+  [PASS] metadata feature names == schema feature names
+         29 features
+  [PASS] model expects 29 features
+         n_features_in_=29
+  [PASS] forest complete (all trees fitted)
+         300/300 trees
+  [PASS] classes are [genuine=0, tampered=1]
+         [0, 1]
+  [PASS] recorded training files present and unchanged
+         210/210 match
+  [PASS] ModelAPI.load_model() (the API's loader)
+         17 ms
+  Dependencies:
+  [PASS] scikit-learn 1.9.1 == version the model was saved with
+  [PASS] numpy 2.4.6 == version the model was saved with
+  [PASS] opencv-python 5.0.0.93 == version the model was saved with
+  [PASS] pillow 12.3.0 == version the model was saved with
+  [PASS] scipy 1.17.1 == version the model was saved with
+  [PASS] requirements.txt pins scikit-learn to the model's version
+         scikit-learn==1.9.1
+  [PASS] import pymupdf (PDF uploads)
+  [PASS] import cv2 (image features)
+  [PASS] import scipy (region labelling)
+  [PASS] import fastapi (API)
+  [PASS] import uvicorn (server)
+  [PASS] pip check (installed packages consistent)
+         No broken requirements found.
+  Serialization:
+  [PASS] unpickling raises no warnings (e.g. InconsistentVersionWarning)
+         0 warnings
+  [PASS] bundle is {'model', 'metadata'}
+  [PASS] metadata complete
+         7 required fields present
+  [PASS] re-pickled model gives identical probabilities
+         5 demo vectors
+  [PASS] SHA-256 matches logs/model_release_notes.txt
+         1d374648e967af72...
+  [PASS] rollback model v1 loads through ModelAPI
+         schema day4-v2-22
+  [PASS] rollback model SHA-256 matches the release notes
+         bcf4d02f15980f68
+  Runtime:
+  [PASS] every valid input processed (PNG, JPEG, grayscale, RGBA, small, large, PDF)
+         9/9
+  [PASS] invalid inputs rejected with a controlled error (HTTP 400), not a crash
+         4/4
+  [PASS] no runtime crashes
+         13 inputs
+  Input                                          Bytes  Expected  Outcome   Detail
+  clean_rgb.jpg                                 15,992  processed processed risk 0.62
+  clean_rgb.png                                  1,124  processed processed risk 0.62
+  corrupt.jpg                                       24  rejected  rejected  ValueError: cannot identify image file: UnidentifiedImageError
+  grayscale.jpg                                 14,217  processed processed risk 0.62
+  large_image.jpg                              555,525  processed processed risk 0.55
+  small_image.jpg                                1,432  processed processed risk 0.60
+  tampered_patch.jpg                            16,104  processed processed risk 0.42
+  truncated demo PNG (first 50% of bytes)       35,242  rejected  rejected  ValueError: Cannot open image 'truncated.png': image file is truncated
+  empty file                                         0  rejected  rejected  ValueError: cannot identify image file: UnidentifiedImageError
+  text file named .png                              13  rejected  rejected  ValueError: cannot identify image file: UnidentifiedImageError
+  demo page as RGBA PNG                         76,452  processed processed risk 0.06
+  demo page as JPEG q90                        122,272  processed processed risk 0.60
+  demo page in an A4 PDF                     2,681,070  processed processed risk 0.68
+
+APPENDIX B: RELEASE REVIEW
+------------------------------------------------------------------------------
+  Feature extraction pipeline:
+  [PASS] extractor chosen from the model's recorded schema
+         local-tamper-v2: 29 features
+  [PASS] 29 finite features in model column order
+         5 demo images
+  [PASS] features deterministic (3 extractions per image)
+  [PASS] served extractor (extract_with_regions) == training extractor (extract_tamper_features)
+  ELA analysis pipeline:
+  [PASS] deployed model v2 does not use ELA
+         0 ELA features; ela_analysis called 0 times in 5 v2 predictions
+  [PASS] ELA pipeline (v1 rollback path): heatmap matches the page, score in 0-100, deterministic
+         heatmap 850x1050, score 62.5
+  [PASS] rollback model v1 reproduces its recorded demo scores (uses ELA; no regions)
+         0.36, 0.59, 0.37, 0.14, 0.35
+  Model prediction logic:
+  [PASS] class order [genuine=0, tampered=1]; score = tampered column
+  [PASS] API score / confidence == forest probabilities on independently extracted features
+         20 documents (demo + TEST)
+  [PASS] verdict text follows score >= TAMPER_THRESHOLD
+         20 documents
+  [PASS] flagged_regions only for a tampering verdict
+         20 documents
+  Threshold values:
+  [PASS] TAMPER_THRESHOLD == model metadata == demo manifest
+         config 0.5, model 0.5, demo manifest 0.5
+  [PASS] threshold within [0, 1]
+         0.5
+  [PASS] startup validation warns about an out-of-range TAMPER_THRESHOLD
+  [PASS] 'threshold' query parameter does not change the result (documented as ignored)
+         risk 0.0567 with threshold unset, 0.01 and 0.99
+  [INFO] held-out documents within 0.05 of the threshold
+         4 of 164, 3 wrong - the score is least reliable there
+
+APPENDIX C: ISSUES FOUND DURING THE REVIEW (none blocks the release)
+------------------------------------------------------------------------------
+  - scikit-learn was unpinned in requirements.txt although the model is a pickle; an environment with another version would fail or warn at load
+    severity: high for deployment; status: fixed: pinned to 1.9.1
+  - non-document images get a score: 5 of 6 synthetic test fixtures (not documents) are reported as tampered (clean_rgb.jpg 0.62, clean_rgb.png 0.62, grayscale.jpg 0.62, large_image.jpg 0.55, small_image.jpg 0.60)
+    severity: medium (misleading output); status: known limitation, documented
+  - logs/final_release_report.txt and logs/final_load_report.txt (Founder B, Day 10) describe model v1 (60%); their model figures are superseded by this report
+    severity: low (documentation); status: noted; Founder B's dated reports left unchanged
+  - all 3 held-out false positives are bank_statement pages
+    severity: medium (weakest document type); status: known limitation, documented
+  - the 'threshold' query parameter of /verify is accepted but ignored
+    severity: low; status: documented behaviour (API_DOCS.md)

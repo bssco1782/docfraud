@@ -1,0 +1,176 @@
+==============================================================================
+DOCUMENT FRAUD DETECTION API - ENVIRONMENT VALIDATION
+==============================================================================
+Generated       : 2026-09-26 16:01:16 UTC
+Machine         : Linux 6.18.44-fc-v37 (x86_64), 4 CPUs
+Python          : 3.11.15 (/usr/local/bin/python)
+Repository      : /home/user/docfraud-backend
+Overall         : PASS (38/38 local checks passed; fresh clone PASS)
+
+FRESH ENVIRONMENT TEST (clone -> new venv -> pip install -> validate -> tests)
+------------------------------------------------------------------------------
+  Work directory : /tmp/docfraud_fresh_88up6tpk
+  Source         : https://github.com/bssco178-a11y/docfraud-backend.git (branch claude/peaceful-galileo-g4625a)
+  [PASS] git clone into empty directory  -- 1.3 s
+  [PASS] checked-out commit  -- 0.0 s
+        c56974e release: Day 10 QA - zero test warnings, honest load report, demo guide
+  [PASS] python -m venv (clean environment)  -- 2.8 s
+  [PASS] pip install --upgrade pip  -- 1.3 s
+  [PASS] pip install --no-cache-dir -r requirements.txt (from scratch)  -- 24.3 s
+  [PASS] pip freeze  -- 0.2 s
+
+  Installed packages in the fresh environment:
+    annotated-doc==0.0.5
+    annotated-types==0.8.0
+    anyio==4.15.1
+    certifi==2026.7.22
+    click==8.5.0
+    cloudpickle==3.1.2
+    coverage==7.16.1
+    Faker==40.39.0
+    fastapi==0.141.1
+    h11==0.16.0
+    httpcore==1.0.9
+    httpcore2==2.13.1
+    httptools==0.8.0
+    httpx==0.28.1
+    httpx2==2.13.1
+    idna==3.20
+    iniconfig==2.3.0
+    joblib==1.6.0
+    narwhals==2.26.0
+    numpy==2.4.6
+    opencv-python==5.0.0.93
+    packaging==26.3
+    pillow==12.3.0
+    pluggy==1.6.0
+    pydantic==2.13.5
+    pydantic_core==2.46.5
+    Pygments==2.21.0
+    pymupdf==1.28.2
+    pytest==9.1.1
+    pytest-cov==7.1.0
+    python-dotenv==1.2.3
+    python-multipart==0.0.32
+    PyYAML==6.0.3
+    scikit-learn==1.9.1
+    scipy==1.17.1
+    starlette==1.7.0
+    threadpoolctl==3.7.0
+    truststore==0.10.4
+    typing-inspection==0.4.4
+    typing_extensions==4.16.0
+    uvicorn==0.54.0
+    uvloop==0.22.1
+    watchfiles==1.3.0
+    websockets==17.1
+
+  [PASS] validate_environment.py inside the fresh clone + venv  -- 4.0 s
+
+  --- checks run inside the fresh clone ---
+  Overall         : PASS (38/38 local checks passed)
+    [PASS] Python >= 3.11  -- 3.11.15 at /tmp/docfraud_fresh_88up6tpk/venv/bin/python
+    [PASS] package fastapi  -- 0.141.1 (import fastapi)
+    [PASS] package uvicorn  -- 0.54.0 (import uvicorn)
+    [PASS] package pydantic  -- 2.13.5 (import pydantic)
+    [PASS] package python-dotenv  -- 1.2.3 (import dotenv)
+    [PASS] package pillow  -- 12.3.0 (import PIL)
+    [PASS] package opencv-python  -- 5.0.0.93 (import cv2)
+    [PASS] package numpy  -- 2.4.6 (import numpy)
+    [PASS] package scikit-learn  -- 1.9.1 (import sklearn)
+    [PASS] package faker  -- 40.39.0 (import faker)
+    [PASS] package pytest  -- 9.1.1 (import pytest)
+    [PASS] package pymupdf  -- 1.28.2 (import fitz)
+    [PASS] package httpx  -- 0.28.1 (import httpx)
+    [PASS] package httpx2  -- 2.13.1 (import httpx2)
+    [PASS] package python-multipart  -- 0.0.32 (import multipart)
+    [PASS] package pytest-cov  -- 7.1.0 (import pytest_cov)
+    [PASS] file backend/main.py
+    [PASS] file backend/config.py
+    [PASS] file backend/model_utils.py
+    [PASS] file core/document_analyzer.py
+    [PASS] file core/model_trainer.py
+    [PASS] file data/models/fraud_model.pkl
+    [PASS] file data/demo/demo_manifest.json
+    [PASS] file requirements.txt
+    [PASS] file .env.example
+    [PASS] file README.md
+    [PASS] file DEPLOYMENT.md
+    [PASS] model loads  -- data/models/fraud_model.pkl v1.0.0
+    [PASS] model feature count matches extractor  -- 22 vs 22
+    [PASS] model SHA-256 matches demo manifest  -- bcf4d02f15980f68...
+    [PASS] backend.main imports  -- Document Fraud Detection API v0.1.0
+    [PASS] MAX_FILE_SIZE positive  -- 10485760
+    [PASS] TAMPER_THRESHOLD in [0, 1]  -- 0.5
+    [PASS] API_KEY configured  -- default key in use (fine for local testing; set API_KEY before sharing)
+    [PASS] .env file  -- absent (optional; defaults used)
+    [PASS] uvicorn starts and /health returns 200  -- 1.6 s
+    [PASS] POST /verify with a demo image returns 200  -- HTTP 200 in 503 ms, tamper_risk_score=0.36
+    [PASS] server log free of errors/tracebacks  -- clean
+
+  [PASS] python -m pytest -q (full suite, in fresh clone)  -- 149.1 s
+        282 passed, 2 skipped, 1 xfailed in 146.53s (0:02:26)
+  Kept for inspection: /tmp/docfraud_fresh_88up6tpk
+
+1. PYTHON
+------------------------------------------------------------------------------
+  [PASS] Python >= 3.11  -- 3.11.15 at /usr/local/bin/python
+
+2. PACKAGES (REQUIREMENTS.TXT)
+------------------------------------------------------------------------------
+  [PASS] package fastapi  -- 0.141.1 (import fastapi)
+  [PASS] package uvicorn  -- 0.54.0 (import uvicorn)
+  [PASS] package pydantic  -- 2.13.5 (import pydantic)
+  [PASS] package python-dotenv  -- 1.2.3 (import dotenv)
+  [PASS] package pillow  -- 12.3.0 (import PIL)
+  [PASS] package opencv-python  -- 5.0.0.93 (import cv2)
+  [PASS] package numpy  -- 2.4.6 (import numpy)
+  [PASS] package scikit-learn  -- 1.9.1 (import sklearn)
+  [PASS] package faker  -- 40.39.0 (import faker)
+  [PASS] package pytest  -- 9.1.1 (import pytest)
+  [PASS] package pymupdf  -- 1.28.2 (import fitz)
+  [PASS] package httpx  -- 0.28.1 (import httpx)
+  [PASS] package httpx2  -- 2.13.1 (import httpx2)
+  [PASS] package python-multipart  -- 0.0.32 (import multipart)
+  [PASS] package pytest-cov  -- 7.1.0 (import pytest_cov)
+
+3. REPOSITORY FILES
+------------------------------------------------------------------------------
+  [PASS] file backend/main.py
+  [PASS] file backend/config.py
+  [PASS] file backend/model_utils.py
+  [PASS] file core/document_analyzer.py
+  [PASS] file core/model_trainer.py
+  [PASS] file data/models/fraud_model.pkl
+  [PASS] file data/demo/demo_manifest.json
+  [PASS] file requirements.txt
+  [PASS] file .env.example
+  [PASS] file README.md
+  [PASS] file DEPLOYMENT.md
+
+4. MODEL
+------------------------------------------------------------------------------
+  [PASS] model loads  -- data/models/fraud_model.pkl v1.0.0
+  [PASS] model feature count matches extractor  -- 22 vs 22
+  [PASS] model SHA-256 matches demo manifest  -- bcf4d02f15980f68...
+
+5. APPLICATION & CONFIGURATION
+------------------------------------------------------------------------------
+  [PASS] backend.main imports  -- Document Fraud Detection API v0.1.0
+  [PASS] MAX_FILE_SIZE positive  -- 10485760
+  [PASS] TAMPER_THRESHOLD in [0, 1]  -- 0.5
+  [PASS] API_KEY configured  -- default key in use (fine for local testing; set API_KEY before sharing)
+  [PASS] .env file  -- absent (optional; defaults used)
+
+6. SERVER SMOKE TEST
+------------------------------------------------------------------------------
+  [PASS] uvicorn starts and /health returns 200  -- 1.7 s
+  [PASS] POST /verify with a demo image returns 200  -- HTTP 200 in 389 ms, tamper_risk_score=0.36
+  [PASS] server log free of errors/tracebacks  -- clean
+
+HOW TO REPRODUCE
+------------------------------------------------------------------------------
+python scripts/validate_environment.py                 # this machine, current environment
+python scripts/validate_environment.py --fresh-clone   # clean clone + new venv
+Full cross-machine instructions: DEPLOYMENT.md section 11.
+==============================================================================

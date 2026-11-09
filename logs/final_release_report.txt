@@ -1,0 +1,197 @@
+==============================================================================
+DOCFRAUD - DOCUMENT FRAUD DETECTION BACKEND
+FINAL QA & RELEASE REPORT - v0.1.0 (Day 10, Founder B)
+==============================================================================
+Release candidate : branch claude/peaceful-galileo-g4625a, commit c56974e
+                    (Day 9 hardening + Day 10 QA, on top of main c5abdc2)
+Validated on      : Linux x86_64, 4 CPUs, Python 3.11.15; a fresh clone from
+                    GitHub into a new virtualenv (pip install --no-cache-dir)
+Model             : data/models/fraud_model.pkl, v1.0.0, 22 features,
+                    SHA-256 bcf4d02f15980f68... (matches the demo manifest)
+
+------------------------------------------------------------------------------
+0. VERDICT
+------------------------------------------------------------------------------
+  Live demo / investor presentation ............ READY
+  Pilot deployment (internal, synthetic or
+    non-decision use) .......................... READY WITH CONDITIONS (sec. 6)
+  Production use for real fraud decisions ....... NOT READY
+    - model accuracy 60% on held-out data vs the 78% target, synthetic data only,
+      uncalibrated scores (sec. 7)
+    - no HTTPS, rate limiting or per-client keys yet (sec. 6)
+
+  The API, validation, security hardening, tests, documentation and tooling are
+  release quality. The limiting factor is the model, not the backend.
+
+------------------------------------------------------------------------------
+1. SYSTEM STATUS
+------------------------------------------------------------------------------
+  Component             Status   Evidence
+  GET  /health          OK       200 {"status":"ok","model_loaded":true,...};
+                                 503 "degraded" when the model is missing (tested)
+  POST /verify          OK       all 5 demo documents -> 200, ~0.3 s each,
+                                 scores identical to the Day 7 manifest
+  Authentication        OK       no key 401, wrong key 403, before body is read
+  File validation       OK       type, empty, size (before parsing), pixel limit,
+                                 tiny images, encrypted/empty PDFs -> 400/413
+  Error handling        OK       one JSON envelope; 500s generic + request ID;
+                                 no server paths or exception text in responses
+  Start-up              OK       config logged, unsafe settings warned,
+                                 degraded mode + automatic recovery for a bad model
+  Logging               OK       request ID on every line, one access line per request
+
+------------------------------------------------------------------------------
+2. FINAL API VALIDATION (live server, HTTP only)
+------------------------------------------------------------------------------
+  scripts/e2e_test.py ........... 65/65 PASS  (logs/e2e_test_report.txt)
+    server start-up 3/3, authentication 4/4, input validation 9/9,
+    pipeline stages 15/15 (ELA, 22 features, model score == API score),
+    demo images 30/30, reliability 4/4 (20 requests, no crash, identical
+    repeats, +0.0 MB post-warm-up)
+  scripts/run_demo.py ........... PASS in the fresh clone ("Demo complete.")
+  scripts/validate_environment.py  38/38 PASS locally and inside the fresh clone
+                                   (logs/environment_validation.txt)
+  Hostile-input probe (Day 9) .... 19 crafted files, 0 server errors
+                                   (logs/bug_fix_report.txt)
+
+------------------------------------------------------------------------------
+3. TEST SUMMARY
+------------------------------------------------------------------------------
+  Command: pytest -v   (inside the fresh clone's virtualenv)
+  Result : 282 passed, 2 skipped, 1 xfailed, 0 failed, 0 errors, 0 warnings
+           (140 s; same result with `python -m pytest -q` locally)
+
+  Skipped (2) - tests for Founder A's experimental local-forensics model, whose
+  model file was never trained ("fraud_model_local_v1.pkl not trained yet").
+  Not part of the served API.
+  Expected failure (1) - test_local_noise_edit_is_top_ranked_region documents a
+  known limitation of the same experiment (template borders outrank weak edits).
+
+  Warnings removed on Day 10 (2 -> 0), both fixed at the source, not filtered:
+   - Starlette TestClient deprecation: httpx2 added to requirements.txt
+   - Pillow DecompressionBombWarning from the header check: converted into the
+     existing 400 rejection
+
+  Coverage (tests/test_api_comprehensive.py alone): 82% of backend/
+  (logs/api_test_report.txt; the full suite covers more).
+  Note: on this container the bare `pytest` on PATH is a separate tool install
+  without the project's packages; inside the project's virtualenv `pytest -v`
+  works as shown. README/DEPLOYMENT recommend `python -m pytest`.
+
+------------------------------------------------------------------------------
+4. PERFORMANCE SUMMARY vs PROJECT TARGETS
+------------------------------------------------------------------------------
+  Live uvicorn server, 1 process, load generator over HTTP, demo payslip
+  (850x1050 PNG). Full report: logs/final_load_report.txt
+
+  Target (sprint plan)               Measured                         Result
+  /verify avg < 2.0 s @ 5 users      1.19 s  (p95 1.62 s, max 1.74 s)   MET
+  /health avg < 50 ms                7.5 ms  (max 17 ms)                MET
+  Success rate > 95%                 100% (50/50 each endpoint)        MET
+  No crashes / 5xx under load        0 failed, 0 server errors         MET
+  5 concurrent users supported       yes                               MET
+
+  Beyond the target load (reported, no target defined):
+    10 users  avg 1.67 s  p95 3.46 s  4.1 req/s  100%   (under 2 s)
+    20 users  avg 3.23 s  p95 8.09 s  4.2 req/s  100%   (over 2 s)
+  Throughput plateaus at ~4 documents/s per process; beyond ~10 concurrent
+  users latency exceeds 2 s. Scaling needs more worker processes (not measured).
+
+  Resource profile (logs/performance_review.txt):
+    start-up to healthy 1.65 s; idle RSS 179 MB; ~275 ms CPU per request;
+    sequential /verify mean 270 ms; 4000x5000 image 1.9 s; A4 PDF 1.1 s;
+    peak RSS ~490 MB under concurrent load (270-310 MB with MALLOC_ARENA_MAX=2)
+
+  Model quality target: 78% held-out accuracy ... measured 60% (9/15) ... NOT MET
+
+------------------------------------------------------------------------------
+5. RELEASE CHECKLIST
+------------------------------------------------------------------------------
+  [x] README.md            overview, quick start, API, examples, tests,
+                           load results vs targets, limitations, troubleshooting
+  [x] API_DOCS.md          endpoints, /health 200/503, errors incl. 500/503,
+                           request IDs, validation rules
+  [x] DEPLOYMENT.md        install, config (all 8 settings), run, smoke test,
+                           troubleshooting, production gaps, cross-machine check
+  [x] ARCHITECTURE.md      components, middleware order, request flow,
+                           model loading/degraded mode, limitations
+  [x] DEMO_GUIDE.md        demo execution, API usage, troubleshooting (new)
+  [x] PROGRESS.md          Day 10 entry added
+  [x] .env.example         every setting, safe placeholders
+  [x] Release notes        logs/release_notes_v1.txt (Day 7) + this report
+  [x] All Markdown links and anchors resolve (checked by script)
+  [x] `ruff check .` passes
+  [x] No secrets committed (.env git-ignored; only placeholder keys in docs)
+
+------------------------------------------------------------------------------
+6. DEPLOYMENT READINESS CHECKLIST
+------------------------------------------------------------------------------
+  Ready now
+  [x] Installs from scratch with `pip install -r requirements.txt` (24 s here)
+  [x] Starts with `uvicorn backend.main:app`; healthy in ~1.7 s
+  [x] /health usable as a load-balancer readiness probe (200 / 503)
+  [x] Configuration entirely by environment variables; startup warns on
+      unsafe values
+  [x] Survives a missing/corrupt model (degraded, recovers without restart)
+  [x] Bounded per-request cost: 10 MB upload, 40 MP image, 2 concurrent
+      analyses per process
+  [x] Structured logs with request IDs; no internals in client errors
+
+  Required before any shared deployment (operator steps, documented)
+  [ ] Set API_KEY to a long random secret (server warns while default)
+  [ ] Set CORS_ORIGINS to the real frontend origin(s)
+  [ ] Put the service behind HTTPS (reverse proxy / load balancer)
+  [ ] Set MALLOC_ARENA_MAX=2 for the server process (Linux)
+
+  Open engineering items before production (logs/security_review.txt)
+  [ ] Rate limiting and a bounded request queue
+  [ ] Per-client API keys (hashed, rotatable); refuse the default key
+  [ ] Pin dependency versions; pip-audit in CI; CI running tests + lint
+  [ ] Dockerfile / process manager; multi-worker load test
+  [ ] Disable /docs in production (optional)
+
+------------------------------------------------------------------------------
+7. KNOWN LIMITATIONS
+------------------------------------------------------------------------------
+  Model
+  - 60% held-out accuracy (precision 44%, recall 80%, 50% false-positive rate)
+    on 15 synthetic test documents; target 78% not met.
+  - Trained and evaluated on synthetic documents only; real-world accuracy unknown.
+  - The deployed model file was refit on all 75 documents, including the test set.
+  - 2/5 correct on the demo set (a demonstration record, not an accuracy estimate).
+  - tamper_risk_score is an uncalibrated vote fraction, not a fraud probability.
+  - flagged_regions is always empty: edits are not localised.
+  API
+  - `threshold` query parameter is validated but ignored.
+  - Only the first page of a PDF is analysed.
+  - ~4 documents/s per process; > ~10 concurrent users exceed 2 s latency.
+  - Validated on Linux only in this session (Day 5 load tests ran on Windows);
+    macOS not tested.
+
+------------------------------------------------------------------------------
+8. DEMO READINESS
+------------------------------------------------------------------------------
+  [x] `python scripts/run_demo.py` - health, security, validation and all 5
+      demo documents in one command (verified in the fresh clone)
+  [x] DEMO_GUIDE.md - preparation checklist, three ways to run the demo,
+      expected results table, talk track, backup plan, API usage guide,
+      troubleshooting guide
+  [x] Demo results are deterministic and match data/demo/demo_manifest.json
+  [x] The demo states the model's accuracy honestly on screen
+
+------------------------------------------------------------------------------
+9. FINAL VALIDATION SUMMARY
+------------------------------------------------------------------------------
+  Tests ................ 282 passed, 0 failed, 0 warnings (fresh clone, pytest -v)
+  End-to-end ........... 65/65
+  Environment .......... 38/38 (local and fresh clone)
+  Load targets ......... 5/5 met at 5 concurrent users
+  Documentation ........ complete, links verified
+  Security ............. 14 fixed, 4 open items documented (sec. 6 and
+                         logs/security_review.txt)
+  Model target ......... not met (60% vs 78%)
+
+  Recommendation: ship v0.1.0 for demos and internal pilots. Do not use its
+  scores for real decisions until the model meets its accuracy target on real
+  documents and the open deployment items in section 6 are closed.
+==============================================================================

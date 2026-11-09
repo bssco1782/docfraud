@@ -1,0 +1,783 @@
+{
+ "generated": "2026-09-27T11:41:25+00:00",
+ "environment": {
+  "python": "3.11.15",
+  "platform": "Linux x86_64",
+  "cpus": 4,
+  "packages": {
+   "scikit-learn": "1.9.1",
+   "numpy": "2.4.6",
+   "opencv-python": "5.0.0.93",
+   "pillow": "12.3.0",
+   "fastapi": "0.141.1"
+  }
+ },
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2",
+  "trained_at": "2026-09-27T08:56:01.350616+00:00",
+  "rf_params": {
+   "n_estimators": 300,
+   "class_weight": "balanced",
+   "random_state": 42
+  },
+  "size_bytes": 5742040
+ },
+ "threshold": 0.5,
+ "model_validation": {
+  "integrity": [
+   {
+    "check": "fraud_model_v1.pkl loads",
+    "status": "PASS",
+    "detail": "276,037 bytes"
+   },
+   {
+    "check": "fraud_model.pkl present",
+    "status": "PASS",
+    "detail": "5,742,040 bytes"
+   },
+   {
+    "check": "SHA-256 matches the demo manifest record",
+    "status": "PASS",
+    "detail": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1"
+   },
+   {
+    "check": "pickle loads (DocumentFraudDetector.load)",
+    "status": "PASS",
+    "detail": "16 ms"
+   },
+   {
+    "check": "feature schema is known",
+    "status": "PASS",
+    "detail": "local-tamper-v2: 29 local tamper features (noise, colour, softness, ink regions + processing fingerprint); model v2"
+   },
+   {
+    "check": "metadata feature names == schema feature names",
+    "status": "PASS",
+    "detail": "29 features"
+   },
+   {
+    "check": "model expects 29 features",
+    "status": "PASS",
+    "detail": "n_features_in_=29"
+   },
+   {
+    "check": "forest complete (all trees fitted)",
+    "status": "PASS",
+    "detail": "300/300 trees"
+   },
+   {
+    "check": "classes are [genuine=0, tampered=1]",
+    "status": "PASS",
+    "detail": "[0, 1]"
+   },
+   {
+    "check": "recorded training files present and unchanged",
+    "status": "PASS",
+    "detail": "210/210 match"
+   },
+   {
+    "check": "ModelAPI.load_model() (the API's loader)",
+    "status": "PASS",
+    "detail": "17 ms"
+   }
+  ],
+  "dependencies": [
+   {
+    "check": "scikit-learn 1.9.1 == version the model was saved with",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "numpy 2.4.6 == version the model was saved with",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "opencv-python 5.0.0.93 == version the model was saved with",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "pillow 12.3.0 == version the model was saved with",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "scipy 1.17.1 == version the model was saved with",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "requirements.txt pins scikit-learn to the model's version",
+    "status": "PASS",
+    "detail": "scikit-learn==1.9.1"
+   },
+   {
+    "check": "import pymupdf (PDF uploads)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "import cv2 (image features)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "import scipy (region labelling)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "import fastapi (API)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "import uvicorn (server)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "pip check (installed packages consistent)",
+    "status": "PASS",
+    "detail": "No broken requirements found."
+   }
+  ],
+  "serialization": [
+   {
+    "check": "unpickling raises no warnings (e.g. InconsistentVersionWarning)",
+    "status": "PASS",
+    "detail": "0 warnings"
+   },
+   {
+    "check": "bundle is {'model', 'metadata'}",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "metadata complete",
+    "status": "PASS",
+    "detail": "7 required fields present"
+   },
+   {
+    "check": "re-pickled model gives identical probabilities",
+    "status": "PASS",
+    "detail": "5 demo vectors"
+   },
+   {
+    "check": "SHA-256 matches logs/model_release_notes.txt",
+    "status": "PASS",
+    "detail": "1d374648e967af72..."
+   },
+   {
+    "check": "rollback model v1 loads through ModelAPI",
+    "status": "PASS",
+    "detail": "schema day4-v2-22"
+   },
+   {
+    "check": "rollback model SHA-256 matches the release notes",
+    "status": "PASS",
+    "detail": "bcf4d02f15980f68"
+   }
+  ],
+  "runtime": [
+   {
+    "check": "every valid input processed (PNG, JPEG, grayscale, RGBA, small, large, PDF)",
+    "status": "PASS",
+    "detail": "9/9"
+   },
+   {
+    "check": "invalid inputs rejected with a controlled error (HTTP 400), not a crash",
+    "status": "PASS",
+    "detail": "4/4"
+   },
+   {
+    "check": "no runtime crashes",
+    "status": "PASS",
+    "detail": "13 inputs"
+   }
+  ],
+  "runtime_rows": [
+   {
+    "case": "clean_rgb.jpg",
+    "bytes": 15992,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.62",
+    "crash": false,
+    "seconds": 0.04641597299996647,
+    "pass": true
+   },
+   {
+    "case": "clean_rgb.png",
+    "bytes": 1124,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.62",
+    "crash": false,
+    "seconds": 0.04235019400039164,
+    "pass": true
+   },
+   {
+    "case": "corrupt.jpg",
+    "bytes": 24,
+    "expected": "rejected",
+    "outcome": "rejected",
+    "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+    "crash": false,
+    "seconds": 0.03159174800020992,
+    "pass": true
+   },
+   {
+    "case": "grayscale.jpg",
+    "bytes": 14217,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.62",
+    "crash": false,
+    "seconds": 0.03893734299890639,
+    "pass": true
+   },
+   {
+    "case": "large_image.jpg",
+    "bytes": 555525,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.55",
+    "crash": false,
+    "seconds": 0.9314113149994228,
+    "pass": true
+   },
+   {
+    "case": "small_image.jpg",
+    "bytes": 1432,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.60",
+    "crash": false,
+    "seconds": 0.026090417999512283,
+    "pass": true
+   },
+   {
+    "case": "tampered_patch.jpg",
+    "bytes": 16104,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.42",
+    "crash": false,
+    "seconds": 0.03726181000092765,
+    "pass": true
+   },
+   {
+    "case": "truncated demo PNG (first 50% of bytes)",
+    "bytes": 35242,
+    "expected": "rejected",
+    "outcome": "rejected",
+    "detail": "ValueError: Cannot open image 'truncated.png': image file is truncated",
+    "crash": false,
+    "seconds": 0.004364020000139135,
+    "pass": true
+   },
+   {
+    "case": "empty file",
+    "bytes": 0,
+    "expected": "rejected",
+    "outcome": "rejected",
+    "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+    "crash": false,
+    "seconds": 0.00043375700079195667,
+    "pass": true
+   },
+   {
+    "case": "text file named .png",
+    "bytes": 13,
+    "expected": "rejected",
+    "outcome": "rejected",
+    "detail": "ValueError: cannot identify image file: UnidentifiedImageError",
+    "crash": false,
+    "seconds": 0.0004281609999452485,
+    "pass": true
+   },
+   {
+    "case": "demo page as RGBA PNG",
+    "bytes": 76452,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.06",
+    "crash": false,
+    "pass": true
+   },
+   {
+    "case": "demo page as JPEG q90",
+    "bytes": 122272,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.60",
+    "crash": false,
+    "pass": true
+   },
+   {
+    "case": "demo page in an A4 PDF",
+    "bytes": 2681070,
+    "expected": "processed",
+    "outcome": "processed",
+    "detail": "risk 0.68",
+    "crash": false,
+    "pass": true
+   }
+  ]
+ },
+ "demo": {
+  "runs": 10,
+  "rows": [
+   {
+    "image": "genuine_payslip_01.png",
+    "role": "genuine payslip",
+    "expected": "genuine",
+    "recorded_score": 0.0567,
+    "edit": "none",
+    "edit_area_fraction": null,
+    "actual": "genuine",
+    "confidence": 0.9433,
+    "risk": 0.0567,
+    "margin": -0.4433,
+    "valid_output": true,
+    "flagged_regions": [],
+    "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94).",
+    "crash": false,
+    "pass": true,
+    "stable": true,
+    "max_score_deviation": 6.938893903907228e-18,
+    "matches_record": true,
+    "confidence_consistent": true
+   },
+   {
+    "image": "genuine_payslip_02.png",
+    "role": "genuine payslip",
+    "expected": "genuine",
+    "recorded_score": 0.0567,
+    "edit": "none",
+    "edit_area_fraction": null,
+    "actual": "genuine",
+    "confidence": 0.9433,
+    "risk": 0.0567,
+    "margin": -0.4433,
+    "valid_output": true,
+    "flagged_regions": [],
+    "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94).",
+    "crash": false,
+    "pass": true,
+    "stable": true,
+    "max_score_deviation": 6.938893903907228e-18,
+    "matches_record": true,
+    "confidence_consistent": true
+   },
+   {
+    "image": "tampered_payslip_01.png",
+    "role": "tampered payslip",
+    "expected": "tampered",
+    "recorded_score": 0.7933,
+    "edit": "text_replace_account",
+    "edit_area_fraction": 0.0007394957983193277,
+    "actual": "tampered",
+    "confidence": 0.7933,
+    "risk": 0.7933,
+    "margin": 0.2933,
+    "valid_output": true,
+    "flagged_regions": [
+     {
+      "x": 198,
+      "y": 321,
+      "width": 96,
+      "height": 9,
+      "area": 864,
+      "type": "ink"
+     }
+    ],
+    "interpretation": "Evidence of digital tampering detected (risk score: 0.79, confidence: 0.79). 1 suspicious region(s) located (see flagged_regions).",
+    "crash": false,
+    "pass": true,
+    "stable": true,
+    "max_score_deviation": 0.0,
+    "matches_record": true,
+    "confidence_consistent": true
+   },
+   {
+    "image": "tampered_payslip_02.png",
+    "role": "tampered payslip",
+    "expected": "tampered",
+    "recorded_score": 0.1533,
+    "edit": "combo:text_replace_amount+local_resample",
+    "edit_area_fraction": 0.003753501400560224,
+    "actual": "genuine",
+    "confidence": 0.8467,
+    "risk": 0.1533,
+    "margin": -0.3467,
+    "valid_output": true,
+    "flagged_regions": [],
+    "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.15, confidence: 0.85).",
+    "crash": false,
+    "pass": false,
+    "stable": true,
+    "max_score_deviation": 0.0,
+    "matches_record": true,
+    "confidence_consistent": true
+   },
+   {
+    "image": "edge_case_01.png",
+    "role": "edge case",
+    "expected": "genuine",
+    "recorded_score": 0.2233,
+    "edit": "none",
+    "edit_area_fraction": null,
+    "actual": "genuine",
+    "confidence": 0.7767,
+    "risk": 0.2233,
+    "margin": -0.2767,
+    "valid_output": true,
+    "flagged_regions": [],
+    "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.22, confidence: 0.78).",
+    "crash": false,
+    "pass": true,
+    "stable": true,
+    "max_score_deviation": 0.0,
+    "matches_record": true,
+    "confidence_consistent": true
+   }
+  ],
+  "correct": 4,
+  "n": 5,
+  "valid_outputs": 5,
+  "stable": true,
+  "match_record": true,
+  "confidence_consistent": true,
+  "low_confidence": [],
+  "crashes": 0,
+  "wrong": [
+   "tampered_payslip_02.png"
+  ]
+ },
+ "review": {
+  "Feature extraction pipeline": [
+   {
+    "check": "extractor chosen from the model's recorded schema",
+    "status": "PASS",
+    "detail": "local-tamper-v2: 29 features"
+   },
+   {
+    "check": "29 finite features in model column order",
+    "status": "PASS",
+    "detail": "5 demo images"
+   },
+   {
+    "check": "features deterministic (3 extractions per image)",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "served extractor (extract_with_regions) == training extractor (extract_tamper_features)",
+    "status": "PASS",
+    "detail": ""
+   }
+  ],
+  "ELA analysis pipeline": [
+   {
+    "check": "deployed model v2 does not use ELA",
+    "status": "PASS",
+    "detail": "0 ELA features; ela_analysis called 0 times in 5 v2 predictions"
+   },
+   {
+    "check": "ELA pipeline (v1 rollback path): heatmap matches the page, score in 0-100, deterministic",
+    "status": "PASS",
+    "detail": "heatmap 850x1050, score 62.5"
+   },
+   {
+    "check": "rollback model v1 reproduces its recorded demo scores (uses ELA; no regions)",
+    "status": "PASS",
+    "detail": "0.36, 0.59, 0.37, 0.14, 0.35"
+   }
+  ],
+  "Model prediction logic": [
+   {
+    "check": "class order [genuine=0, tampered=1]; score = tampered column",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "API score / confidence == forest probabilities on independently extracted features",
+    "status": "PASS",
+    "detail": "20 documents (demo + TEST)"
+   },
+   {
+    "check": "verdict text follows score >= TAMPER_THRESHOLD",
+    "status": "PASS",
+    "detail": "20 documents"
+   },
+   {
+    "check": "flagged_regions only for a tampering verdict",
+    "status": "PASS",
+    "detail": "20 documents"
+   }
+  ],
+  "Threshold values": [
+   {
+    "check": "TAMPER_THRESHOLD == model metadata == demo manifest",
+    "status": "PASS",
+    "detail": "config 0.5, model 0.5, demo manifest 0.5"
+   },
+   {
+    "check": "threshold within [0, 1]",
+    "status": "PASS",
+    "detail": "0.5"
+   },
+   {
+    "check": "startup validation warns about an out-of-range TAMPER_THRESHOLD",
+    "status": "PASS",
+    "detail": ""
+   },
+   {
+    "check": "'threshold' query parameter does not change the result (documented as ignored)",
+    "status": "PASS",
+    "detail": "risk 0.0567 with threshold unset, 0.01 and 0.99"
+   },
+   {
+    "check": "held-out documents within 0.05 of the threshold",
+    "status": "INFO",
+    "detail": "4 of 164, 3 wrong - the score is least reliable there"
+   }
+  ]
+ },
+ "issues": [
+  {
+   "issue": "scikit-learn was unpinned in requirements.txt although the model is a pickle; an environment with another version would fail or warn at load",
+   "severity": "high for deployment",
+   "status": "fixed: pinned to 1.9.1"
+  },
+  {
+   "issue": "non-document images get a score: 5 of 6 synthetic test fixtures (not documents) are reported as tampered (clean_rgb.jpg 0.62, clean_rgb.png 0.62, grayscale.jpg 0.62, large_image.jpg 0.55, small_image.jpg 0.60)",
+   "severity": "medium (misleading output)",
+   "status": "known limitation, documented"
+  },
+  {
+   "issue": "logs/final_release_report.txt and logs/final_load_report.txt (Founder B, Day 10) describe model v1 (60%); their model figures are superseded by this report",
+   "severity": "low (documentation)",
+   "status": "noted; Founder B's dated reports left unchanged"
+  },
+  {
+   "issue": "all 3 held-out false positives are bank_statement pages",
+   "severity": "medium (weakest document type)",
+   "status": "known limitation, documented"
+  },
+  {
+   "issue": "the 'threshold' query parameter of /verify is accepted but ignored",
+   "severity": "low",
+   "status": "documented behaviour (API_DOCS.md)"
+  }
+ ],
+ "signoff": [
+  {
+   "item": "Model file loads correctly",
+   "pass": true,
+   "evidence": "33/33 load, dependency, serialization and runtime checks without failure (0 warnings)"
+  },
+  {
+   "item": "Demo images validated",
+   "pass": true,
+   "evidence": "5/5 valid outputs, identical over 10 runs, equal to the recorded scores; 4/5 correct (known miss: tampered_payslip_02.png)"
+  },
+  {
+   "item": "Accuracy report generated",
+   "pass": true,
+   "evidence": "TEST 86.67%, HOLDOUT 92.62% (> 75% required); logs/final_accuracy_report.txt"
+  },
+  {
+   "item": "Performance validated",
+   "pass": true,
+   "evidence": "5/5 targets met; logs/inference_benchmark_report.txt"
+  },
+  {
+   "item": "No critical bugs found",
+   "pass": true,
+   "evidence": "16/16 review checks without failure; 0 crashes; 0 open issues (non-blocking list in Appendix C)"
+  },
+  {
+   "item": "Release report completed",
+   "pass": true,
+   "evidence": "5/5 sections; final_model_release_report.txt, model_signoff_checklist.txt"
+  }
+ ],
+ "recommendation": {
+  "approved": true,
+  "decision": "APPROVED for release (model v2.0.0) for the live demo, the investor presentation and an internal pilot on synthetic or non-decision documents. NOT APPROVED for automated fraud decisions on real documents.",
+  "conditions": [
+   "Install with the pinned scikit-learn (requirements.txt) and keep MODEL_PATH at the default data/models/fraud_model.pkl; the file's SHA-256 must match this report.",
+   "Present tamper_risk_score as a risk indicator for human review, never as a probability of fraud; quote accuracy as measured on synthetic documents.",
+   "Keep a person in the loop for every flagged document, and for pages that were re-saved, scanned, photographed, rotated or cropped (accuracy 50-87% on such pages).",
+   "Operator conditions from DEPLOYMENT.md still apply (API_KEY, CORS_ORIGINS, HTTPS).",
+   "Rollback: MODEL_PATH=data/models/fraud_model_v1.pkl and restart (verified in Appendix A)."
+  ],
+  "before_production": [
+   "Evaluate on a labelled, consented set of real documents and meet the accuracy target there.",
+   "Train and test with degraded pages (re-save, scan, rotation, crop, resolution) or normalise pages first.",
+   "Calibrate scores and add a 'needs review' band around the threshold.",
+   "Reject or flag non-document images.",
+   "Build a new holdout set: TEST and HOLDOUT have been used for v2's evaluation."
+  ]
+ },
+ "accuracy": {
+  "model": {
+   "path": "data/models/fraud_model.pkl",
+   "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+   "version": "2.0.0",
+   "schema": "local-tamper-v2"
+  },
+  "requirements": [
+   {
+    "check": "Frozen TEST split intact",
+    "pass": true,
+    "detail": "15/15 SHA-256 and dataset fingerprint match"
+   },
+   {
+    "check": "No held-out document used in training",
+    "pass": true,
+    "detail": "no TEST image among the training files: 0 of 15; no HOLDOUT image among the training files: 0 of 149"
+   },
+   {
+    "check": "TEST accuracy above 75%",
+    "pass": true,
+    "detail": "86.67% (13/15)"
+   },
+   {
+    "check": "HOLDOUT accuracy above 75%",
+    "pass": true,
+    "detail": "92.62% (138/149)"
+   },
+   {
+    "check": "TEST accuracy meets the 78% sprint target",
+    "pass": true,
+    "detail": "86.67%"
+   },
+   {
+    "check": "HOLDOUT accuracy meets the 78% sprint target",
+    "pass": true,
+    "detail": "92.62%"
+   },
+   {
+    "check": "Metrics identical to the recorded v2 evaluation",
+    "pass": true,
+    "detail": "confusion matrices equal to Day 8 validation, Day 9 review"
+   }
+  ],
+  "requirements_met": true,
+  "combined": {
+   "metrics": {
+    "tn": 90,
+    "fp": 3,
+    "fn": 10,
+    "tp": 61,
+    "n": 164,
+    "correct": 151,
+    "accuracy": 0.9207317073170732,
+    "precision": 0.953125,
+    "recall": 0.8591549295774648,
+    "f1": 0.9037037037037037,
+    "fpr": 0.03225806451612903,
+    "fnr": 0.14084507042253522
+   },
+   "ci95": {
+    "accuracy": [
+     0.8691110864554287,
+     0.9530927056914528
+    ]
+   }
+  },
+  "sets": {
+   "TEST": {
+    "metrics": {
+     "tn": 8,
+     "fp": 2,
+     "fn": 0,
+     "tp": 5,
+     "n": 15,
+     "correct": 13,
+     "accuracy": 0.8666666666666667,
+     "precision": 0.7142857142857143,
+     "recall": 1.0,
+     "f1": 0.8333333333333333,
+     "fpr": 0.2,
+     "fnr": 0.0
+    }
+   },
+   "HOLDOUT": {
+    "metrics": {
+     "tn": 82,
+     "fp": 1,
+     "fn": 10,
+     "tp": 56,
+     "n": 149,
+     "correct": 138,
+     "accuracy": 0.9261744966442953,
+     "precision": 0.9824561403508771,
+     "recall": 0.8484848484848485,
+     "f1": 0.9105691056910568,
+     "fpr": 0.012048192771084338,
+     "fnr": 0.15151515151515152
+    }
+   }
+  }
+ },
+ "performance": {
+  "model": {
+   "path": "data/models/fraud_model.pkl",
+   "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+   "version": "2.0.0",
+   "schema": "local-tamper-v2"
+  },
+  "generated": "2026-09-27T11:41:13+00:00",
+  "targets": [
+   {
+    "target": "stable",
+    "pass": true,
+    "detail": "507 in-process predictions, 0 documents with differing repeats; HTTP responses differing from in-process: 0",
+    "description": "every repeated prediction identical (score, confidence, regions, interpretation), in-process and over HTTP"
+   },
+   {
+    "target": "no_crash",
+    "pass": true,
+    "detail": "0 in-process crashes; HTTP errors: 0",
+    "description": "0 crashes; every HTTP request answered 200"
+   },
+   {
+    "target": "latency",
+    "pass": true,
+    "detail": "slowest typical page 267 ms",
+    "description": "every typical page (longest side <= 2000 px) under 2 s in-process"
+   },
+   {
+    "target": "consistent",
+    "pass": true,
+    "detail": "p95 163 ms = 1.20x median; run-to-run variation median 3.6%",
+    "description": "p95 <= 2x median; median run-to-run variation per document <= 10%"
+   },
+   {
+    "target": "http",
+    "pass": true,
+    "detail": "5 users: average 530 ms, p95 672 ms, success 100% (50/50)",
+    "description": "/verify average < 2 s at 5 concurrent users and success rate > 95% (sprint targets)"
+   }
+  ],
+  "targets_met": true,
+  "model_load": {
+   "n": 5,
+   "min": 12.379697000142187,
+   "mean": 13.637121000283514,
+   "median": 13.98513899948739,
+   "p95": 14.769519601395587,
+   "max": 14.887390001604217,
+   "stdev": 0.9701318127496472
+  }
+ }
+}

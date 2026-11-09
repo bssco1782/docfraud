@@ -1,0 +1,226 @@
+================================================================================
+DOCFRAUD — FRAUD DETECTION MODEL RELEASE NOTES
+MODEL v2.0.0 (feature schema local-tamper-v2) — Day 9 final review, Founder A
+================================================================================
+Status        : Released for demos and internal evaluation on synthetic documents.
+                NOT production-ready for real uploads: never validated on real
+                documents, and accuracy falls to 50-87% on re-saved, downscaled,
+                rotated, cropped or blurred pages (section 4).
+Model file    : data/models/fraud_model.pkl (5.5 MB)
+SHA-256       : 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Replaces      : model v1.0.0 (day4-v2-22), kept byte-for-byte as
+                data/models/fraud_model_v1.pkl (SHA-256 bcf4d02f15980f68...)
+Loaded by     : backend/model_utils.py ModelAPI (the feature extractor is chosen
+                from the schema recorded in the model file; core/feature_schemas.py)
+Decision rule : tampered if tamper_risk_score >= TAMPER_THRESHOLD (0.5, unchanged)
+Evidence      : logs/model_review_report.txt        final review + release checklist
+                logs/model_robustness_report.txt    degradation tests
+                logs/feature_importance_report.txt  feature importance
+                logs/model_validation_report.txt    held-out evaluation (Day 8)
+                logs/model_stability_report.txt     determinism / reproducibility
+                logs/training_log_v2.txt            training data and CV
+
+--------------------------------------------------------------------------------
+1. WHAT CHANGED SINCE v1
+--------------------------------------------------------------------------------
+Features
+  - 29 local tamper features (core/tamper_features.py) replace the 22 whole-page
+    features. Each measures the largest region of the page whose noise, paper
+    colour, sharpness or ink darkness differs from the rest of the same page,
+    plus a page-level processing fingerprint. v1's page averages barely moved
+    when a small rectangle was edited, which capped it at 60%.
+Training data
+  - 60 frozen TRAIN images + 150 generated DEV documents (seed 7001), each with
+    3 processed copies (JPEG q60-95, resize 0.85-1.15x, brightness / contrast
+    +/-7%) applied to both classes at the same rate: 840 rows.
+  - The frozen TEST set and the generated HOLDOUT set are excluded; the SHA-256
+    of every training file is recorded in the model metadata and checked.
+Model
+  - RandomForestClassifier, 300 trees, class_weight=balanced, random_state=42.
+  - Retraining with scripts/train_tamper_model.py reproduces the file's
+    probabilities exactly (logs/model_stability_report.txt section 7).
+Serving (Day 9, no change to outputs)
+  - ModelAPI runs the forest single-threaded (n_jobs=1) and makes one
+    predict_proba pass per document. Typical page: 297 ms -> 136 ms. Scores,
+    confidences and interpretations are identical on 175 checked files.
+  - The /verify interpretation no longer appends a hotspot count (a v1-only
+    feature). The response fields are unchanged.
+
+--------------------------------------------------------------------------------
+2. FINAL METRICS
+--------------------------------------------------------------------------------
+The deployed file itself, scored through ModelAPI on documents it never saw
+(positive class = tampered):
+
+                  n   Accuracy (95% CI)       Precision  Recall   F1     FPR    FNR
+  Frozen TEST    15   86.67% (62.1-96.3%)     71.43%     100.00%  0.833  20.0%   0.0%
+  HOLDOUT       149   92.62% (87.3-95.8%)     98.25%      84.85%  0.911   1.2%  15.2%
+  Combined      164   92.07% (86.9-95.3%)     95.31%      85.92%  0.904   3.2%  14.1%
+
+  Combined confusion matrix: TN=90  FP=3  FN=10  TP=61
+  HOLDOUT (149 documents, seed 7002) was generated after the model was saved.
+
+  Compared with v1 on the same 15 test images: 60.00% (9/15) -> 86.67% (13/15).
+  Cross-validation on training data: 91.3% +/- 3.9% on pristine files,
+  75.2% on processed copies.
+  Requirement (held-out accuracy above 75%): MET on both sets.
+  Sprint target (78%): MET on both sets.
+
+  By document type (TEST + HOLDOUT): payslip 96.4%, ID proof 96.4%,
+  bank statement 83.0% (weakest).
+  Tampered caught by edit method: noise patch 28/28, colour shift 11/13,
+  text overlay 14/19, blur 8/11.
+  Demo set: 4/5 correct (v1: 2/5).
+
+Prediction quality (held-out)
+  - Genuine scores: median 0.08, maximum 0.59. Tampered scores: median 0.90.
+  - Every document scoring 0.6 or more is tampered (60/60). The 0.2-0.6 band is
+    mixed: 30 documents, 9 of them tampered.
+  - 7 documents fall within 0.10 of the threshold; 2 of them are correct.
+
+--------------------------------------------------------------------------------
+3. FEATURE IMPORTANCE (training data only)
+--------------------------------------------------------------------------------
+  - Colour, noise and ink carry the model: retrained without each family,
+    CV accuracy drops 7.6, 7.1 and 5.2 points. Softness: 1.0 point.
+  - The fingerprint family (4 features) and 5 single features (noise_floor,
+    soft_blob_s1_0, soft_total_s1_0 and two colour fill ratios) add nothing
+    measurable. They are candidates to remove in v3, to be confirmed by CV.
+  - The ink family helps on pristine files but not on re-saved copies.
+
+--------------------------------------------------------------------------------
+4. ROBUSTNESS (164 held-out documents; unmodified accuracy 92.1%)
+--------------------------------------------------------------------------------
+  Re-save        JPEG q85                  73.2%  (a third of genuine pages flagged)
+  Low resolution 75% size 75.0%    50% size 50.0%    50% down and up 54.9%
+  Rotation       90 deg 74.4%      180 deg 64.0%     1 deg 80.5%    3 deg 70.1%
+  Cropping       2 px 79.9%        5% 84.8%          10% 86.6%
+  Blur           radius 0.5 84.1%  radius 1.0 85.4%
+  Crashes: 0 in 2,366 predictions. Bank statements are the most fragile type.
+
+--------------------------------------------------------------------------------
+5. PERFORMANCE
+--------------------------------------------------------------------------------
+  Latency (in-process ModelAPI.predict, 4-CPU Linux container):
+    typical page (850x1050)    136 ms  (features 113 ms, forest 21 ms)
+    4000x5000 JPEG           1,055 ms  (decode + downscale to 2000 px: 464 ms)
+  Memory: model load +12 MB (process 164 MB after load); peak 289 MB while
+    analysing a 4000x5000 page.
+  Size: 5.5 MB, 300 trees, 70,304 nodes (mean depth 19.6); unpickle 13 ms.
+  API load tests were not re-run for v2 (Founder B's figures are for v1).
+
+--------------------------------------------------------------------------------
+6. KNOWN LIMITATIONS
+--------------------------------------------------------------------------------
+  - Synthetic data from one generator only (three templates, four edit types).
+    Accuracy on real payslips, statements and ID cards is unknown.
+  - Degraded inputs (section 4). Phone photos, scans, rotated or cropped pages
+    are outside the validated range, but the API still returns a score for them.
+  - Non-document images (photos, blank pages) score 0.55-0.62 and are reported as
+    tampered. There is no "not a document" output.
+  - Scores are uncalibrated RandomForest vote fractions, not fraud probabilities.
+  - flagged_regions (added after release, section 10) marks anomalies, not proof;
+    it misses about half of the text overlays.
+  - Only the first page of a PDF is analysed.
+  - The frozen TEST and HOLDOUT sets have been used for v2's evaluation and for
+    the Day 9 robustness tests. A new model needs a new holdout set.
+
+--------------------------------------------------------------------------------
+7. FAILURE CASES
+--------------------------------------------------------------------------------
+  False positives (3, all bank statements): genuine/bank_stmt_059.png 0.58,
+    genuine/bank_stmt_053.png 0.50 (exactly on the threshold),
+    genuine/bank_stmt_2084.png 0.59.
+  False negatives (10, all HOLDOUT):
+    - 3 blur edits on blank paper that changed no pixel (undetectable);
+    - 2 white-on-white text overlays that left only the inserted words;
+    - 5 visible edits missed: 2 colour shifts on payslips and 3 text overlays
+      on bank statements.
+  Demo: tampered_payslip_02.png (0.15) uses a text-replacement edit that v2 was
+    not trained on.
+  Fragile documents: some bank statements change label under 8-9 of the 13
+    degradations (logs/model_robustness_report.txt).
+
+--------------------------------------------------------------------------------
+8. UPGRADE AND ROLLBACK
+--------------------------------------------------------------------------------
+  - The default MODEL_PATH (data/models/fraud_model.pkl) serves v2; no
+    configuration change is needed.
+  - Rollback: set MODEL_PATH=data/models/fraud_model_v1.pkl and restart. ModelAPI
+    selects the v1 extractor from that file's schema.
+  - After any retraining: python scripts/prepare_demo_dataset.py --rescore, then
+    run scripts/model_validation.py, model_stability_test.py,
+    feature_importance.py, model_robustness_test.py and model_review.py.
+  - Requirements: scikit-learn 1.9.1, numpy 2.4.6, SciPy, OpenCV 5.0.0.93 and
+    Pillow 12.3.0 were used. requirements.txt pins scikit-learn==1.9.1 (Day 10),
+    because the pickled model depends on it; pin the others before deployment.
+
+--------------------------------------------------------------------------------
+9. FUTURE IMPROVEMENTS (v3)
+--------------------------------------------------------------------------------
+  1. Robustness: add rotation, skew, border crops, downscaling and light blur to
+     the processed training copies (both classes). Normalise pages first
+     (auto-rotate, deskew, trim borders, fixed resolution). Choose by CV on
+     training data, then evaluate once on a NEW holdout set.
+  2. Real documents: collect a labelled, consented set of real documents and
+     measure before any production decision.
+  3. Out-of-scope input: detect non-documents and unsupported inputs and reject
+     or flag them.
+  4. Calibration: isotonic or Platt scaling on validation data, plus a "needs
+     review" band around the threshold.
+  5. Localisation: done (section 10). Next: text overlays whose ink matches the
+     page, and resolution-independent tile thresholds.
+  6. Simplification: drop the features that add nothing (section 3). 200 trees
+     match 300 in CV at 3.6 MB instead of 5.5 MB. Save with n_jobs=1.
+  7. Speed: decode large JPEGs at reduced size (Pillow draft mode); for typical
+     pages, the colour and ink feature groups are the main cost.
+  8. Bank statements: the weakest document type, both clean and degraded.
+
+--------------------------------------------------------------------------------
+10. POST-RELEASE UPDATE: flagged_regions (localisation)
+--------------------------------------------------------------------------------
+Same model file and SHA-256; features, scores and verdicts are unchanged.
+  - /verify returns flagged_regions for model v2: boxes with x, y, width, height
+    (pixels of the uploaded image; PDF: page 1 at 200 DPI), area and type
+    (noise, colour, softness, ink, or several joined by '+' when boxes merge).
+    Largest first, at most 5.
+  - Regions are returned only when tamper_risk_score >= TAMPER_THRESHOLD, so they
+    agree with the verdict. The interpretation then adds "N suspicious region(s)
+    located (see flagged_regions)." Model v1 (rollback) still returns [].
+  - Source: the tile masks behind the features (core/tamper_features.py,
+    extract_with_regions; minimum region sizes in LOCATE_MASKS chosen on DEV only).
+    extract_tamper_features gives identical values; cost about 3 ms per page.
+  - Accuracy (scripts/localization_eval.py -> logs/localization_report.txt; a hit
+    is a box intersecting the true edit rectangle, recovered by replaying the
+    generator; edits that changed no pixel excluded):
+                          hit             top-1    box precision  genuine w/ boxes
+      DEV (design set)    49/59 (83.1%)   49/59    54/54          0/87
+      Held-out            55/67 (82.1%)   52/67    61/69          2/93
+    Held-out by method: noise patch 28/28, blur 7/7, colour shift 10/13,
+    text overlay 10/19 (7 misses on bank statements, where the inserted words
+    share the page's ink darkness).
+  - Limitation: like the score, boxes assume the training resolution. On DEV
+    pages resampled to 0.75x, 1.5x or 2.5x, every genuine page gets locator boxes
+    (new anti-aliased colours and noise), and the model flags 4, 55 and 86 of 87.
+  - data/demo/demo_manifest.json keeps the interpretation recorded on Day 8; the
+    live text for tampered_payslip_01.png now ends with "1 suspicious region(s)
+    located (see flagged_regions)." Its box (x=198, y=321, 96 x 9 px, ink) covers
+    the replaced account number (recorded edit [197, 321, 55, 12]).
+
+--------------------------------------------------------------------------------
+11. DAY 10 SIGN-OFF
+--------------------------------------------------------------------------------
+Final QA of this model file (unchanged SHA-256): logs/final_model_release_report.txt
+and logs/model_signoff_checklist.txt (scripts/final_model_validation.py).
+  - Sign-off 6/6: model loads (33/33 checks, no unpickling warnings); demo images
+    validated (5/5 valid, identical over 10 runs and over HTTP, 4/5 correct);
+    accuracy unchanged (TEST 86.67%, HOLDOUT 92.62%); performance targets 5/5;
+    no critical bugs (16/16 review checks, 0 crashes).
+  - Performance (logs/inference_benchmark_report.txt): in-process average about
+    125 ms per page, maximum under 0.3 s; /verify at 5 concurrent users about
+    0.5 s average with 100% success (v1: 1.19 s).
+  - Fixed during the review: scikit-learn pinned to 1.9.1 in requirements.txt.
+  - Decision: approved for the demo, investor presentation and an internal pilot
+    on synthetic or non-decision documents; not approved for automated fraud
+    decisions on real documents. Limitations: logs/model_limitations.txt.
+

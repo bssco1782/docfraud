@@ -1,0 +1,131 @@
+--------------------------------
+DOCFRAUD MODEL ROBUSTNESS REPORT
+--------------------------------
+Generated (UTC): 2026-09-27T10:15:27+00:00
+Script: scripts/model_robustness_test.py (workers=4)
+Model: data/models/fraud_model.pkl v2.0.0, SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Documents: 164 held-out (15 frozen TEST + 149 HOLDOUT; 93 genuine / 71 tampered), never seen in training.
+Path: ModelAPI.predict (the /verify pipeline); tampered if score >= 0.5.
+Total predictions: 2366, time 111 s.
+
+--------------------------------
+SUMMARY BY VARIANT (held-out documents)
+--------------------------------
+Variant        Category        Description                        Acc  Change    FPR    FNR  Flips |dScore|  Rej Crash
+----------------------------------------------------------------------------------------------------------------------
+original       reference       unmodified file                  92.1%   +0.0p   3.2%  14.1%      0    0.000    0     0
+jpeg_q85       re-save         JPEG re-save, quality 85         73.2%  -18.9p  33.3%  18.3%     41    0.272    0     0
+downscale_75   low resolution  75% of width and height          75.0%  -17.1p   4.3%  52.1%     36    0.257    0     0
+downscale_50   low resolution  50% of width and height          50.0%  -42.1p  73.1%  19.7%     85    0.366    0     0
+down_up_50     low resolution  50% then back to full size       54.9%  -37.2p  57.0%  29.6%     73    0.336    0     0
+rotate_90      rotation        rotated 90 degrees               74.4%  -17.7p  35.5%  12.7%     41    0.200    0     0
+rotate_180     rotation        rotated 180 degrees              64.0%  -28.0p  61.3%   2.8%     62    0.277    0     0
+skew_1deg      rotation        rotated 1 degree (white fill)    80.5%  -11.6p   4.3%  39.4%     27    0.217    0     0
+skew_3deg      rotation        rotated 3 degrees (white fill)   70.1%  -22.0p  28.0%  32.4%     50    0.288    0     0
+crop_2px       cropping        2 px off every side              79.9%  -12.2p  32.3%   4.2%     34    0.214    0     0
+crop_5pct      cropping        5% off every side                84.8%   -7.3p  19.4%   9.9%     24    0.174    0     0
+crop_10pct     cropping        10% off every side               86.6%   -5.5p  17.2%   8.5%     23    0.234    0     0
+blur_r0_5      blur            Gaussian blur, radius 0.5 px     84.1%   -7.9p   0.0%  36.6%     19    0.197    0     0
+blur_r1_0      blur            Gaussian blur, radius 1.0 px     85.4%   -6.7p   2.2%  31.0%     17    0.257    0     0
+Acc = accuracy; FPR = genuine flagged; FNR = tampered missed; Flips = label differs from the unmodified
+document; |dScore| = mean absolute change of tamper_risk_score; Rej = controlled rejections (HTTP 400).
+
+--------------------------------
+TAMPERED DOCUMENTS CAUGHT, BY EDIT METHOD
+--------------------------------
+Variant           blur_region    color_shift    noise_patch   text_overlay
+---------------------------------------------------------------------------
+original             8/11          11/13          28/28          14/19    
+jpeg_q85             7/11          12/13          25/28          14/19    
+downscale_75         7/11           5/13          15/28           7/19    
+downscale_50         8/11          13/13          19/28          17/19    
+down_up_50          10/11          11/13          14/28          15/19    
+rotate_90            9/11          11/13          28/28          14/19    
+rotate_180           9/11          13/13          28/28          19/19    
+skew_1deg            8/11           6/13          28/28           1/19    
+skew_3deg            8/11           5/13          28/28           7/19    
+crop_2px             8/11          13/13          28/28          19/19    
+crop_5pct            8/11           9/13          28/28          19/19    
+crop_10pct           6/11          13/13          27/28          19/19    
+blur_r0_5            7/11           5/13          27/28           6/19    
+blur_r1_0            7/11           9/13          26/28           7/19    
+
+--------------------------------
+ACCURACY BY DOCUMENT TYPE
+--------------------------------
+Variant          bank_statement         id_proof          payslip
+------------------------------------------------------------------
+original                  83.0%            96.4%            96.4%
+jpeg_q85                  66.0%            78.2%            75.0%
+downscale_75              69.8%            78.2%            76.8%
+downscale_50              45.3%            58.2%            46.4%
+down_up_50                43.4%            63.6%            57.1%
+rotate_90                 37.7%            96.4%            87.5%
+rotate_180                47.2%            70.9%            73.2%
+skew_1deg                 77.4%            76.4%            87.5%
+skew_3deg                 60.4%            61.8%            87.5%
+crop_2px                  69.8%            96.4%            73.2%
+crop_5pct                 64.2%            90.9%            98.2%
+crop_10pct                64.2%            94.5%           100.0%
+blur_r0_5                 83.0%            81.8%            87.5%
+blur_r1_0                 81.1%            89.1%            85.7%
+
+--------------------------------
+DEMO IMAGES (score per variant; * = label differs from expected)
+--------------------------------
+Variant        genuine_payslip_01 genuine_payslip_02 tampered_payslip_0 tampered_payslip_0   edge_case_01.png
+--------------------------------------------------------------------------------------------------------------
+original                    0.06               0.06               0.79               0.15*              0.22 
+jpeg_q85                    0.38               0.57*              0.39*              0.58               0.25 
+downscale_75                0.42               0.41               0.43*              0.36*              0.83*
+downscale_50                0.64*              0.62*              0.58               0.59               0.62*
+down_up_50                  0.45               0.47               0.48*              0.61               0.44 
+rotate_90                   0.20               0.22               0.27*              0.32*              0.86*
+rotate_180                  0.50               0.48               0.72               0.52               0.89*
+skew_1deg                   0.22               0.27               0.29*              0.28*              0.82*
+skew_3deg                   0.34               0.34               0.35*              0.33*              0.80*
+crop_2px                    0.51*              0.50*              0.73               0.51               0.89*
+crop_5pct                   0.29               0.28               0.61               0.29*              0.83*
+crop_10pct                  0.46               0.46               0.55               0.48*              0.87*
+blur_r0_5                   0.30               0.30               0.26*              0.30*              0.50 
+blur_r1_0                   0.39               0.39               0.38*              0.38*              0.51*
+Expected: genuine_payslip_01.png genuine, genuine_payslip_02.png genuine, tampered_payslip_01.png tampered, tampered_payslip_02.png tampered, edge_case_01.png genuine
+
+--------------------------------
+MOST FRAGILE HELD-OUT DOCUMENTS (label flips across variants)
+--------------------------------
+  HOLDOUT  genuine/bank_stmt_2064.png         genuine  bank_statement  score 0.08  flips under 9: downscale_75, downscale_50, down_up_50, rotate_90, rotate_180, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  tampered/bank_stmt_2065.png        tampered bank_statement  score 0.48  flips under 9: jpeg_q85, downscale_50, down_up_50, rotate_90, rotate_180, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  tampered/bank_stmt_2073.png        tampered bank_statement  score 0.37  flips under 9: downscale_50, down_up_50, rotate_90, rotate_180, skew_1deg, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  tampered/bank_stmt_2092.png        tampered bank_statement  score 0.46  flips under 9: jpeg_q85, downscale_50, down_up_50, rotate_90, rotate_180, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  tampered/payslip_2025.png          tampered payslip         score 0.31  flips under 8: jpeg_q85, downscale_75, downscale_50, rotate_180, skew_1deg, skew_3deg, crop_2px, crop_10pct
+  HOLDOUT  genuine/bank_stmt_2070.png         genuine  bank_statement  score 0.38  flips under 8: jpeg_q85, downscale_50, down_up_50, rotate_90, rotate_180, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  genuine/bank_stmt_2075.png         genuine  bank_statement  score 0.33  flips under 8: downscale_50, down_up_50, rotate_90, rotate_180, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  genuine/bank_stmt_2079.png         genuine  bank_statement  score 0.08  flips under 8: downscale_50, down_up_50, rotate_90, skew_1deg, skew_3deg, crop_5pct, crop_10pct, blur_r1_0
+  HOLDOUT  genuine/bank_stmt_2093.png         genuine  bank_statement  score 0.11  flips under 8: downscale_50, down_up_50, rotate_90, rotate_180, skew_3deg, crop_2px, crop_5pct, crop_10pct
+  HOLDOUT  genuine/bank_stmt_2098.png         genuine  bank_statement  score 0.23  flips under 8: jpeg_q85, downscale_50, down_up_50, rotate_90, rotate_180, crop_2px, crop_5pct, crop_10pct
+
+--------------------------------
+REJECTIONS AND CRASHES
+--------------------------------
+  none - every variant of every document was scored
+
+--------------------------------
+FINDINGS
+--------------------------------
+- downscale_50 (50% of width and height): accuracy 50.0% (unmodified 92.1%); FPR 73.1%, FNR 19.7% - more genuine pages flagged and more edits missed.
+- down_up_50 (50% then back to full size): accuracy 54.9% (unmodified 92.1%); FPR 57.0%, FNR 29.6% - more genuine pages flagged and more edits missed.
+- rotate_180 (rotated 180 degrees): accuracy 64.0% (unmodified 92.1%); FPR 61.3%, FNR 2.8% - more genuine pages flagged.
+- skew_3deg (rotated 3 degrees (white fill)): accuracy 70.1% (unmodified 92.1%); FPR 28.0%, FNR 32.4% - more genuine pages flagged and more edits missed.
+- Mean accuracy by category: re-save 73.2%, low resolution 60.0%, rotation 72.3%, cropping 83.7%, blur 84.8%.
+- Crashes: 0. Controlled rejections: 0.
+
+--------------------------------
+RECOMMENDATIONS
+--------------------------------
+- Treat the reported accuracy as valid for clean, upright, full-page PNG/PDF renders only. Variants below lose more than 10 points: jpeg_q85, downscale_75, downscale_50, down_up_50, rotate_90, rotate_180, skew_1deg, skew_3deg, crop_2px.
+- Add these degradations to the training copies (rotation by 90/180 and small skew, border crops, downscaling, light blur) for both classes, as was done for JPEG / resize / brightness in v2, and measure the effect by grouped cross-validation on training data before touching a new holdout set.
+- Normalise before analysis: deskew and auto-rotate (text-line orientation), trim scanner borders, and resample to a fixed resolution, so the features see a canonical page.
+- Make the features scale-aware: tile size and region thresholds are in pixels, so the same edit covers fewer tiles on a downscaled page. Express them relative to page size or text height.
+- Reject or flag inputs outside the validated range (very small pages, rotated pages) instead of scoring them silently; the API currently returns a score for every decodable page.
+- Re-run this script on every model change; the frozen TEST and HOLDOUT documents are reused here for measurement only, never for training or selection.

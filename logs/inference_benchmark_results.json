@@ -1,0 +1,379 @@
+{
+ "generated": "2026-09-27T11:41:13+00:00",
+ "environment": {
+  "python": "3.11.15",
+  "platform": "Linux x86_64",
+  "cpus": 4,
+  "packages": {
+   "scikit-learn": "1.9.1",
+   "numpy": "2.4.6",
+   "opencv-python": "5.0.0.93",
+   "pillow": "12.3.0",
+   "fastapi": "0.141.1"
+  }
+ },
+ "model": {
+  "path": "data/models/fraud_model.pkl",
+  "sha256": "1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1",
+  "version": "2.0.0",
+  "schema": "local-tamper-v2"
+ },
+ "model_load": {
+  "n": 5,
+  "min": 12.379697000142187,
+  "mean": 13.637121000283514,
+  "median": 13.98513899948739,
+  "p95": 14.769519601395587,
+  "max": 14.887390001604217,
+  "stdev": 0.9701318127496472
+ },
+ "in_process": {
+  "documents": 169,
+  "passes": 3,
+  "predictions": 507,
+  "cold_first_call_ms": 161.06860200125084,
+  "first_output": {
+   "tamper_risk_score": 0.0567,
+   "confidence": 0.9433,
+   "flagged_regions": [],
+   "interpretation": "Document verified successfully. Low risk of digital tampering detected (risk score: 0.06, confidence: 0.94)."
+  },
+  "overall": {
+   "n": 507,
+   "min": 74.77326299886045,
+   "mean": 123.93238269026996,
+   "median": 135.7182620013191,
+   "p95": 163.4430929003429,
+   "max": 266.92840800023987,
+   "stdev": 30.707675734547294
+  },
+  "groups": {
+   "DEMO": {
+    "n": 15,
+    "min": 134.64995899994392,
+    "mean": 140.69832600022588,
+    "median": 138.75291899967124,
+    "p95": 152.8901488001793,
+    "max": 156.92553400003817,
+    "stdev": 6.242121461501118
+   },
+   "HOLDOUT": {
+    "n": 447,
+    "min": 74.77326299886045,
+    "mean": 123.76647255921658,
+    "median": 135.41316800001368,
+    "p95": 163.4430929003429,
+    "max": 266.92840800023987,
+    "stdev": 30.88752321720065
+   },
+   "TEST": {
+    "n": 45,
+    "min": 77.24672699987423,
+    "mean": 119.99177555541489,
+    "median": 135.28639099968132,
+    "p95": 162.1048008004436,
+    "max": 189.22138800007815,
+    "stdev": 32.01178080549625
+   },
+   "type:bank_statement": {
+    "n": 159,
+    "min": 130.24218099963036,
+    "mean": 142.78442484269277,
+    "median": 139.87041800100997,
+    "p95": 165.36319610004284,
+    "max": 189.6558999997069,
+    "stdev": 9.951643799427693
+   },
+   "type:id_proof": {
+    "n": 165,
+    "min": 74.77326299886045,
+    "mean": 83.51684163016299,
+    "median": 81.0081950003223,
+    "p95": 98.2162761996733,
+    "max": 124.75630399967486,
+    "stdev": 7.605601162029657
+   },
+   "type:payslip": {
+    "n": 183,
+    "min": 128.88339199889742,
+    "mean": 143.9929814480974,
+    "median": 138.96647799992934,
+    "p95": 179.61217499978378,
+    "max": 266.92840800023987,
+    "stdev": 17.03803914581465
+   }
+  },
+  "typical_max_ms": 266.92840800023987,
+  "run_to_run_cv": {
+   "median": 0.03562525546239156,
+   "max": 0.3517224386123023
+  },
+  "slowest": [
+   {
+    "document": "genuine/bank_stmt_059.png",
+    "set": "TEST",
+    "size": [
+     850,
+     1100
+    ],
+    "median_ms": 163.95598800045263
+   },
+   {
+    "document": "genuine/bank_stmt_2052.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     1100
+    ],
+    "median_ms": 155.8065749995876
+   },
+   {
+    "document": "genuine/bank_stmt_2076.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     1100
+    ],
+    "median_ms": 154.83199499976763
+   },
+   {
+    "document": "tampered/payslip_2020.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     1050
+    ],
+    "median_ms": 152.113919999465
+   },
+   {
+    "document": "tampered/bank_stmt_2053.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     1100
+    ],
+    "median_ms": 151.42936499978532
+   }
+  ],
+  "fastest": [
+   {
+    "document": "tampered/id_proof_2105.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     550
+    ],
+    "median_ms": 78.19532800021989
+   },
+   {
+    "document": "genuine/id_proof_2103.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     550
+    ],
+    "median_ms": 77.77434200033895
+   },
+   {
+    "document": "genuine/id_proof_2114.png",
+    "set": "HOLDOUT",
+    "size": [
+     850,
+     550
+    ],
+    "median_ms": 76.8411989993183
+   }
+  ],
+  "unstable": [],
+  "crashes": []
+ },
+ "large": [
+  {
+   "case": "2400x1800 JPEG (test fixture)",
+   "bytes": 555525,
+   "size": [
+    2400,
+    1800
+   ],
+   "error": null,
+   "stats": {
+    "n": 3,
+    "min": 531.6624199986109,
+    "mean": 656.6364529990096,
+    "median": 596.7930249989877,
+    "p95": 816.9878250993861,
+    "max": 841.4539139994304,
+    "stdev": 133.36321168125866
+   },
+   "stable": true,
+   "score": 0.5533
+  },
+  {
+   "case": "4000x5000 JPEG page (20 MP)",
+   "bytes": 921896,
+   "size": [
+    4000,
+    5000
+   ],
+   "error": null,
+   "stats": {
+    "n": 3,
+    "min": 960.8545169994613,
+    "mean": 1131.409258999459,
+    "median": 974.5332229995256,
+    "p95": 1410.409355599404,
+    "max": 1458.8400369993906,
+    "stdev": 231.59585853477506
+   },
+   "stable": true,
+   "score": 0.5067
+  },
+  {
+   "case": "A4 PDF, one page (rendered at 200 DPI)",
+   "bytes": 2681070,
+   "size": [
+    1653,
+    2339
+   ],
+   "error": null,
+   "stats": {
+    "n": 3,
+    "min": 631.386532999386,
+    "mean": 634.0939283327316,
+    "median": 634.4156399991334,
+    "p95": 636.2732147996212,
+    "max": 636.4796119996754,
+    "stdev": 2.0916480301461795
+   },
+   "stable": true,
+   "score": 0.6833
+  }
+ ],
+ "http": {
+  "available": true,
+  "startup_seconds": 2.1229092970006604,
+  "sequential": {
+   "genuine_payslip_01.png": {
+    "n": 10,
+    "min": 148.0172709998442,
+    "mean": 178.8186030000361,
+    "median": 160.91154599962465,
+    "p95": 262.3242563004168,
+    "max": 310.5810440010828,
+    "stdev": 46.231780658041174
+   },
+   "genuine_payslip_02.png": {
+    "n": 10,
+    "min": 155.83306200096558,
+    "mean": 172.35027589995298,
+    "median": 164.486754999416,
+    "p95": 212.28751925009416,
+    "max": 225.36173600019538,
+    "stdev": 21.064613206439834
+   },
+   "tampered_payslip_01.png": {
+    "n": 10,
+    "min": 151.29822700146178,
+    "mean": 160.34016020021227,
+    "median": 156.12067350048164,
+    "p95": 181.75736965031317,
+    "max": 197.4574300002132,
+    "stdev": 12.745716730142556
+   },
+   "tampered_payslip_02.png": {
+    "n": 10,
+    "min": 154.98161900177365,
+    "mean": 166.96545880004123,
+    "median": 161.07624149935873,
+    "p95": 197.95015359923121,
+    "max": 218.11011399950075,
+    "stdev": 17.74768645480337
+   },
+   "edge_case_01.png": {
+    "n": 10,
+    "min": 164.22993299966038,
+    "mean": 178.23936979966675,
+    "median": 171.49739649903495,
+    "p95": 206.39917690014042,
+    "max": 212.67450699997426,
+    "stdev": 15.127311997269791
+   }
+  },
+  "sequential_mean_ms": 171.34277353998186,
+  "sequential_max_ms": 310.5810440010828,
+  "sequential_min_ms": 148.0172709998442,
+  "concurrent": {
+   "users": 5,
+   "requests": 50,
+   "succeeded": 50,
+   "success_rate": 1.0,
+   "throughput_rps": 8.31788927679876,
+   "n": 50,
+   "min": 256.5544899989618,
+   "mean": 530.0122659198314,
+   "median": 529.046183999526,
+   "p95": 671.960537599898,
+   "max": 743.4729540000262,
+   "stdev": 97.39809612761643
+  },
+  "mismatches": [],
+  "errors": [],
+  "server_memory": {
+   "peak_mb": 309.171875,
+   "current_mb": 240.94921875
+  }
+ },
+ "earlier": [
+  {
+   "when": "Day 9 review, model v2",
+   "what": "typical page, in-process (median)",
+   "ms": 135.65350600038073,
+   "source": "logs/model_review_results.json"
+  },
+  {
+   "when": "Day 9 review, model v2",
+   "what": "4000x5000 JPEG, in-process (median)",
+   "ms": 1055.2822669997113,
+   "source": "logs/model_review_results.json"
+  },
+  {
+   "when": "Day 10 load test, model v1",
+   "what": "/verify at 5 users (average)",
+   "ms": 1190.0,
+   "source": "logs/final_load_report.txt"
+  }
+ ],
+ "targets": [
+  {
+   "target": "stable",
+   "pass": true,
+   "detail": "507 in-process predictions, 0 documents with differing repeats; HTTP responses differing from in-process: 0",
+   "description": "every repeated prediction identical (score, confidence, regions, interpretation), in-process and over HTTP"
+  },
+  {
+   "target": "no_crash",
+   "pass": true,
+   "detail": "0 in-process crashes; HTTP errors: 0",
+   "description": "0 crashes; every HTTP request answered 200"
+  },
+  {
+   "target": "latency",
+   "pass": true,
+   "detail": "slowest typical page 267 ms",
+   "description": "every typical page (longest side <= 2000 px) under 2 s in-process"
+  },
+  {
+   "target": "consistent",
+   "pass": true,
+   "detail": "p95 163 ms = 1.20x median; run-to-run variation median 3.6%",
+   "description": "p95 <= 2x median; median run-to-run variation per document <= 10%"
+  },
+  {
+   "target": "http",
+   "pass": true,
+   "detail": "5 users: average 530 ms, p95 672 ms, success 100% (50/50)",
+   "description": "/verify average < 2 s at 5 concurrent users and success rate > 95% (sprint targets)"
+  }
+ ],
+ "targets_met": true
+}

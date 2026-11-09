@@ -1,0 +1,385 @@
+{
+  "name": "day5-frozen-v1",
+  "description": "Frozen train/test split. Reproduces DocumentFraudDetector.evaluate() stratified 80/20 holdout, random_state=42, on the 75-doc dataset (dataset_sha256 below). The test list is FROZEN: never train on, tune on, alter or augment these files.",
+  "dataset_sha256": "b6b1ec12a66e2f13a8a21eb7e8f40bc27b144132ba201643ce736a2b71e847d5",
+  "random_state": 42,
+  "test": [
+    {
+      "path": "tampered/payslip_033.png",
+      "label": "tampered",
+      "sha256": "57814cb6d14045a8ab66aa2329ee5e2c1d7889a19ef3b815ece6c8dea87665a0"
+    },
+    {
+      "path": "genuine/id_proof_066.png",
+      "label": "genuine",
+      "sha256": "96e0089de5bdc2df1b433ddb3996f34202332e048e2021ddef4b769802bc6c16"
+    },
+    {
+      "path": "genuine/payslip_042.png",
+      "label": "genuine",
+      "sha256": "e8604968667ef18006f25a55904e61fcfa181be50b0802d4b3557c51319c9c91"
+    },
+    {
+      "path": "genuine/bank_stmt_059.png",
+      "label": "genuine",
+      "sha256": "d06e0a5aac10b634449beb7f159b4500bedab74019677cd4e030efc830196a8c"
+    },
+    {
+      "path": "tampered/id_proof_024.png",
+      "label": "tampered",
+      "sha256": "66a451cb39a33ad936ab737add774100870cc453b579825569f965f4ea7cd5dd"
+    },
+    {
+      "path": "tampered/payslip_030.png",
+      "label": "tampered",
+      "sha256": "09412843275b09b3090287659fa7474b230d32112b6b3b7e71f9681072ad79bb"
+    },
+    {
+      "path": "genuine/bank_stmt_049.png",
+      "label": "genuine",
+      "sha256": "e52d1bb7af9d3d79bd503e8ceae3f1d315f91caf08cc3c01ff6714bb79981703"
+    },
+    {
+      "path": "genuine/id_proof_073.png",
+      "label": "genuine",
+      "sha256": "d3f2dac37e002e73e0763835d0d9ae4666bec9252c99984beef4b531d1956825"
+    },
+    {
+      "path": "genuine/payslip_036.png",
+      "label": "genuine",
+      "sha256": "fc1f6c25692eacf9b7d125ea60d736b3020a8410b4dc05d6d36c9caf10f62cb0"
+    },
+    {
+      "path": "genuine/payslip_010.png",
+      "label": "genuine",
+      "sha256": "aac469b67b4d6a5b2e10f7fc32545df752394566b108b4d86fc9ad3826b2a8fc"
+    },
+    {
+      "path": "tampered/payslip_043.png",
+      "label": "tampered",
+      "sha256": "3961031bb3e93702cb51a23294fa36e5d025580b8fb7adcc6f219ecfd2f5a210"
+    },
+    {
+      "path": "genuine/bank_stmt_053.png",
+      "label": "genuine",
+      "sha256": "b1797c881c1e4e097377d04fee6de9c80f6f9898e7e1a8805ae1242343366bb3"
+    },
+    {
+      "path": "genuine/id_proof_022.png",
+      "label": "genuine",
+      "sha256": "a9e8daae01af7825a06182a485cb9a78e191615415633974d43299ac16557239"
+    },
+    {
+      "path": "tampered/id_proof_071.png",
+      "label": "tampered",
+      "sha256": "619782db24751bc066f4fa7c943f542afe902ac43aed68e2b7696ab3469ed3a8"
+    },
+    {
+      "path": "genuine/id_proof_061.png",
+      "label": "genuine",
+      "sha256": "acd4c03bcd06e0424baa27903868a0fbfe11f2f4a035ef553523b6bbd03111bb"
+    }
+  ],
+  "train": [
+    {
+      "path": "genuine/bank_stmt_011.png",
+      "label": "genuine",
+      "sha256": "6574b13131c6cc33fb245870c038fa74e26f1daf5138988922d45611384eb8fb"
+    },
+    {
+      "path": "genuine/bank_stmt_012.png",
+      "label": "genuine",
+      "sha256": "11775cd14123a65b9ea8202d01b132249983eeb43c13f5f9a6b1cb677cee0129"
+    },
+    {
+      "path": "genuine/bank_stmt_013.png",
+      "label": "genuine",
+      "sha256": "5502c6b38b2b8f9dcf93783336ccf99575a4b197394767b5df04e5ea9873acb3"
+    },
+    {
+      "path": "genuine/bank_stmt_015.png",
+      "label": "genuine",
+      "sha256": "049f8589226ddf4dba7747f976266e4b9df53eedecc7b1c99c6e477e4f6de6ad"
+    },
+    {
+      "path": "genuine/bank_stmt_016.png",
+      "label": "genuine",
+      "sha256": "95c8e7c9dadf4dc796b4fda3f799ba2dd98f5fa9be23a581a66c46d8f0aeff2b"
+    },
+    {
+      "path": "genuine/bank_stmt_047.png",
+      "label": "genuine",
+      "sha256": "ff9814ea3d9259f31cd0406cf5db2cf8240dfa2f349e1ee7401091a93d388e78"
+    },
+    {
+      "path": "genuine/bank_stmt_048.png",
+      "label": "genuine",
+      "sha256": "67a52694a48ea3d41ac22ac8b56c0f2eed73c8128eabf886f932e639635d5dec"
+    },
+    {
+      "path": "genuine/bank_stmt_051.png",
+      "label": "genuine",
+      "sha256": "304fa0d6672d2727172894d8129160531727a1fef6cac72c8f444f0ef88b1beb"
+    },
+    {
+      "path": "genuine/bank_stmt_052.png",
+      "label": "genuine",
+      "sha256": "9b712860c55c4164d1326396c3c00ee383cc56039aedc690dd659bf0238be11a"
+    },
+    {
+      "path": "genuine/bank_stmt_054.png",
+      "label": "genuine",
+      "sha256": "5671d108e240c4e8a86a2dcfd797fda8ae51dd0a5f4609bbbc2df80db6f04524"
+    },
+    {
+      "path": "genuine/bank_stmt_056.png",
+      "label": "genuine",
+      "sha256": "b95f9dcdf2d6e32a2bc3aeacd0c972ceb5bfdc82ec8a727ee28900398b60a5c8"
+    },
+    {
+      "path": "genuine/bank_stmt_058.png",
+      "label": "genuine",
+      "sha256": "90b1e6358e9445137670d55b7af9cb29728c99af4361feaee001c4f9ae96cb58"
+    },
+    {
+      "path": "genuine/id_proof_019.png",
+      "label": "genuine",
+      "sha256": "7634e3cb04133c4acb3266e0da172250ae1d30a59dbcd90774400e7f2f35ed1d"
+    },
+    {
+      "path": "genuine/id_proof_020.png",
+      "label": "genuine",
+      "sha256": "0f75e6a6dd85ca3d2304b8bc72f60db26029b58ff70cf90dbcbbbff02a72045f"
+    },
+    {
+      "path": "genuine/id_proof_021.png",
+      "label": "genuine",
+      "sha256": "375886a17259171d8059471c32185f475d6a179ba4dbcba9f413b571f7e71be4"
+    },
+    {
+      "path": "genuine/id_proof_023.png",
+      "label": "genuine",
+      "sha256": "bff69b9742929ed2e8193177fba94dfaa325247dd3bf457d95f9397c0ca14015"
+    },
+    {
+      "path": "genuine/id_proof_064.png",
+      "label": "genuine",
+      "sha256": "dc1add7a8fd62bb52513bbd17c32991ef11b10f36283f71089ca383974eca524"
+    },
+    {
+      "path": "genuine/id_proof_067.png",
+      "label": "genuine",
+      "sha256": "cb4091cf477786109b3fedbb44374835ebcae9459d729044a1dc8376ee86083f"
+    },
+    {
+      "path": "genuine/id_proof_068.png",
+      "label": "genuine",
+      "sha256": "ff717eba545744fe397c924e2ffb44a7786a2d2443e6f58bcfa8d3465518640c"
+    },
+    {
+      "path": "genuine/id_proof_069.png",
+      "label": "genuine",
+      "sha256": "70393268f1c70262e5e8d96d82a1a8108673c3d208464593f319c186d37b5023"
+    },
+    {
+      "path": "genuine/id_proof_070.png",
+      "label": "genuine",
+      "sha256": "17689226bfe399038de64be3b11c34aa442a0ff927f1a8e14d40dc6fa62217e1"
+    },
+    {
+      "path": "genuine/id_proof_072.png",
+      "label": "genuine",
+      "sha256": "56d0e101a04b0123aa6ac72d480f76bc7b77c6fdf571abfd19add834da74d5c6"
+    },
+    {
+      "path": "genuine/id_proof_074.png",
+      "label": "genuine",
+      "sha256": "1e8bbef626aa1ce95dd2c3ceb05f550453136adc286a5c8c00b461a099d0f316"
+    },
+    {
+      "path": "genuine/id_proof_075.png",
+      "label": "genuine",
+      "sha256": "719b9c3e773c6ff713e41a805bb8304b011322800170f406c35ac87c951aaef2"
+    },
+    {
+      "path": "genuine/payslip_001.png",
+      "label": "genuine",
+      "sha256": "2ad40c0705d23885cbaa33eadc2abdfeff457341071ad0cd117548b53754dac2"
+    },
+    {
+      "path": "genuine/payslip_002.png",
+      "label": "genuine",
+      "sha256": "d7dd343ba62ef1e01556b556e8b62dfcc7c5b2534c5655f710992d993cb7142e"
+    },
+    {
+      "path": "genuine/payslip_003.png",
+      "label": "genuine",
+      "sha256": "63bbbf644e9b99a72f4f7417d1b7a0e84b4d35a24022797f4fe0555230ff469c"
+    },
+    {
+      "path": "genuine/payslip_005.png",
+      "label": "genuine",
+      "sha256": "434cf617473be6c98f0a977ef3bab34b17f58d802c0052845795831cbe5645cc"
+    },
+    {
+      "path": "genuine/payslip_006.png",
+      "label": "genuine",
+      "sha256": "1da476683b406bf66d6d4acd3867d82dd31dcab1721722673c23a3ebaf76453b"
+    },
+    {
+      "path": "genuine/payslip_007.png",
+      "label": "genuine",
+      "sha256": "51f19367dffcbee8f3d62045f361ea5cd0ceb8b84fd8285c0817fffbf6bf6343"
+    },
+    {
+      "path": "genuine/payslip_008.png",
+      "label": "genuine",
+      "sha256": "e565d8270e292c9e44a10163f8f25d2206d2048716179d0817d9340dc2420e7f"
+    },
+    {
+      "path": "genuine/payslip_027.png",
+      "label": "genuine",
+      "sha256": "1b051922115708956f8645c3fe26f1c1bdd25fd1357d6fd7cdbcd3e676e453d1"
+    },
+    {
+      "path": "genuine/payslip_028.png",
+      "label": "genuine",
+      "sha256": "a78c5dc44dd735ec531ed37fba0d8133d7232a2e777bcaf6ef69609704d49777"
+    },
+    {
+      "path": "genuine/payslip_029.png",
+      "label": "genuine",
+      "sha256": "c73a21f8adb4e7d984d3fa454524eaf232500e71a4a307597dd507755aa8cd42"
+    },
+    {
+      "path": "genuine/payslip_037.png",
+      "label": "genuine",
+      "sha256": "9a5ffcd59c68e0f32603a101f779a2c508b6158595d6c5da8f5ddb129304d7b5"
+    },
+    {
+      "path": "genuine/payslip_038.png",
+      "label": "genuine",
+      "sha256": "0ea5a696564af4b609ab4c95a566d5fbea284c61c44c01230dfa4af624d670a6"
+    },
+    {
+      "path": "genuine/payslip_039.png",
+      "label": "genuine",
+      "sha256": "5a85a5b357511a03a3b4dbe6067e11964909931be5c39d3b5ed1868941a09fe7"
+    },
+    {
+      "path": "genuine/payslip_040.png",
+      "label": "genuine",
+      "sha256": "ed14c1ccff0058566c8064c5e8d6288753c53cc1a2a84676936883f922ed0250"
+    },
+    {
+      "path": "tampered/bank_stmt_014.png",
+      "label": "tampered",
+      "sha256": "50f72a0f45223dd4abe8b6a5a638b63c05932c66bf87bdcd6b414a840263a084"
+    },
+    {
+      "path": "tampered/bank_stmt_017.png",
+      "label": "tampered",
+      "sha256": "c2410c33d4ced14ff59d18cdc9d6279ea17aea1de74d85d49c1cd3697b2de661"
+    },
+    {
+      "path": "tampered/bank_stmt_018.png",
+      "label": "tampered",
+      "sha256": "d57679490b91bed5d294565b6c3abc094a4cb24ea4764a730136a39dbb825cea"
+    },
+    {
+      "path": "tampered/bank_stmt_046.png",
+      "label": "tampered",
+      "sha256": "a278ea89aaaecc7e518bb855dc1793e4bc37dea4ed514f8fece491b73e2425ad"
+    },
+    {
+      "path": "tampered/bank_stmt_050.png",
+      "label": "tampered",
+      "sha256": "d8aa9d40951c547a4751ca002975790b36b740d08ffce420e1695613390295f0"
+    },
+    {
+      "path": "tampered/bank_stmt_055.png",
+      "label": "tampered",
+      "sha256": "cf02c1ba1b16cfe7751f3b3de88391ccf14d5c1df56837c76296e0c10601ace0"
+    },
+    {
+      "path": "tampered/bank_stmt_057.png",
+      "label": "tampered",
+      "sha256": "49a9f739ad80ba4998bc20c2fd321ed57cb3f35852541eef9686e565dd000de0"
+    },
+    {
+      "path": "tampered/bank_stmt_060.png",
+      "label": "tampered",
+      "sha256": "0c5a9cb64e33fc5126c6c8e98536036382fd727192350912de00d8d1920211f7"
+    },
+    {
+      "path": "tampered/id_proof_025.png",
+      "label": "tampered",
+      "sha256": "1c07988d0f084d8f0cee54e43ea4f2ce99a5dd3b0d88f18d925c32afdc9c81bb"
+    },
+    {
+      "path": "tampered/id_proof_062.png",
+      "label": "tampered",
+      "sha256": "d530a397eb8f4cae49ebbc14d27ef7c607837e8d48b42033a6687278ea9bde45"
+    },
+    {
+      "path": "tampered/id_proof_063.png",
+      "label": "tampered",
+      "sha256": "ae77d0e3d19fc7e28fc231c4d97c277c934741cf4b464199c3396cff29d0f7b5"
+    },
+    {
+      "path": "tampered/id_proof_065.png",
+      "label": "tampered",
+      "sha256": "31c410ff1ed92acf73f533c0d1d6396eef741054cb641391eb4be2cc99723103"
+    },
+    {
+      "path": "tampered/payslip_004.png",
+      "label": "tampered",
+      "sha256": "efcddb8ff181ea0e94b5130973b8c85d727f76cf35b3ca589a60546c876275b9"
+    },
+    {
+      "path": "tampered/payslip_009.png",
+      "label": "tampered",
+      "sha256": "0ec8a5cd0214139cf0583964f1c6e958c75d4c8de36ef6b1716931661f1e0669"
+    },
+    {
+      "path": "tampered/payslip_026.png",
+      "label": "tampered",
+      "sha256": "b230211abead632000544df7504a792522ebdef81f3f16a7d25644bba49735a5"
+    },
+    {
+      "path": "tampered/payslip_031.png",
+      "label": "tampered",
+      "sha256": "ac4e7c546520417e537d97b7e3524fee1e7edb7c4825526edade18ee81f0e38d"
+    },
+    {
+      "path": "tampered/payslip_032.png",
+      "label": "tampered",
+      "sha256": "6c0b5ea1352a5420a026712bb5be24f57153c767fb30d41fee2b30fc710da011"
+    },
+    {
+      "path": "tampered/payslip_034.png",
+      "label": "tampered",
+      "sha256": "2d8563c7c2c4d1f128e2992b5bc773a811616057be6f335e8ab0105e3387c0c8"
+    },
+    {
+      "path": "tampered/payslip_035.png",
+      "label": "tampered",
+      "sha256": "6edd3bc1bfa81917949ac66f81ac8c6f9be1da8f86dda52551951dd2bac5b2ac"
+    },
+    {
+      "path": "tampered/payslip_041.png",
+      "label": "tampered",
+      "sha256": "c84e538894d0b0c7def7e7f9372a1d57bf0b277d66a65f42df9f58de9cee3189"
+    },
+    {
+      "path": "tampered/payslip_044.png",
+      "label": "tampered",
+      "sha256": "3f128d13771c4c0c81e4e7d6dab108b306c4c8857883497314005e230f6f5dcb"
+    },
+    {
+      "path": "tampered/payslip_045.png",
+      "label": "tampered",
+      "sha256": "67f32ff7262a14c6fe824001e1cef6127064b04e9e34c9500b5573476bddca0a"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+--------------------------------
+DOCFRAUD FEATURE IMPORTANCE REPORT
+--------------------------------
+Generated (UTC): 2026-09-27T10:18:39+00:00
+Script: scripts/feature_importance.py
+Model: data/models/fraud_model.pkl v2.0.0, schema local-tamper-v2 (29 features, 300 trees)
+  SHA-256 1d374648e967af72bc752e11eb7d176e56472afa19b0237d0eb86a5bd06136e1
+Data: the model's training data only - 210 documents + processed copies = 840 rows. Frozen TEST and HOLDOUT are not used.
+
+Columns:
+  MDI      mean decrease in impurity (deployed forest); sums to 1. +/- = spread across trees.
+  Perm     accuracy drop when the feature is shuffled, out-of-fold (grouped 5-fold CV, 10 shuffles, pristine originals). CV baseline accuracy 0.924.
+  AUC      ROC AUC drop for the same shuffles (finer-grained than accuracy).
+  Splits   share of the forest's split nodes on the feature.
+  Impact   mean tamper score at the feature's p90 minus at its p10 (partial dependence, deployed model);
+           + pushes towards tampered, - towards genuine.
+
+--------------------------------
+PER-FEATURE IMPORTANCE (sorted by Perm + MDI)
+--------------------------------
+ # Feature                          Family         MDI    +/-    Perm     AUC  Splits  Impact  p10 -> p90
+----------------------------------------------------------------------------------------------------------------------
+ 1 colour_rare_blob_0_5pct          colour       0.069  0.032  +0.048  +0.024   0.033  +0.132  3 -> 12
+ 2 ink_rare_frac                    ink          0.055  0.023  +0.033  +0.026   0.070  -0.056  0.0677 -> 0.197
+ 3 noise_anomalous_frac             noise        0.067  0.032  +0.008  +0.007   0.070  -0.107  0.00347 -> 0.0555
+ 4 colour_rare_blob_2pct            colour       0.056  0.033  +0.013  +0.016   0.046  +0.161  4 -> 97
+ 5 noise_blob_k4                    noise        0.054  0.034  +0.011  +0.006   0.048  +0.104  3 -> 54
+ 6 ink_rare_line                    ink          0.041  0.019  +0.023  +0.026   0.045  +0.051  3 -> 10
+ 7 colour_rare_blob_4pct            colour       0.052  0.033  +0.012  +0.025   0.043  +0.125  4 -> 124
+ 8 noise_excess_p999                noise        0.046  0.022  +0.015  +0.012   0.059  -0.020  9.4 -> 29
+ 9 noise_blob_k2                    noise        0.048  0.029  +0.010  +0.009   0.046  +0.120  4 -> 97
+10 jpeg_grid                        fingerprint  0.049  0.022  +0.008  +0.005   0.070  +0.016  0.846 -> 0.99
+11 flat_frac                        fingerprint  0.054  0.025  +0.003  +0.003   0.069  -0.027  0.731 -> 0.785
+12 paper_colours                    fingerprint  0.048  0.029  +0.001  +0.001   0.046  -0.022  5 -> 26
+13 colour_novel_p999                colour       0.043  0.023  +0.006  +0.005   0.053  -0.011  62 -> 190
+14 noise_blob_k4_fill               noise        0.032  0.031  +0.017  +0.005   0.024  -0.129  0.535 -> 1
+15 noise_blob_k2_fill               noise        0.037  0.028  +0.006  +0.003   0.030  -0.082  0.585 -> 1
+16 colour_rare_blob_1pct            colour       0.039  0.025  +0.000  +0.003   0.037  +0.026  3 -> 47.1
+17 colour_rare_blob_4pct_fill       colour       0.031  0.022  +0.007  -0.001   0.033  -0.066  0.506 -> 1
+18 colour_novel_blob_d10            colour       0.034  0.023  +0.004  +0.004   0.035  +0.031  4 -> 96
+19 ink_levels                       fingerprint  0.029  0.019  +0.009  +0.002   0.042  -0.036  7 -> 18
+20 colour_novel_blob_d20            colour       0.024  0.017  +0.003  -0.001   0.032  -0.013  4 -> 80
+21 soft_blob_s1_6                   softness     0.016  0.023  +0.009  +0.002   0.005  +0.162  0 -> 43
+22 soft_frac                        softness     0.014  0.022  +0.008  +0.002   0.005  +0.138  0 -> 0.0208
+23 soft_total_s1_6                  softness     0.012  0.020  +0.008  +0.002   0.004  +0.111  0 -> 43
+24 colour_rare_blob_2pct_fill       colour       0.021  0.016  -0.003  +0.000   0.026  -0.005  0.623 -> 1
+25 colour_rare_blob_1pct_fill       colour       0.017  0.016  +0.001  +0.004   0.016  -0.073  0.599 -> 1
+26 colour_rare_blob_0_5pct_fill     colour       0.011  0.012  +0.001  +0.000   0.013  -0.022  0.665 -> 1
+27 soft_total_s1_0                  softness     0.001  0.004  +0.000  -0.000   0.001  +0.006  0 -> 0.61
+28 soft_blob_s1_0                   softness     0.001  0.003  +0.000  +0.000   0.000  +0.010  0 -> 0.61
+29 noise_floor                      noise        0.000  0.000  +0.000  +0.000   0.000  +0.000  0 -> 0
+
+--------------------------------
+FEATURE FAMILIES
+--------------------------------
+All features, grouped CV accuracy: pristine 0.924, processed copies 0.741
+Family       Features MDI total  Pristine w/o  Change  Processed w/o  Change  Detects
+----------------------------------------------------------------------------------------------------------------------
+colour             11     0.396         0.848   -7.6p          0.683   -5.9p  a region of rare or novel paper colour (colour casts, pasted boxes)
+noise               7     0.284         0.852   -7.1p          0.703   -3.8p  a region whose pixel noise is above the page's own floor (noise patches)
+ink                 2     0.096         0.871   -5.2p          0.748   +0.6p  a run of glyphs with a rare darkness level (inserted text)
+softness            5     0.044         0.914   -1.0p          0.725   -1.6p  content tiles with weak edges for their contrast (blurred regions)
+fingerprint         4     0.180         0.924   +0.0p          0.741   +0.0p  how the file was saved (JPEG grid, flatness, colour / ink variety)
+'w/o' = the model retrained without that family (same folds), scored on pristine originals and on the processed copies of the validation documents. A large drop means the family carries information the others cannot replace.
+
+--------------------------------
+MOST USEFUL FEATURES
+--------------------------------
+  colour_rare_blob_0_5pct          perm +0.048, MDI 0.069, impact +0.132
+  ink_rare_frac                    perm +0.033, MDI 0.055, impact -0.056
+  ink_rare_line                    perm +0.023, MDI 0.041, impact +0.051
+  noise_blob_k4_fill               perm +0.017, MDI 0.032, impact -0.129
+  noise_excess_p999                perm +0.015, MDI 0.046, impact -0.020
+  Highest MDI: colour_rare_blob_0_5pct 0.069, noise_anomalous_frac 0.067, colour_rare_blob_2pct 0.056, ink_rare_frac 0.055, noise_blob_k4 0.054
+
+--------------------------------
+LEAST USEFUL FEATURES
+--------------------------------
+Rule: permutation accuracy drop < 0.002 and MDI < 0.02.
+  noise_floor                      perm +0.000, MDI 0.000, splits 0.000
+  soft_blob_s1_0                   perm +0.000, MDI 0.001, splits 0.000
+  soft_total_s1_0                  perm +0.000, MDI 0.001, splits 0.001
+  colour_rare_blob_0_5pct_fill     perm +0.001, MDI 0.011, splits 0.013
+  colour_rare_blob_1pct_fill       perm +0.001, MDI 0.017, splits 0.016
+CV accuracy without these 5: 0.924 (all features: 0.924).
+Low single-feature importance can mean the information is shared with a correlated feature, not that it is absent; see the family check above and the pairs below.
+
+--------------------------------
+STRONGLY CORRELATED PAIRS (|Spearman| >= 0.9)
+--------------------------------
+  soft_blob_s1_0                   soft_total_s1_0                  +1.000
+  soft_blob_s1_6                   soft_total_s1_6                  +1.000
+  soft_total_s1_6                  soft_frac                        +1.000
+  soft_blob_s1_6                   soft_frac                        +1.000
+  noise_blob_k2                    noise_blob_k4                    +0.945
+
+--------------------------------
+INTERPRETATION AND RECOMMENDATIONS
+--------------------------------
+- The colour family matters most: without it CV accuracy falls 7.6 points. noise +7.1, ink +5.2, softness +1.0, fingerprint +0.0 points for the others (positive = accuracy lost).
+- The ink family helps on pristine files (-5.2 points without it) but not on processed copies (+0.6): its signal does not survive re-saving / resizing.
+- The fingerprint family adds nothing measurable (without it: pristine +0.0, processed +0.0 points) despite an MDI total of 0.180; other features take over its splits. A removal candidate for the next version, decided by CV on training data.
+- Features whose high values push towards 'genuine': noise_excess_p999, noise_blob_k2_fill, noise_blob_k4_fill, noise_anomalous_frac, colour_rare_blob_0_5pct_fill, colour_rare_blob_1pct_fill, colour_rare_blob_4pct_fill, ink_rare_frac, flat_frac, paper_colours, ink_levels. Most are page-wide measures (share of anomalous tiles, fingerprint) or region fill ratios (1.0 for tiny layout specks). Partial dependence shows the direction of the model's response, not its cause.
+- 5 feature(s) add little on their own (noise_floor, colour_rare_blob_0_5pct_fill, colour_rare_blob_1pct_fill, soft_blob_s1_0, soft_total_s1_0); removing them gives no measurable loss in CV (0.924 vs 0.924). Candidates to drop in the next version to simplify the model, decided by CV on training data, never on TEST / HOLDOUT.
+- 5 strongly correlated pair(s), e.g. soft_blob_s1_0 ~ soft_total_s1_0; soft_blob_s1_6 ~ soft_total_s1_6; soft_total_s1_6 ~ soft_frac: threshold / summary variants of the same region measure overlap. Keep one variant per signal if the model is simplified.
+- Importance here explains this model on this synthetic data. It is not evidence that the same features matter on real documents.
